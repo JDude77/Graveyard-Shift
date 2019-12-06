@@ -101,7 +101,11 @@ public class PlayerInteraction : MonoBehaviour
             //Set other to the object being hit
             other = hitInfo.transform.gameObject;
             //Change material as indication of hit
-            other.GetComponentInChildren<MeshRenderer>().material = interactibleMaterial;
+            MeshRenderer[] children = other.GetComponentsInChildren<MeshRenderer>();
+            foreach(MeshRenderer rend in children)
+            {
+                rend.material = interactibleMaterial;
+            }//End foreach
             //If the interaction button is used
             if (Input.GetAxisRaw("Interact") != 0)
             {
@@ -139,7 +143,12 @@ public class PlayerInteraction : MonoBehaviour
             if(other != null)
             {
                 //Set the material back to being the non-interactible material
-                other.GetComponentInChildren<MeshRenderer>().material = nonInteractibleMaterial;
+                //Change material as indication of hit
+                MeshRenderer[] children = other.GetComponentsInChildren<MeshRenderer>();
+                foreach (MeshRenderer rend in children)
+                {
+                    rend.material = nonInteractibleMaterial;
+                }//End foreach
                 //Reset other to be null
                 other = null;
             }//End if
