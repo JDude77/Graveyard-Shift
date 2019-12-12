@@ -9,3 +9,8 @@ Upload 1 Has The Following Features:
     - Lake Shader
     - Interaction Shaders
     - Basic Lighting
+
+Upload 2 Has The Following Features:
+  - JSON Placeholder Functionality Files
+    - Basic structure for storing the JSON files
+    - Working JSON retrieval script
