@@ -5,6 +5,7 @@ using UnityEngine;
 public class Interact : MonoBehaviour
 {
     #region Attributes
+    [SerializeField]
     private bool isInteractible;
     private string[] modes = {"Conversation", "Action", "Take", "Portal", "Default"};
     private string interactionMode;

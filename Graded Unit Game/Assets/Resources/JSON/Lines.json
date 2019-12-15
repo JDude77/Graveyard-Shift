@@ -1,0 +1,21 @@
+{
+    "lines": [
+        {
+            "lineID": "TestLine1",
+            "setID": "TestSet1",
+            "speakerID": "Janice",
+            "text": "This is the first test line. Hello world.",
+            "audio": null,
+            "animation": null
+        },
+        {
+            "lineID": "TestLine2",
+            "setID": "TestSet1",
+            "speakerID": "Janice",
+            "text": "This is the second test line. Hello world.",
+            "audio": null,
+            "animation": null
+        }
+
+    ]
+}

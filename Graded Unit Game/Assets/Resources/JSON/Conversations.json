@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "conversationID": "TestConversation1",
+            "sets": 
+            [
+                "TestSet1"
+            ]
+        }
+    ]
+}

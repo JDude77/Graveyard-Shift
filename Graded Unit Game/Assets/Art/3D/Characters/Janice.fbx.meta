@@ -3,139 +3,275 @@ guid: 11244b5fe0485584d969d5093b95d7ff
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Cube
-    100002: Cube.001
-    100004: Cube.002
-    100006: Cube.003
-    100008: Cube.004
-    100010: Cube.005
-    100012: Cube.006
-    100014: Cube.007
-    100016: Cube.008
-    100018: Cube.009
-    100020: Cube.010
-    100022: Cube.011
-    100024: Cube.012
-    100026: Cube.013
-    100028: Cube.014
-    100030: Cube.015
-    100032: Cube.016
-    100034: Cube.017
-    100036: Cube.018
-    100038: Cube.019
-    100040: Cylinder
-    100042: Cylinder.001
-    100044: Cylinder.002
-    100046: Cylinder.003
-    100048: Cylinder.004
-    100050: //RootNode
-    100052: Sphere
-    400000: Cube
-    400002: Cube.001
-    400004: Cube.002
-    400006: Cube.003
-    400008: Cube.004
-    400010: Cube.005
-    400012: Cube.006
-    400014: Cube.007
-    400016: Cube.008
-    400018: Cube.009
-    400020: Cube.010
-    400022: Cube.011
-    400024: Cube.012
-    400026: Cube.013
-    400028: Cube.014
-    400030: Cube.015
-    400032: Cube.016
-    400034: Cube.017
-    400036: Cube.018
-    400038: Cube.019
-    400040: Cylinder
-    400042: Cylinder.001
-    400044: Cylinder.002
-    400046: Cylinder.003
-    400048: Cylinder.004
-    400050: //RootNode
-    400052: Sphere
-    2100000: No Name
-    2300000: Cube
-    2300002: Cube.001
-    2300004: Cube.002
-    2300006: Cube.003
-    2300008: Cube.004
-    2300010: Cube.005
-    2300012: Cube.006
-    2300014: Cube.007
-    2300016: Cube.008
-    2300018: Cube.009
-    2300020: Cube.010
-    2300022: Cube.011
-    2300024: Cube.012
-    2300026: Cube.013
-    2300028: Cube.014
-    2300030: Cube.015
-    2300032: Cube.016
-    2300034: Cube.017
-    2300036: Cube.018
-    2300038: Cube.019
-    2300040: Cylinder
-    2300042: Cylinder.001
-    2300044: Cylinder.002
-    2300046: Cylinder.003
-    2300048: Cylinder.004
-    2300050: Sphere
-    3300000: Cube
-    3300002: Cube.001
-    3300004: Cube.002
-    3300006: Cube.003
-    3300008: Cube.004
-    3300010: Cube.005
-    3300012: Cube.006
-    3300014: Cube.007
-    3300016: Cube.008
-    3300018: Cube.009
-    3300020: Cube.010
-    3300022: Cube.011
-    3300024: Cube.012
-    3300026: Cube.013
-    3300028: Cube.014
-    3300030: Cube.015
-    3300032: Cube.016
-    3300034: Cube.017
-    3300036: Cube.018
-    3300038: Cube.019
-    3300040: Cylinder
-    3300042: Cylinder.001
-    3300044: Cylinder.002
-    3300046: Cylinder.003
-    3300048: Cylinder.004
-    3300050: Sphere
-    4300000: Cylinder
-    4300002: Sphere
-    4300004: Cube.004
-    4300006: Cube.018
-    4300008: Cube
-    4300010: Cube.017
-    4300012: Cube.014
-    4300014: Cube.015
-    4300016: Cube.016
-    4300018: Cube.012
-    4300020: Cube.013
-    4300022: Cylinder.002
-    4300024: Cylinder.003
-    4300026: Cube.001
-    4300028: Cube.002
-    4300030: Cube.005
-    4300032: Cube.006
-    4300034: Cube.007
-    4300036: Cube.008
-    4300038: Cube.009
-    4300040: Cube.010
-    4300042: Cube.011
-    4300044: Cube.003
-    4300046: Cylinder.004
-    4300048: Cylinder.001
-    4300050: Cube.019
+    100000: Bicep Left
+    100002: Bicep Right
+    100004: Calf Left
+    100006: Calf Right
+    100008: Foot Mid Left
+    100010: Foot Mid Right
+    100012: Foot Top Left
+    100014: Foot Top Right
+    100016: Forearm Left
+    100018: Forearm Right
+    100020: Hand Left
+    100022: Hand Right
+    100024: Head Upper
+    100026: Index Left
+    100028: Index Right
+    100030: IndexT Left
+    100032: IndexT Right
+    100034: //RootNode
+    100036: Jaw
+    100038: Knee Left
+    100040: Knee Right
+    100042: MiddleF Left
+    100044: MiddleF Right
+    100046: MiddleT Left
+    100048: MiddleT Right
+    100050: Pelvis Large
+    100052: Pelvis Small
+    100054: Pinky Left
+    100056: Pinky Right
+    100058: PinkyT Left
+    100060: PinkyT Right
+    100062: Rib 1
+    100064: Rib 2
+    100066: Rib 3
+    100068: Rib 4
+    100070: Rib 5
+    100072: Rib 6
+    100074: Ribcage Core
+    100076: Ring Left
+    100078: Ring Right
+    100080: RingT Left
+    100082: RingT Right
+    100084: Shoulder Blades
+    100086: Shoulder Bone Left
+    100088: Shoulder Bone Right
+    100090: Spine
+    100092: Teeth Lower
+    100094: Teeth Upper
+    100096: Thigh Left
+    100098: Thigh Right
+    100100: Thumb Left
+    100102: Thumb Right
+    100104: ThumbT Left
+    100106: ThumbT Right
+    400000: Bicep Left
+    400002: Bicep Right
+    400004: Calf Left
+    400006: Calf Right
+    400008: Foot Mid Left
+    400010: Foot Mid Right
+    400012: Foot Top Left
+    400014: Foot Top Right
+    400016: Forearm Left
+    400018: Forearm Right
+    400020: Hand Left
+    400022: Hand Right
+    400024: Head Upper
+    400026: Index Left
+    400028: Index Right
+    400030: IndexT Left
+    400032: IndexT Right
+    400034: //RootNode
+    400036: Jaw
+    400038: Knee Left
+    400040: Knee Right
+    400042: MiddleF Left
+    400044: MiddleF Right
+    400046: MiddleT Left
+    400048: MiddleT Right
+    400050: Pelvis Large
+    400052: Pelvis Small
+    400054: Pinky Left
+    400056: Pinky Right
+    400058: PinkyT Left
+    400060: PinkyT Right
+    400062: Rib 1
+    400064: Rib 2
+    400066: Rib 3
+    400068: Rib 4
+    400070: Rib 5
+    400072: Rib 6
+    400074: Ribcage Core
+    400076: Ring Left
+    400078: Ring Right
+    400080: RingT Left
+    400082: RingT Right
+    400084: Shoulder Blades
+    400086: Shoulder Bone Left
+    400088: Shoulder Bone Right
+    400090: Spine
+    400092: Teeth Lower
+    400094: Teeth Upper
+    400096: Thigh Left
+    400098: Thigh Right
+    400100: Thumb Left
+    400102: Thumb Right
+    400104: ThumbT Left
+    400106: ThumbT Right
+    2100000: Janice Blue
+    2300000: Bicep Left
+    2300002: Bicep Right
+    2300004: Calf Left
+    2300006: Calf Right
+    2300008: Foot Mid Left
+    2300010: Foot Mid Right
+    2300012: Foot Top Left
+    2300014: Foot Top Right
+    2300016: Forearm Left
+    2300018: Forearm Right
+    2300020: Hand Left
+    2300022: Hand Right
+    2300024: Head Upper
+    2300026: Index Left
+    2300028: Index Right
+    2300030: IndexT Left
+    2300032: IndexT Right
+    2300034: Jaw
+    2300036: Knee Left
+    2300038: Knee Right
+    2300040: MiddleF Left
+    2300042: MiddleF Right
+    2300044: MiddleT Left
+    2300046: MiddleT Right
+    2300048: Pelvis Large
+    2300050: Pelvis Small
+    2300052: Pinky Left
+    2300054: Pinky Right
+    2300056: PinkyT Left
+    2300058: PinkyT Right
+    2300060: Rib 1
+    2300062: Rib 2
+    2300064: Rib 3
+    2300066: Rib 4
+    2300068: Rib 5
+    2300070: Rib 6
+    2300072: Ribcage Core
+    2300074: Ring Left
+    2300076: Ring Right
+    2300078: RingT Left
+    2300080: RingT Right
+    2300082: Shoulder Blades
+    2300084: Shoulder Bone Left
+    2300086: Shoulder Bone Right
+    2300088: Spine
+    2300090: Teeth Lower
+    2300092: Teeth Upper
+    2300094: Thigh Left
+    2300096: Thigh Right
+    2300098: Thumb Left
+    2300100: Thumb Right
+    2300102: ThumbT Left
+    2300104: ThumbT Right
+    3300000: Bicep Left
+    3300002: Bicep Right
+    3300004: Calf Left
+    3300006: Calf Right
+    3300008: Foot Mid Left
+    3300010: Foot Mid Right
+    3300012: Foot Top Left
+    3300014: Foot Top Right
+    3300016: Forearm Left
+    3300018: Forearm Right
+    3300020: Hand Left
+    3300022: Hand Right
+    3300024: Head Upper
+    3300026: Index Left
+    3300028: Index Right
+    3300030: IndexT Left
+    3300032: IndexT Right
+    3300034: Jaw
+    3300036: Knee Left
+    3300038: Knee Right
+    3300040: MiddleF Left
+    3300042: MiddleF Right
+    3300044: MiddleT Left
+    3300046: MiddleT Right
+    3300048: Pelvis Large
+    3300050: Pelvis Small
+    3300052: Pinky Left
+    3300054: Pinky Right
+    3300056: PinkyT Left
+    3300058: PinkyT Right
+    3300060: Rib 1
+    3300062: Rib 2
+    3300064: Rib 3
+    3300066: Rib 4
+    3300068: Rib 5
+    3300070: Rib 6
+    3300072: Ribcage Core
+    3300074: Ring Left
+    3300076: Ring Right
+    3300078: RingT Left
+    3300080: RingT Right
+    3300082: Shoulder Blades
+    3300084: Shoulder Bone Left
+    3300086: Shoulder Bone Right
+    3300088: Spine
+    3300090: Teeth Lower
+    3300092: Teeth Upper
+    3300094: Thigh Left
+    3300096: Thigh Right
+    3300098: Thumb Left
+    3300100: Thumb Right
+    3300102: ThumbT Left
+    3300104: ThumbT Right
+    4300000: Teeth Upper
+    4300002: Head Upper
+    4300004: Jaw
+    4300006: Teeth Lower
+    4300008: Pinky Left
+    4300010: Thumb Left
+    4300012: Ring Left
+    4300014: Hand Left
+    4300016: Index Left
+    4300018: MiddleF Left
+    4300020: Bicep Left
+    4300022: Forearm Left
+    4300024: Bicep Right
+    4300026: Forearm Right
+    4300028: Thumb Right
+    4300030: Hand Right
+    4300032: Index Right
+    4300034: MiddleF Right
+    4300036: Ring Right
+    4300038: Pinky Right
+    4300040: Spine
+    4300042: Pelvis Small
+    4300044: Pelvis Large
+    4300046: Ribcage Core
+    4300048: Shoulder Bone Right
+    4300050: Rib 1
+    4300052: Rib 2
+    4300054: Rib 3
+    4300056: Rib 4
+    4300058: Rib 5
+    4300060: Rib 6
+    4300062: Shoulder Bone Left
+    4300064: Shoulder Blades
+    4300066: Foot Top Left
+    4300068: MiddleT Left
+    4300070: IndexT Left
+    4300072: ThumbT Left
+    4300074: RingT Left
+    4300076: PinkyT Left
+    4300078: Foot Mid Left
+    4300080: Foot Top Right
+    4300082: Foot Mid Right
+    4300084: ThumbT Right
+    4300086: IndexT Right
+    4300088: MiddleT Right
+    4300090: RingT Right
+    4300092: PinkyT Right
+    4300094: Thigh Left
+    4300096: Knee Left
+    4300098: Thigh Right
+    4300100: Knee Right
+    4300102: Calf Left
+    4300104: Calf Right
+    2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
     importMaterials: 1

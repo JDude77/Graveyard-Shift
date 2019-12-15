@@ -1,0 +1,12 @@
+{
+    "sets": [
+        {
+            "setID":  "TestSet1",
+            "lines": 
+            [
+                "TestLine1",
+                "TestLine2"
+            ]
+        }
+    ]
+}

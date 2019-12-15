@@ -1,143 +1,134 @@
-﻿//This version of the shader does support shadows, but it does not support transparent outlines
-
-Shader "Outlined/Outline"
+﻿Shader "Custom/Outline"
 {
-	Properties
+    Properties
+    {
+        _MainTex ("Main Texture (RBG)", 2D) = "white" {}
+		_Color("Color", Color) = (1, 1, 1, 0)
+
+		_OutlineTex("Outline Texture", 2D) = "white" {}
+		_OutlineColor("Outline Color", Color) = (1, 1, 1, 1)
+		_OutlineWidth("Outline Width", Range(1.0, 10.0)) = 1.1
+    }
+
+	SubShader
 	{
-		_Color("Main Color", Color) = (0.5,0.5,0.5,1)
-		_MainTex("Texture", 2D) = "white" {}
+		Tags
+		{
+			"Queue" = "Transparent"
+		}
 
-		_FirstOutlineColor("Outline color", Color) = (1,0,0,0.5)
-		_FirstOutlineWidth("Outlines width", Range(0.0, 2.0)) = 0.15
+		GrabPass
+		{
+			"_BackgroundTexture"
+		}
 
-		_SecondOutlineColor("Outline color", Color) = (0,0,1,1)
-		_SecondOutlineWidth("Outlines width", Range(0.0, 2.0)) = 0.025
-
-		_Angle("Switch shader on angle", Range(0.0, 180.0)) = 89
-	}
-
-		CGINCLUDE
-#include "UnityCG.cginc"
-
-			struct appdata {
-			float4 vertex : POSITION;
-			float4 normal : NORMAL;
-		};
-
-		uniform float4 _FirstOutlineColor;
-		uniform float _FirstOutlineWidth;
-
-		uniform float4 _SecondOutlineColor;
-		uniform float _SecondOutlineWidth;
-
-		uniform sampler2D _MainTex;
-		uniform float4 _Color;
-		uniform float _Angle;
-
-		ENDCG
-
-			SubShader{
-			//First outline
-			Pass{
-				Tags{ "Queue" = "Geometry" }
-				Cull Front
-				CGPROGRAM
-
-				struct v2f {
-					float4 pos : SV_POSITION;
-				};
-
+		Pass
+		{
+			Name "OUTLINE"
+			ZWrite Off
+			CGPROGRAM
+				//Define for the building function
 				#pragma vertex vert
+				
+				//Define for the coloring function
 				#pragma fragment frag
 
-				v2f vert(appdata v) {
-					appdata original = v;
+				//Built-in shader functions
+				#include "UnityCG.cginc"
 
-					float3 scaleDir = normalize(v.vertex.xyz - float4(0,0,0,1));
-					//This shader consists of 2 ways of generating outline that are dynamically switched based on demiliter angle
-					//If vertex normal is pointed away from object origin then custom outline generation is used (based on scaling along the origin-vertex vector)
-					//Otherwise the old-school normal vector scaling is used
-					//This way prevents weird artifacts from being created when using either of the methods
-					if (degrees(acos(dot(scaleDir.xyz, v.normal.xyz))) > _Angle) {
-						v.vertex.xyz += normalize(v.normal.xyz) * _FirstOutlineWidth;
-					}
-	else {
-	   v.vertex.xyz += scaleDir * _FirstOutlineWidth;
-   }
+				//How the vertex function receives info
+				struct appdata
+				{
+					float4 vertex : POSITION;
+					float2 uv : TEXCOORD0;
+				};//End appdata
+				
+				//How the fragment function receives info
+				struct v2f
+				{
+					float4 pos : SV_POSITION;
+					float2 uv : TEXCOORD0;
+				};//End v2f
 
-   v2f o;
-   o.pos = UnityObjectToClipPos(v.vertex);
-   return o;
-}
+				//Reimport properties into the pass
+				float _OutlineWidth;
+				float4 _OutlineColor;
+				sampler2D _OutlineTex;
 
-half4 frag(v2f i) : COLOR{
-	float4 color = _FirstOutlineColor;
-	color.a = 1;
-	return color;
-}
+				//Vertex function
+				v2f vert(appdata IN)
+				{
+					IN.vertex.xyz *= _OutlineWidth;
+					v2f OUT;
 
-ENDCG
-}
+					OUT.pos = UnityObjectToClipPos(IN.vertex);
+					OUT.uv = IN.uv;
 
+					return OUT;
+				}//End vert
 
-//Second outline
-Pass{
-	Tags{ "Queue" = "Geometry" }
-	Cull Front
-	CGPROGRAM
-
-	struct v2f {
-		float4 pos : SV_POSITION;
-	};
-
-	#pragma vertex vert
-	#pragma fragment frag
-
-	v2f vert(appdata v) {
-		appdata original = v;
-
-		float3 scaleDir = normalize(v.vertex.xyz - float4(0,0,0,1));
-		//This shader consists of 2 ways of generating outline that are dynamically switched based on demiliter angle
-		//If vertex normal is pointed away from object origin then custom outline generation is used (based on scaling along the origin-vertex vector)
-		//Otherwise the old-school normal vector scaling is used
-		//This way prevents weird artifacts from being created when using either of the methods
-		if (degrees(acos(dot(scaleDir.xyz, v.normal.xyz))) > _Angle) {
-			v.vertex.xyz += normalize(v.normal.xyz) * _SecondOutlineWidth;
+				//Fragment function
+				fixed4 frag(v2f IN) : SV_Target
+				{
+					//Wraps the texture around the UVs
+					float4 texColor = tex2D(_OutlineTex, IN.uv);
+					//Tints the texture
+					return texColor * _OutlineColor;
+				}//End frag
+			ENDCG
 		}
-	else {
-		v.vertex.xyz += scaleDir * _SecondOutlineWidth;
+
+		Pass
+		{
+			Name "OBJECT"
+			CGPROGRAM
+			//Define for the building function
+			#pragma vertex vert
+
+			//Define for the coloring function
+			#pragma fragment frag
+
+			//Built-in shader functions
+			#include "UnityCG.cginc"
+
+			//How the vertex function receives info
+			struct appdata
+			{
+				float4 vertex : POSITION;
+				float2 uv : TEXCOORD0;
+			};//End appdata
+
+			//How the fragment function receives info
+			struct v2f
+			{
+				float4 pos : SV_POSITION;
+				float2 uv : TEXCOORD0;
+			};//End v2f
+
+			//Reimport properties into the pass
+			float4 _Color;
+			sampler2D _MainTex;
+
+			//Vertex function
+			v2f vert(appdata IN)
+			{
+				v2f OUT;
+
+				OUT.pos = UnityObjectToClipPos(IN.vertex);
+				OUT.uv = IN.uv;
+
+				return OUT;
+			}//End vert
+
+			//Fragment function
+			fixed4 frag(v2f IN) : SV_Target
+			{
+				//Wraps the texture around the UVs
+				float4 texColor = tex2D(_MainTex, IN.uv);
+				//Tints the texture
+				return texColor * _Color;
+			}//End frag
+		ENDCG
 	}
-
-	v2f o;
-	o.pos = UnityObjectToClipPos(v.vertex);
-	return o;
 	}
-
-	half4 frag(v2f i) : COLOR{
-		float4 color = _SecondOutlineColor;
-		color.a = 1;
-		return color;
-	}
-
-	ENDCG
-}
-
-//Surface shader
-Tags{ "Queue" = "Geometry" "RenderType" = "Opaque" }
-
-CGPROGRAM
-#pragma surface surf Lambert fullforwardshadows
-
-struct Input {
-	float2 uv_MainTex;
-};
-
-void surf(Input IN, inout SurfaceOutput  o) {
-	fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
-	o.Albedo = c.rgb;
-	o.Alpha = 1;
-}
-ENDCG
-		}
-			Fallback "Diffuse"
 }

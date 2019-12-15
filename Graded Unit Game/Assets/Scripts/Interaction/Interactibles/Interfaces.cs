@@ -7,7 +7,7 @@ public interface ISpeaker
     string speakerID { get; set; }
     Sprite portrait { get; set; }
     AudioClip voice { get; set; }
-    string name { get; set; }
+    string speakerName { get; set; }
     bool isNameKnown { get; set; }
 }
 

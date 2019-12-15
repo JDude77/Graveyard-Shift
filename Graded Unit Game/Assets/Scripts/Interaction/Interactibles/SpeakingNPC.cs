@@ -8,6 +8,7 @@ public class SpeakingNPC : MonoBehaviour, ISpeaker
     public Sprite portrait { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
     public AudioClip voice { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
     public bool isNameKnown { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public string speakerName { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
     // Start is called before the first frame update
     void Start()
