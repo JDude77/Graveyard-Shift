@@ -4,16 +4,24 @@ using UnityEngine;
 
 public class GameState : MonoBehaviour
 {
+    private static GameState _instance;
+
+    public static GameState Instance { get { return _instance; } }
+
     private void Awake()
     {
-        //Make sure there is only one game manager
-        GameObject[] objs = GameObject.FindGameObjectsWithTag("Game Manager");
-        if(objs.Length > 1)
+        if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
         }//End if
+        else
+        {
+            _instance = this;
+        }//End else
+    }//End Awake
 
-        //Don't destroy the state tracker between 
-        DontDestroyOnLoad(this.gameObject);
-    }//End awake
+    public void updateGameState()
+    {
+
+    }//End updateGameState
 }

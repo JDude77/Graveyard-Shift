@@ -6,7 +6,7 @@ public class Interact : MonoBehaviour
 {
     #region Attributes
     [SerializeField]
-    private bool isInteractible;
+    private bool isInteractible, isInteracting;
     private string[] modes = {"Conversation", "Action", "Take", "Portal", "Default"};
     private string interactionMode;
     private GameObject gameManager;
@@ -23,6 +23,11 @@ public class Interact : MonoBehaviour
     {
         this.isInteractible = isInteractible;
     }//End isInteractible Setter
+    //isInteracting Getter
+    public bool getIsInteracting()
+    {
+        return isInteracting;
+    }//End isInteracting Getter
     #endregion
 
     //Start is called before the first frame update
@@ -30,6 +35,7 @@ public class Interact : MonoBehaviour
     {
         //Set to not be interactive, and set the interaction mode to default
         isInteractible = false;
+        isInteracting = false;
         interactionMode = modes[0];
         gameManager = GameObject.FindGameObjectWithTag("Game Manager");
     }//End Start

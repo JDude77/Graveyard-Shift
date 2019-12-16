@@ -33,6 +33,5 @@ public class NewBehaviourScript : MonoBehaviour
             Debug.Log("Item = {" + item.theString + ", " + item.theNumber + "}");
         }
         Debug.Log("Hi");
-
     }
 }
