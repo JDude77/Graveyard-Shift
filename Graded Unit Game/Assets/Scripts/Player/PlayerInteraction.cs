@@ -15,6 +15,8 @@ public class PlayerInteraction : MonoBehaviour
     private Material interactibleMaterial;
     [SerializeField]
     private Material nonInteractibleMaterial;
+    [SerializeField]
+    private Material meshMaterial;
     private bool interactButtonDown;
     private bool isInteracting;
     #endregion
@@ -100,11 +102,12 @@ public class PlayerInteraction : MonoBehaviour
         {
             //Set other to the object being hit
             other = hitInfo.transform.gameObject;
-            //Change material as indication of hit
-            MeshRenderer[] children = other.GetComponentsInChildren<MeshRenderer>();
-            foreach(MeshRenderer rend in children)
+            //Activate interaction hit glow
+            GameObject child = GameObject.FindGameObjectWithTag("Glower");
+            Transform[] children = child.GetComponentsInChildren<Transform>();
+            foreach (Transform glow in children)
             {
-                rend.material = interactibleMaterial;
+                glow.gameObject.SetActive(false);
             }//End foreach
             //If the interaction button is used
             if (Input.GetAxisRaw("Interact") != 0)
@@ -142,12 +145,12 @@ public class PlayerInteraction : MonoBehaviour
             //If other is not already set to null
             if(other != null)
             {
-                //Set the material back to being the non-interactible material
-                //Change material as indication of hit
-                MeshRenderer[] children = other.GetComponentsInChildren<MeshRenderer>();
-                foreach (MeshRenderer rend in children)
+                //Turn off interaction glow
+                GameObject child = GameObject.FindGameObjectWithTag("Glower");
+                Transform[] children = child.GetComponentsInChildren<Transform>();
+                foreach (Transform glow in children)
                 {
-                    rend.material = nonInteractibleMaterial;
+                    glow.gameObject.SetActive(false);
                 }//End foreach
                 //Reset other to be null
                 other = null;

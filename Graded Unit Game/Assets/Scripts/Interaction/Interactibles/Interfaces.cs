@@ -34,11 +34,11 @@ public interface ILine
 public interface IConversation
 {
     string conversationID { get; set; }
-    ISet[] sets { get; set; }
+    Set[] sets { get; set; }
 }
 
 public interface ISet
 {
     string setID { get; set; }
-    ILine[] lines { get; set; }
+    Line[] lines { get; set; }
 }

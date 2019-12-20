@@ -24,7 +24,6 @@ public class NewBehaviourScript : MonoBehaviour
     {
         //Load text from a JSON file (Assets/Resources/JSON/WorkingTestJSON.json)
         TextAsset jsonTextFile = Resources.Load<TextAsset>("JSON/WorkingTestJSON");
-
         //Then use JsonUtility.FromJson<T>() to deserialize jsonTextFile into an object
         TheMainThing newData = JsonUtility.FromJson<TheMainThing>(jsonTextFile.text);
         Debug.Log("Count = " + newData.entries.Count);
