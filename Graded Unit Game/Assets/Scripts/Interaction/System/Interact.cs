@@ -34,7 +34,6 @@ public class Interact : MonoBehaviour
     private void Start()
     {
         //Set to not be interactive, and set the interaction mode to default
-        isInteractible = false;
         isInteracting = false;
         interactionMode = modes[0];
         gameManager = GameObject.FindGameObjectWithTag("Game Manager");

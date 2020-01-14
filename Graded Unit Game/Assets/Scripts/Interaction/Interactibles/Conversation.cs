@@ -1,28 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class Conversation : MonoBehaviour, IConversation
+[System.Serializable]
+public class Conversation
 {
-    public string conversationID
-    {
-        get;
-        set;
-    }
-    public Set[] sets
-    {
-        get;
-        set;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public string conversationID;
+    public Set[] sets;
+}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+[System.Serializable]
+public struct ConversationList
+{
+    public List<Conversation> conversations;
 }

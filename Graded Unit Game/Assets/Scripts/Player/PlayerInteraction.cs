@@ -19,6 +19,7 @@ public class PlayerInteraction : MonoBehaviour
     private Material meshMaterial;
     private bool interactButtonDown;
     private bool isInteracting;
+    private bool otherIsInteractible;
     #endregion
 
     #region Getters & Setters
@@ -103,30 +104,37 @@ public class PlayerInteraction : MonoBehaviour
             //Set other to the object being hit
             other = hitInfo.transform.gameObject;
             //Activate interaction hit glow
-            GameObject child = GameObject.FindGameObjectWithTag("Glower");
-            Transform[] children = child.GetComponentsInChildren<Transform>();
-            foreach (Transform glow in children)
-            {
-                glow.gameObject.SetActive(false);
-            }//End foreach
+            GameObject child = other.transform.GetChild(0).gameObject;
+            child.SetActive(true);
             //If the interaction button is used
             if (Input.GetAxisRaw("Interact") != 0)
             {
+                Debug.Log("Interaction with " + other.name);
                 //If the button wasn't pressed last frame
                 if (interactButtonDown == false)
                 {
                     //Run interaction function
-                    Debug.Log("Interaction with " + other.name);
                     if(other.GetComponent<Interact>() != null)
                     {
+                        Debug.Log("Interaction script found.");
+                        otherIsInteractible = other.GetComponent<Interact>().getIsInteractible();
+                    }//End if
+                    else
+                    {
+                        Debug.LogWarning("Interaction script not found.");
+                        otherIsInteractible = false;
+                    }//End else
+                    if(otherIsInteractible)
+                    {
+                        Debug.Log("Interaction able to start.");
                         isInteracting = true;
                         player.GetComponentInChildren<MouseLook>().setSwivel(true);
                         other.GetComponent<Interact>().interact();
                     }//End if
                     else
                     {
+                        Debug.LogError("Interaction didn't happen: isInteractible is false.");
                         player.GetComponentInChildren<MouseLook>().setSwivel(false);
-                        Debug.Log("No \"Interact\" script attached to " + other.name);
                     }//End else
                     //Set interaction button in use to true
                     interactButtonDown = true;
@@ -146,12 +154,9 @@ public class PlayerInteraction : MonoBehaviour
             if(other != null)
             {
                 //Turn off interaction glow
-                GameObject child = GameObject.FindGameObjectWithTag("Glower");
+                GameObject child = other.transform.GetChild(0).gameObject;
                 Transform[] children = child.GetComponentsInChildren<Transform>();
-                foreach (Transform glow in children)
-                {
-                    glow.gameObject.SetActive(false);
-                }//End foreach
+                child.SetActive(false);
                 //Reset other to be null
                 other = null;
             }//End if

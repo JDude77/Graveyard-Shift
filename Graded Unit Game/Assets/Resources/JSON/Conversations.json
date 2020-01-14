@@ -1,9 +1,9 @@
 {
-    "conversations": [
+    "conversations": 
+    [
         {
             "conversationID": "TestConversation1",
-            "sets": 
-            [
+            "sets": [
                 "TestSet1"
             ]
         }

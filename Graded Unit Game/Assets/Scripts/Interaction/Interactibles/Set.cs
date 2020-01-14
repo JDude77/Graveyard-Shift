@@ -1,21 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class Set : MonoBehaviour, ISet
+[System.Serializable]
+public class Set
 {
-    public string setID { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public Line[] lines { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public string setID;
+    public string[] lineIDs;
+}
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+[System.Serializable]
+public struct SetList
+{
+    public List<Set> sets;
 }

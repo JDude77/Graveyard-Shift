@@ -2,24 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Line : MonoBehaviour, ILine
+[System.Serializable]
+public class Line
 {
-    public string lineID { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public string setID { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public string speakerID { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public string text { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    AudioClip ILine.audio { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    Animation ILine.animation { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public string lineID;
+    public string setID;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public string speakerID;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public string text;
+
+    AudioClip audioClip;
+
+    Animation animationToPlay;
+}
+
+[System.Serializable]
+public struct LineList
+{
+    public List<Line> lines;
 }

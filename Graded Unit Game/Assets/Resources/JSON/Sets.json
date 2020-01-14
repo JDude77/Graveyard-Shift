@@ -1,9 +1,9 @@
 {
-    "sets": [
+    "sets": 
+    [
         {
-            "setID":  "TestSet1",
-            "lines": 
-            [
+            "setID": "TestSet1",
+            "lineIDs": [
                 "TestLine1",
                 "TestLine2"
             ]

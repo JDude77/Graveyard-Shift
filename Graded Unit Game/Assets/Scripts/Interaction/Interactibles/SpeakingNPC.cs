@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpeakingNPC : MonoBehaviour, ISpeaker
+[System.Serializable]
+public class SpeakingNPC
 {
-    public string speakerID { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public Sprite portrait { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public AudioClip voice { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public bool isNameKnown { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public string speakerName { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public string speakerID;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Sprite portrait;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public AudioClip voice;
+
+    public bool isNameKnown;
+
+    public string speakerName;
+}
+
+[System.Serializable]
+public struct SpeakingNPCList
+{
+    public List<SpeakingNPC> speakers;
 }

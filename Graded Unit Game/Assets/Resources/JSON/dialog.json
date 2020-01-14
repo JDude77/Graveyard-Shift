@@ -1,0 +1,13 @@
+{
+    "entries": [
+        {
+            "theNumber": 42,
+            "theString": "foo"
+        },
+        {
+            "theNumber": 21,
+            "theString": "bar"
+        }
+
+    ]
+}

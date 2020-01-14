@@ -1,6 +1,6 @@
 {
-    "speakers": [
-        //Janice
+    "speakers": 
+    [
         {
             "speakerID": "Janice",
             "portrait": null,
@@ -8,8 +8,6 @@
             "speakerName": "Janice (The Skeleton)",
             "isNameKnown": true
         },
-        //End Janice
-        //Default
         {
             "speakerID": "SPEAKER_ID_UNDEFINED",
             "portrait": null,
@@ -17,6 +15,5 @@
             "speakerName": "SPEAKER_NAME_UNDEFINED",
             "isNameKnown": false
         }
-        //End Default
     ]
 }

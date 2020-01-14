@@ -23,8 +23,6 @@ public class HaveConversation : MonoBehaviour
     {
         this.npc = npc;
         Debug.Log("Starting conversation with " + this.npc.name);
-        JSONData = jsonUtility.getConversationData();
-        //Find the correct data sets
         //Turn the JSONs into their object things
         //Have the actual conversation
         Debug.Log("Ending conversation with " + this.npc.name);
