@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using JSONUtilityExtended;
 
+//Control the functionality of having the conversation
 public class HaveConversation : MonoBehaviour
 {
     #region Attributes
-    private GameObject player, npc;
+    private GameObject player, npc, conversationDisplay;
     private int gameState;
     private TextAsset[] JSONData;
     private JSONUtility jsonUtility;
@@ -23,8 +25,7 @@ public class HaveConversation : MonoBehaviour
     {
         this.npc = npc;
         Debug.Log("Starting conversation with " + this.npc.name);
-        //Turn the JSONs into their object things
-        //Have the actual conversation
+        conversationDisplay = GameObject.Find("Conversation UI");
         Debug.Log("Ending conversation with " + this.npc.name);
         player.GetComponent<PlayerInteraction>().setIsInteracting(false);
     }

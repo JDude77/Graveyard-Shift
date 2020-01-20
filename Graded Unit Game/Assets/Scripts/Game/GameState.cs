@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using JSONUtilityExtended;
 
 public class GameState : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class GameState : MonoBehaviour
         gameStateShell.characterNameIsKnown = new Dictionary<string, bool>();
         gameStateShell.interactedWithAtLeastOnce = new Dictionary<string, bool>();
         gameStateShell.levelIsComplete = new Dictionary<string, bool>();
+        gameStateShell.lineHasBeenSeen = new Dictionary<string, bool>();
         JSONUtility json = new JSONUtility();
         //Find the correct data sets
         TextAsset JSONDataTA = new TextAsset();
@@ -45,6 +47,11 @@ public class GameState : MonoBehaviour
             {
                 gameStateShell.characterNameIsKnown.Add(snpc.speakerID, true);
             }//End else
+        }//End foreach
+        Dictionary<string, Line> lines = json.getLines(JSONDataTA);
+        foreach(Line l in lines.Values)
+        {
+            gameStateShell.lineHasBeenSeen.Add(l.lineID, false);
         }//End foreach
         gameStateShell.levelIsComplete.Add("Writer", false);
 
@@ -67,7 +74,12 @@ public class GameState : MonoBehaviour
         {
             Debug.Log("LevelIsComplete dictionary of " + keyForValue + " entry boolean updated to true.");
             currentGameState.levelIsComplete[keyForValue] = true;
-        }//End else
+        }//End else if
+        else if(currentGameState.lineHasBeenSeen.ContainsKey(keyForValue))
+        {
+            Debug.Log("LineHasBeenSeen dictionary of " + keyForValue + " entry boolean updated to true.");
+            currentGameState.lineHasBeenSeen[keyForValue] = true;
+        }//End else if
         else
         {
             Debug.LogWarning("UpdateGameState was called to change " + keyForValue + ", but a corresponding key was not found.");
@@ -80,6 +92,7 @@ public struct GameStateShell
     public Dictionary<string, bool> interactedWithAtLeastOnce;
     public Dictionary<string, bool> characterNameIsKnown;
     public Dictionary<string, bool> levelIsComplete;
+    public Dictionary<string, bool> lineHasBeenSeen;
     //Uncomment the below if/when items are added to the game
     //public Dictionary<string, bool> itemHasBeenInteractedWith;
 }

@@ -35,6 +35,7 @@ public class Interact : MonoBehaviour
     {
         //Set to not be interactive, and set the interaction mode to default
         isInteracting = false;
+        //Switch out below line for tag-checking switch statement
         interactionMode = modes[0];
         gameManager = GameObject.FindGameObjectWithTag("Game Manager");
     }//End Start
