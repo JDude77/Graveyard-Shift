@@ -14,3 +14,7 @@ Upload 2 Has The Following Features:
   - JSON Placeholder Functionality Files
     - Basic structure for storing the JSON files
     - Working JSON retrieval script
+
+Upload 3 Has The Following Features:
+  - Beginnings of game state management code
+    - Dictionaries of booleans holding relevant information
