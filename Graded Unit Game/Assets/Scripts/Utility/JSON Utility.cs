@@ -55,20 +55,20 @@ namespace JSONUtilityExtended
             return givenData;
         }//End checkDataIsThere
 
-        public Dictionary<string, Conversation> getConversations(TextAsset conversationData)
+        public Dictionary<GameStateShell, Conversation> getConversations(TextAsset conversationData)
         {
             Debug.Log("Trying to convert conversation JSON data to conversation objects...");
 
             conversationData = checkDataIsThere(conversationData, "Conversations");
 
             ConversationList conversationList = JsonUtility.FromJson<ConversationList>(conversationData.text);
-            Dictionary<string, Conversation> convos = new Dictionary<string, Conversation>();
+            Dictionary<GameStateShell, Conversation> convos = new Dictionary<GameStateShell, Conversation>();
 
             int index = 0;
             foreach (Conversation c in conversationList.conversations)
             {
                 Debug.Log("Coversation Found! ID: " + c.conversationID);
-                convos.Add(c.conversationID, c);
+                //convos.Add(getConversationGameState(out GameStateShell newGameState), c);
                 index++;
                 Debug.Log("Conversation Added To Conversation Dictionary (" + index + " of " + conversationList.conversations.Count + ")");
             }//End foreach
@@ -138,5 +138,12 @@ namespace JSONUtilityExtended
 
             return speakers;
         }
+
+        /*
+        private GameStateShell getConversationGameState(out GameStateShell newGameState)
+        {
+            
+        }
+        */
     }
 }

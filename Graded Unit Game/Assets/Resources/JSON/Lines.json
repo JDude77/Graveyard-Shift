@@ -2,19 +2,19 @@
     "lines": [
         {
             "lineID": "TestLine1",
-            "setID": "TestSet1",
-            "speakerID": "Janice",
             "text": "This is the first test line. Hello world.",
             "audio": null,
-            "animation": null
+            "animation": null,
+            "doBeforeLine": null,
+            "doAfterLine":  null
         },
         {
             "lineID": "TestLine2",
-            "setID": "TestSet1",
-            "speakerID": "Janice",
             "text": "This is the second test line. Hello world.",
             "audio": null,
-            "animation": null
+            "animation": null,
+            "doBeforeLine": null,
+            "doAfterLine": null
         }
 
     ]

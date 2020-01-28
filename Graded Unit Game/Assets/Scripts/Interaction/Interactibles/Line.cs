@@ -6,15 +6,16 @@ using UnityEngine;
 public class Line
 {
     public string lineID;
-    public string setID;
-
-    public string speakerID;
 
     public string text;
 
-    AudioClip audioClip;
+    public AudioClip audioClip;
 
-    Animation animationToPlay;
+    public Animation animationToPlay;
+
+    public string doBeforeLine;
+
+    public string doAfterLine;
 }
 
 [System.Serializable]

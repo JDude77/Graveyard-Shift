@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Set
 {
     public string setID;
+
     public string[] lineIDs;
 }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class PlayerInteraction : MonoBehaviour
     private bool interactButtonDown;
     private bool isInteracting;
     private bool otherIsInteractible;
+    private ExplorationHUD HUDHandler;
     #endregion
 
     #region Getters & Setters
@@ -90,6 +92,8 @@ public class PlayerInteraction : MonoBehaviour
         interactRange = 1.5f;
         //Set the interaction layer to... the interaction layer
         interactLayer = LayerMask.GetMask("Interactible");
+        //Set the HUD Handler to the correct object
+        HUDHandler = GameObject.FindGameObjectWithTag("HUD").GetComponent<ExplorationHUD>();
     }//End Start
 
     //Check for interaction
@@ -106,15 +110,18 @@ public class PlayerInteraction : MonoBehaviour
             //Activate interaction hit glow
             GameObject child = other.transform.GetChild(0).gameObject;
             child.SetActive(true);
+            HUDHandler.setNameText(other.GetComponent<Interact>().getDisplayName());
+            HUDHandler.setVerbText(other.GetComponent<Interact>().getDisplayVerb());
+            HUDHandler.setHovering(true, other.GetComponent<Interact>().getIsInteractible());
             //If the interaction button is used
             if (Input.GetAxisRaw("Interact") != 0)
             {
-                Debug.Log("Interaction with " + other.name);
                 //If the button wasn't pressed last frame
                 if (interactButtonDown == false)
                 {
+                    Debug.Log("Interaction with " + other.name);
                     //Run interaction function
-                    if(other.GetComponent<Interact>() != null)
+                    if (other.GetComponent<Interact>() != null)
                     {
                         Debug.Log("Interaction script found.");
                         otherIsInteractible = other.GetComponent<Interact>().getIsInteractible();
@@ -150,6 +157,10 @@ public class PlayerInteraction : MonoBehaviour
         //If the raycast doesn't hit an interactible
         else
         {
+            //Deactivate the interaction text
+            HUDHandler.setHovering(false, false);
+            HUDHandler.setNameText("");
+            HUDHandler.setVerbText("");
             //If other is not already set to null
             if(other != null)
             {

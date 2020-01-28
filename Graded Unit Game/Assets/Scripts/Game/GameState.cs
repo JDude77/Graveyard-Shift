@@ -24,6 +24,12 @@ public class GameState : MonoBehaviour
         currentGameState = initGameState();
     }//End Awake
 
+    //Get the current game state
+    public GameStateShell getGameState()
+    {
+        return currentGameState;
+    }//End game state getter
+
     public GameStateShell initGameState()
     {
         GameStateShell gameStateShell = new GameStateShell();

@@ -10,6 +10,10 @@ public class Interact : MonoBehaviour
     private string[] modes = {"Conversation", "Action", "Take", "Portal", "Default"};
     private string interactionMode;
     private GameObject gameManager;
+    [SerializeField]
+    private string displayName;
+    [SerializeField]
+    private string displayVerb;
     #endregion
 
     #region Getters & Setters
@@ -28,6 +32,16 @@ public class Interact : MonoBehaviour
     {
         return isInteracting;
     }//End isInteracting Getter
+    //displayName Getter
+    public string getDisplayName()
+    {
+        return displayName;
+    }//End displayName getter
+    //displayVerb getter
+    public string getDisplayVerb()
+    {
+        return displayVerb;
+    }//End displayVerb getter
     #endregion
 
     //Start is called before the first frame update
@@ -39,6 +53,29 @@ public class Interact : MonoBehaviour
         interactionMode = modes[0];
         gameManager = GameObject.FindGameObjectWithTag("Game Manager");
     }//End Start
+
+    //Change appropriate variables for interaction mode
+    private void Update()
+    {
+        switch(interactionMode)
+        {
+            case "Conversation":
+                displayVerb = "Talk";
+                break;
+            case "Action":
+                displayVerb = "Use";
+                break;
+            case "Take":
+                displayVerb = "Take";
+                break;
+            case "Portal":
+                displayVerb = "Open Portal";
+                break;
+            default:
+                Debug.Log("Error: No interaction mode set for " + name + ".");
+                break;
+        }//End switch
+    }//End Update
 
     #region Behaviours
     public void interact()

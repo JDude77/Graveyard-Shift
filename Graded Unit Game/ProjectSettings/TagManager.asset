@@ -8,6 +8,7 @@ TagManager:
   - Glower
   - Conversation HUD
   - Exploration HUD
+  - HUD
   layers:
   - Default
   - TransparentFX
