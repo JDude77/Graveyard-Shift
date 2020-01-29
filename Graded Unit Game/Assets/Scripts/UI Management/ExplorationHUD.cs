@@ -26,13 +26,13 @@ public class ExplorationHUD : MonoBehaviour
         //Get the exploration HUD holder
         explorationHUDHolder = GameObject.FindGameObjectWithTag("Exploration HUD");
         //Get the name object and the text within it
-        nameObject = gameObject.transform.Find("Exploration HUD").gameObject.transform.Find("Name").gameObject;
+        nameObject = explorationHUDHolder.transform.Find("Exploration HUD").gameObject.transform.Find("Name").gameObject;
         nameText = nameObject.GetComponent<Text>();
         //Get the verb object and the text within it
-        verbObject = gameObject.transform.Find("Exploration HUD").gameObject.transform.Find("Verb").gameObject;
+        verbObject = explorationHUDHolder.transform.Find("Exploration HUD").gameObject.transform.Find("Verb").gameObject;
         verbText = verbObject.GetComponent<Text>();
         //Get the cursor object and the image within it
-        cursorObject = gameObject.transform.Find("Exploration HUD").gameObject.transform.Find("Cursor").gameObject;
+        cursorObject = explorationHUDHolder.transform.Find("Exploration HUD").gameObject.transform.Find("Cursor").gameObject;
         cursorImage = cursorObject.GetComponent<Image>();
         //Cursor colour set-up
         cursorDefault = new Color(1, 1, 1, 0.75f);

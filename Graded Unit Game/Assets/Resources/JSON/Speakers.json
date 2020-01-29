@@ -2,6 +2,13 @@
     "speakers": 
     [
         {
+            "speakerID": "Player",
+            "portrait": null,
+            "voice": null,
+            "speakerName": "Illden",
+            "isNameKnown": true
+        },
+        {
             "speakerID": "Janice",
             "portrait": null,
             "voice": null,
