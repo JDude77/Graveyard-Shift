@@ -25,6 +25,7 @@ public class HaveConversation : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerSpeakerData = jsonHolder.getSpeaker("Player");
         gameState = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameState>().getGameState();
+        convoHUDObject.SetActive(true);
     }//End Start
 
     #region Behaviours
@@ -45,6 +46,7 @@ public class HaveConversation : MonoBehaviour
         conversationHUD.setPortrait(npcSpeakerData.portrait);
         //3 - move to next conversation part
         Debug.Log("Ending conversation with " + this.npc.name);
+        convoHUDObject.SetActive(false);
         player.GetComponent<PlayerInteraction>().setIsInteracting(false);
     }//End converse
 
@@ -52,9 +54,8 @@ public class HaveConversation : MonoBehaviour
     {
         //Get the relevant speaker
         Dictionary<string, SpeakingNPC> speakers = jsonHolder.getSpeakers();
-        
         SpeakingNPC speaker;
-        speakers.TryGetValue(npc.name, out speaker);
+        speakers.TryGetValue(npc.GetComponent<Interact>().getID(), out speaker);
         //Check if the speaker has been interacted with before
         bool interacted;
         gameState.interactedWithAtLeastOnce.TryGetValue(speaker.speakerID, out interacted);
@@ -71,7 +72,7 @@ public class HaveConversation : MonoBehaviour
         convo = jsonHolder.getConversation("TestConversation1");
         //If a relevant item has been found, load that relevant conversation
         //If certain lines have been seen, load the relevant conversation
-        //If not matching conditions are found, load the default conversation
+        //If no matching conditions are found, load the default conversation
     }//End getCorrectConvo
     #endregion
 }

@@ -14,6 +14,8 @@ public class Interact : MonoBehaviour
     private string displayName;
     [SerializeField]
     private string displayVerb;
+    [SerializeField]
+    private string id;
     #endregion
 
     #region Getters & Setters
@@ -42,6 +44,11 @@ public class Interact : MonoBehaviour
     {
         return displayVerb;
     }//End displayVerb getter
+    //id getter
+    public string getID()
+    {
+        return id;
+    }//End id getter
     #endregion
 
     //Start is called before the first frame update
