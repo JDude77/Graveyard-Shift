@@ -6,7 +6,8 @@
             "audio": null,
             "animation": null,
             "doBeforeLine": null,
-            "doAfterLine":  null
+            "doAfterLine": null,
+            "isPlayerLine": false
         },
         {
             "lineID": "TestLine2",
@@ -14,7 +15,8 @@
             "audio": null,
             "animation": null,
             "doBeforeLine": null,
-            "doAfterLine": null
+            "doAfterLine": null,
+            "isPlayerLine":  false
         }
 
     ]

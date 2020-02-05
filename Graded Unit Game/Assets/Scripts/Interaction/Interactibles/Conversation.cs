@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Conversation
 {
     public string conversationID;
-    public Set[] sets;
+    public string[] setIDs;
 }
 
 [System.Serializable]

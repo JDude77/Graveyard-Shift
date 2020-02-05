@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class ConversationHUD : MonoBehaviour
 {
     #region Attributes
+    [SerializeField]
     private GameObject convoHUDObject;
-    private ConversationHUD conversationHUD;
     private JSONHolder jsonHolder;
     private SpeakingNPC playerData, npcData;
     private Line currentLine;
@@ -95,6 +95,12 @@ public class ConversationHUD : MonoBehaviour
             this.linesForPlayer[i].text = linesForPlayer[i];
         }//End for
     }//End LinesForPlayer Setter
+
+    //NPC Speaker Data Setter
+    public void setNPCData(SpeakingNPC npcData)
+    {
+        this.npcData = npcData;
+    }//End NPC Data Setter
     #endregion
 
     private void Start()
@@ -103,18 +109,20 @@ public class ConversationHUD : MonoBehaviour
         jsonHolder = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<JSONHolder>();
         //Get the player speaker data
         playerData = jsonHolder.getSpeaker("Player");
-        //Get the NPC speaker data
-        
-        //Get the actual game object Conversation HUD
-        convoHUDObject = GameObject.FindGameObjectWithTag("Conversation HUD");
-        //Get the Conversation HUD script attached to the HUD
-        conversationHUD = GetComponent<ConversationHUD>();
-        //Get the portrait for the current speaker from the Conversation HUD object
-        portrait = convoHUDObject.transform.Find("Portrait").GetComponent<Image>();
-        //Get the text for the name of the current speaker from the Conversation HUD object
-        speakerName = convoHUDObject.transform.Find("Name").GetComponent<Text>();
-        //Get the line of text currently being displayed from the Conversation HUD object
-        lineInBox = convoHUDObject.transform.Find("Line").GetComponent<Text>();
+        //Get the portrait, name, and line objects from the UI
+        while(portrait == null || speakerName == null || lineInBox == null)
+        {
+            for(int i = 0; i < convoHUDObject.transform.childCount; i++)
+            {
+                var child = convoHUDObject.transform.GetChild(i);
+                switch(child.name)
+                {
+                    case "Portrait": portrait = child.gameObject.GetComponent<Image>(); break;
+                    case "Name": speakerName = child.gameObject.GetComponent<Text>(); break;
+                    case "Line": lineInBox = child.gameObject.GetComponent<Text>(); break;
+                }//End switch
+            }//End for
+        }//End while
     }//End Start
 
     private void Update()
@@ -123,9 +131,9 @@ public class ConversationHUD : MonoBehaviour
         if(convoHUDObject.activeSelf)
         {
             //If NPC is talking
-            if(!speakerName.text.Equals("Illden"))
+            if(!speakerName.text.Equals(playerData.speakerName))
             {
-                
+
             }//End if
             //If it's a player choice scenario
             else
@@ -134,7 +142,11 @@ public class ConversationHUD : MonoBehaviour
             }//End else
         }//End if
     }//End Update
-    #region Behaviours
 
+    #region Behaviours
+    public void updateSpeaker()
+    {
+
+    }//End updateSpeaker
     #endregion
 }

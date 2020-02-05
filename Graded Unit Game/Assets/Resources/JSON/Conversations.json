@@ -3,7 +3,7 @@
     [
         {
             "conversationID": "TestConversation1",
-            "sets": [
+            "setIDs": [
                 "TestSet1"
             ]
         }

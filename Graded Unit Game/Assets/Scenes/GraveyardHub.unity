@@ -1112,7 +1112,7 @@ GameObject:
   - component: {fileID: 289334307}
   m_Layer: 5
   m_Name: Verb
-  m_TagString: Untagged
+  m_TagString: Exploration HUD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1520,6 +1520,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c86dff6082062a408c8a61002a2a0e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nameObject: {fileID: 0}
+  nameText: {fileID: 0}
+  verbObject: {fileID: 0}
+  verbText: {fileID: 0}
+  cursorObject: {fileID: 0}
 --- !u!114 &401621468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1532,6 +1537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0212997c84c5b3c4ea3a41d593a220b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  convoHUDObject: {fileID: 1351439375}
 --- !u!1 &422985069
 GameObject:
   m_ObjectHideFlags: 0
@@ -2096,7 +2102,7 @@ GameObject:
   - component: {fileID: 449806059}
   m_Layer: 0
   m_Name: Portrait
-  m_TagString: Untagged
+  m_TagString: Conversation HUD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3917,7 +3923,7 @@ GameObject:
   - component: {fileID: 751843878}
   m_Layer: 0
   m_Name: Speaker Background
-  m_TagString: Untagged
+  m_TagString: Conversation HUD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4082,7 +4088,7 @@ GameObject:
   - component: {fileID: 766479417}
   m_Layer: 5
   m_Name: Cursor
-  m_TagString: Untagged
+  m_TagString: Exploration HUD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7144,7 +7150,7 @@ GameObject:
   - component: {fileID: 1475732769}
   m_Layer: 0
   m_Name: Line
-  m_TagString: Untagged
+  m_TagString: Conversation HUD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7268,6 +7274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d49fb019b88188e49ae41de836108342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  convoHUDObject: {fileID: 1351439375}
 --- !u!114 &1491588297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9116,7 +9123,7 @@ GameObject:
   - component: {fileID: 2005973457}
   m_Layer: 5
   m_Name: Name
-  m_TagString: Untagged
+  m_TagString: Exploration HUD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9293,7 +9300,7 @@ GameObject:
   - component: {fileID: 2091163902}
   m_Layer: 0
   m_Name: Name
-  m_TagString: Untagged
+  m_TagString: Conversation HUD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -9,17 +9,21 @@ public class HaveConversation : MonoBehaviour
 {
     #region Attributes
     private GameObject player, npc;
+    private SpeakingNPC playerSpeakerData, npcSpeakerData;
     private GameStateShell gameState;
     private TextAsset[] JSONData;
-    private JSONUtility jsonUtility;
     private JSONHolder jsonHolder;
+    [SerializeField]
+    private GameObject convoHUDObject;
+    private ConversationHUD conversationHUD;
     #endregion
 
     private void Start()
     {
-        jsonUtility = new JSONUtility();
+        conversationHUD = convoHUDObject.transform.parent.gameObject.GetComponent<ConversationHUD>();
         jsonHolder = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<JSONHolder>();
         player = GameObject.FindGameObjectWithTag("Player");
+        playerSpeakerData = jsonHolder.getSpeaker("Player");
         gameState = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameState>().getGameState();
     }//End Start
 
@@ -28,10 +32,17 @@ public class HaveConversation : MonoBehaviour
     public void converse(GameObject npc)
     {
         this.npc = npc;
+        npcSpeakerData = jsonHolder.getSpeaker(npc.name);
+        conversationHUD.setNPCData(npcSpeakerData);
         Debug.Log("Starting conversation with " + this.npc.name);
         //1 - get correct conversation
         getCorrectConvo(gameState, npc, out Conversation convo);
         //2 - speaker stuff
+        Set currentSet = jsonHolder.getSet(convo.setIDs[0]);
+        Line currentLine = jsonHolder.getLine(currentSet.lineIDs[0]);
+        conversationHUD.setLineInBox(currentLine.text);
+        conversationHUD.setName(npcSpeakerData.speakerName);
+        conversationHUD.setPortrait(npcSpeakerData.portrait);
         //3 - move to next conversation part
         Debug.Log("Ending conversation with " + this.npc.name);
         player.GetComponent<PlayerInteraction>().setIsInteracting(false);
@@ -57,6 +68,7 @@ public class HaveConversation : MonoBehaviour
 
         }//End else
         jsonHolder.getConversations().TryGetValue(gameState, out convo);
+        convo = jsonHolder.getConversation("TestConversation1");
         //If a relevant item has been found, load that relevant conversation
         //If certain lines have been seen, load the relevant conversation
         //If not matching conditions are found, load the default conversation

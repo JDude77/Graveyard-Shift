@@ -7,10 +7,15 @@ public class ExplorationHUD : MonoBehaviour
 {
     #region Attributes
     private GameObject explorationHUDHolder;
+    [SerializeField]
     private GameObject nameObject;
+    [SerializeField]
     private Text nameText;
+    [SerializeField]
     private GameObject verbObject;
+    [SerializeField]
     private Text verbText;
+    [SerializeField]
     private GameObject cursorObject;
     private Image cursorImage;
     private Color cursorDefault, cursorHoverActive, cursorHoverInactive;
@@ -26,13 +31,25 @@ public class ExplorationHUD : MonoBehaviour
         //Get the exploration HUD holder
         explorationHUDHolder = GameObject.FindGameObjectWithTag("Exploration HUD");
         //Get the name object and the text within it
-        nameObject = explorationHUDHolder.transform.Find("Exploration HUD").gameObject.transform.Find("Name").gameObject;
+        while(nameObject == null || verbObject == null || cursorObject == null)
+        {
+            for(int i = 0; i < explorationHUDHolder.transform.childCount; i++)
+            {
+                var child = explorationHUDHolder.transform.GetChild(i);
+                switch(child.name)
+                {
+                    case "Name": nameObject = child.gameObject; break;
+                    case "Cursor": cursorObject = child.gameObject; break;
+                    case "Verb": verbObject = child.gameObject; break;
+                }//End switch
+            }//End for
+        }//End while
         nameText = nameObject.GetComponent<Text>();
         //Get the verb object and the text within it
-        verbObject = explorationHUDHolder.transform.Find("Exploration HUD").gameObject.transform.Find("Verb").gameObject;
+        
         verbText = verbObject.GetComponent<Text>();
         //Get the cursor object and the image within it
-        cursorObject = explorationHUDHolder.transform.Find("Exploration HUD").gameObject.transform.Find("Cursor").gameObject;
+        
         cursorImage = cursorObject.GetComponent<Image>();
         //Cursor colour set-up
         cursorDefault = new Color(1, 1, 1, 0.75f);

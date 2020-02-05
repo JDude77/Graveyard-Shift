@@ -68,6 +68,7 @@ namespace JSONUtilityExtended
             foreach (Conversation c in conversationList.conversations)
             {
                 Debug.Log("Coversation Found! ID: " + c.conversationID);
+                convos.Add(GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameState>().currentGameState, c);
                 //convos.Add(getConversationGameState(out GameStateShell newGameState), c);
                 index++;
                 Debug.Log("Conversation Added To Conversation Dictionary (" + index + " of " + conversationList.conversations.Count + ")");

@@ -16,6 +16,8 @@ public class Line
     public string doBeforeLine;
 
     public string doAfterLine;
+
+    public bool isPlayerLine;
 }
 
 [System.Serializable]
