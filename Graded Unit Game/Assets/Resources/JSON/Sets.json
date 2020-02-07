@@ -1,12 +1,29 @@
 {
     "sets": 
     [
-        {
-            "setID": "TestSet1",
-            "lineIDs": [
-                "TestLine1",
-                "TestLine2"
-            ]
-        }
+      {
+        "setID": "TestSet1",
+        "lineIDs": [
+          "TestLine1",
+          "TestLine2"
+        ],
+        "pickOne":  false
+      },
+      {
+        "setID": "TestSet2",
+        "lineIDs": [
+          "TestLine3",
+          "TestLine4"
+        ],
+        "pickOne":  false
+      },
+      {
+        "setID": "TestRandom",
+        "lineIDs": [
+          "TestRandomLine1",
+          "TestRandomLine2"
+        ],
+        "pickOne": true
+      }
     ]
 }

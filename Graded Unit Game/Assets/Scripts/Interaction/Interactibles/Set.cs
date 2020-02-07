@@ -7,6 +7,8 @@ public class Set
     public string setID;
 
     public string[] lineIDs;
+
+    public bool pickOne;
 }
 
 [System.Serializable]

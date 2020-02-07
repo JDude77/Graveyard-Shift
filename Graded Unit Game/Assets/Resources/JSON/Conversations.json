@@ -4,7 +4,9 @@
         {
             "conversationID": "TestConversation1",
             "setIDs": [
-                "TestSet1"
+              "TestSet1",
+              "TestSet2",
+              "TestRandom"
             ]
         }
     ]
