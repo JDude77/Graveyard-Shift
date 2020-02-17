@@ -9,6 +9,8 @@ public class Set
     public string[] lineIDs;
 
     public bool pickOne;
+
+    public bool playerChoice;
 }
 
 [System.Serializable]

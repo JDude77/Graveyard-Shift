@@ -1,22 +1,20 @@
 {
     "lines": [
-        {
-            "lineID": "TestLine1",
-            "text": "This is the first test line. Hello world.",
-            "audio": null,
-            "animation": null,
-            "doBeforeLine": null,
-            "doAfterLine": null,
-            "isPlayerLine": false
-        },
+      {
+        "lineID": "TestLine1",
+        "text": "This is the first test line. Hello world.",
+        "audio": null,
+        "animation": null,
+        "doBeforeLine": null,
+        "doAfterLine": null
+      },
       {
         "lineID": "TestLine2",
         "text": "This is the second test line. Hello world.",
         "audio": null,
         "animation": null,
         "doBeforeLine": null,
-        "doAfterLine": null,
-        "isPlayerLine": false
+        "doAfterLine": null
       },
       {
         "lineID": "TestLine3",
@@ -24,8 +22,7 @@
         "audio": null,
         "animation": null,
         "doBeforeLine": null,
-        "doAfterLine": null,
-        "isPlayerLine": false
+        "doAfterLine": null
       },
       {
         "lineID": "TestLine4",
@@ -33,8 +30,7 @@
         "audio": null,
         "animation": null,
         "doBeforeLine": null,
-        "doAfterLine": null,
-        "isPlayerLine": false
+        "doAfterLine": null
       },
       {
         "lineID": "TestRandom1",
@@ -42,8 +38,7 @@
         "audio": null,
         "animation": null,
         "doBeforeLine": null,
-        "doAfterLine": null,
-        "isPlayerLine": false
+        "doAfterLine": null
       },
       {
         "lineID": "TestRandom2",
@@ -51,8 +46,7 @@
         "audio": null,
         "animation": null,
         "doBeforeLine": null,
-        "doAfterLine": null,
-        "isPlayerLine": false
+        "doAfterLine": null
       }
 
     ]
