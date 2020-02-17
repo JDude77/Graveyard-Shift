@@ -99,7 +99,7 @@ public class Interact : MonoBehaviour
             switch(interactionMode)
             {
                 case "Conversation":
-                    gameManager.GetComponent<HaveConversation>().converse(this.gameObject);
+                    gameManager.GetComponent<ConversationManager>().converse(this.gameObject);
                     break;
                 case "Action":
                     gameManager.GetComponent<Action>();
