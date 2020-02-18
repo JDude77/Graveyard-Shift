@@ -55,7 +55,7 @@ public class HaveConversation : MonoBehaviour
         //Get the relevant speaker
         Dictionary<string, SpeakingNPC> speakers = jsonHolder.getSpeakers();
         SpeakingNPC speaker;
-        speakers.TryGetValue(npc.GetComponent<Interact>().getID(), out speaker);
+        speakers.TryGetValue(npc.GetComponent<Interactive>().getID(), out speaker);
         //Check if the speaker has been interacted with before
         bool interacted;
         gameState.interactedWithAtLeastOnce.TryGetValue(speaker.speakerID, out interacted);

@@ -110,9 +110,9 @@ public class PlayerInteraction : MonoBehaviour
             //Activate interaction hit glow
             GameObject child = other.transform.GetChild(0).gameObject;
             child.SetActive(true);
-            HUDHandler.setNameText(other.GetComponent<Interact>().getDisplayName());
-            HUDHandler.setVerbText(other.GetComponent<Interact>().getDisplayVerb());
-            HUDHandler.setHovering(true, other.GetComponent<Interact>().getIsInteractible());
+            HUDHandler.setNameText(other.GetComponent<Interactive>().getDisplayName());
+            HUDHandler.setVerbText(other.GetComponent<Interactive>().getDisplayVerb());
+            HUDHandler.setHovering(true, other.GetComponent<Interactive>().getIsInteractible());
             //If the interaction button is used
             if (Input.GetAxisRaw("Interact") != 0)
             {
@@ -121,10 +121,10 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     Debug.Log("Interaction with " + other.name);
                     //Run interaction function
-                    if (other.GetComponent<Interact>() != null)
+                    if (other.GetComponent<Interactive>() != null)
                     {
                         Debug.Log("Interaction script found.");
-                        otherIsInteractible = other.GetComponent<Interact>().getIsInteractible();
+                        otherIsInteractible = other.GetComponent<Interactive>().getIsInteractible();
                     }//End if
                     else
                     {
@@ -136,7 +136,7 @@ public class PlayerInteraction : MonoBehaviour
                         Debug.Log("Interaction able to start.");
                         isInteracting = true;
                         player.GetComponentInChildren<MouseLook>().setSwivel(true);
-                        other.GetComponent<Interact>().interact();
+                        other.GetComponent<Interactive>().interact();
                     }//End if
                     else
                     {

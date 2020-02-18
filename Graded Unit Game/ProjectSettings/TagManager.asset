@@ -9,6 +9,7 @@ TagManager:
   - Conversation HUD
   - Exploration HUD
   - HUD
+  - Conversation Partner
   layers:
   - Default
   - TransparentFX
