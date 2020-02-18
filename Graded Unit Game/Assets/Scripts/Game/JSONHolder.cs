@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using JSONUtilityExtended;
+using System;
 
 public class JSONHolder : MonoBehaviour
 {
@@ -74,6 +75,18 @@ public class JSONHolder : MonoBehaviour
         Debug.LogError("Conversation with ID " + conversationID + " not found.");
         return null;
     }//End Conversation Getter
+
+    internal Line getLineFromSet(int indexInLineIDs, Set set)
+    {
+        //Get the line from a specific index in a set
+        return getLine(set.lineIDs[indexInLineIDs]);
+    }//End Line From Set Getter
+
+    internal Set getSetFromConversation(int indexInSetIDs, Conversation convo)
+    {
+        //Get the set from a specific index in a conversation
+        return getSet(convo.setIDs[indexInSetIDs]);
+    }//End Set From Conversation Getter
 
     //Find and return a specific set
     public Set getSet(string setID)

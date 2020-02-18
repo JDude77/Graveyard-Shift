@@ -7,6 +7,10 @@ public class Set
     public string setID;
 
     public string[] lineIDs;
+
+    public bool pickOne;
+
+    public bool playerChoice;
 }
 
 [System.Serializable]

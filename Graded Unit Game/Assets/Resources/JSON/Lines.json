@@ -1,23 +1,53 @@
 {
     "lines": [
-        {
-            "lineID": "TestLine1",
-            "text": "This is the first test line. Hello world.",
-            "audio": null,
-            "animation": null,
-            "doBeforeLine": null,
-            "doAfterLine": null,
-            "isPlayerLine": false
-        },
-        {
-            "lineID": "TestLine2",
-            "text": "This is the second test line. Hello world.",
-            "audio": null,
-            "animation": null,
-            "doBeforeLine": null,
-            "doAfterLine": null,
-            "isPlayerLine":  false
-        }
+      {
+        "lineID": "TestLine1",
+        "text": "This is the first test line. Hello world.",
+        "audio": null,
+        "animation": null,
+        "doBeforeLine": null,
+        "doAfterLine": null
+      },
+      {
+        "lineID": "TestLine2",
+        "text": "This is the second test line. Hello world.",
+        "audio": null,
+        "animation": null,
+        "doBeforeLine": null,
+        "doAfterLine": null
+      },
+      {
+        "lineID": "TestLine3",
+        "text": "This is the THIRD test line. New set, here.",
+        "audio": null,
+        "animation": null,
+        "doBeforeLine": null,
+        "doAfterLine": null
+      },
+      {
+        "lineID": "TestLine4",
+        "text": "This is the fourth test line. I am dead inside.",
+        "audio": null,
+        "animation": null,
+        "doBeforeLine": null,
+        "doAfterLine": null
+      },
+      {
+        "lineID": "TestRandom1",
+        "text": "Maybe in one instance, I'm telling the truth.",
+        "audio": null,
+        "animation": null,
+        "doBeforeLine": null,
+        "doAfterLine": null
+      },
+      {
+        "lineID": "TestRandom2",
+        "text": "Maybe in another, I'm a stinky liar.",
+        "audio": null,
+        "animation": null,
+        "doBeforeLine": null,
+        "doAfterLine": null
+      }
 
     ]
 }
