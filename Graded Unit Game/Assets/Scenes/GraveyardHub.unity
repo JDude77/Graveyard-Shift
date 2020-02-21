@@ -7248,7 +7248,6 @@ GameObject:
   - component: {fileID: 1491588294}
   - component: {fileID: 1491588299}
   - component: {fileID: 1491588300}
-  - component: {fileID: 1491588301}
   - component: {fileID: 1491588302}
   m_Layer: 0
   m_Name: Game Manager
@@ -7293,24 +7292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d49fb019b88188e49ae41de836108342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  npc: {fileID: 0}
-  playerSpeakerData:
-    speakerID: 
-    portrait: {fileID: 0}
-    voice: {fileID: 0}
-    isNameKnown: 0
-    speakerName: 
-  npcSpeakerData:
-    speakerID: 
-    portrait: {fileID: 0}
-    voice: {fileID: 0}
-    isNameKnown: 0
-    speakerName: 
-  JSONData: []
-  jsonHolder: {fileID: 0}
   convoHUDObject: {fileID: 1351439375}
-  conversationHUD: {fileID: 0}
 --- !u!114 &1491588297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7359,18 +7341,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa1a651e6c4c33d4a97fc556cca42ed6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1491588301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1491588293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2358192903bd958479f7985afb63b352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1491588302

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+//This is what will pass on the information to the dialogue HUD
 public class CurrentDialogue : MonoBehaviour
 {
     #region Attributes
@@ -22,13 +23,14 @@ public class CurrentDialogue : MonoBehaviour
     #region Data Pass Locations
     //The display used to show the text on screen
     private TextMeshProUGUI lineDisplay;
+    //The Conversation HUD Manager
+    private ConversationHUD conversationHUD;
     #endregion
     #endregion
 
     #region Behaviours
     private void Start()
     {
-        
         StartCoroutine(Type());
     }//End Start
 

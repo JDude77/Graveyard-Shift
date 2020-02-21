@@ -108,15 +108,8 @@ public class Interactive : MonoBehaviour
             switch(interactionMode)
             {
                 case "Conversation":
-<<<<<<< HEAD:Graded Unit Game/Assets/Scripts/Interaction/New System/Interactive.cs
-<<<<<<< Updated upstream:Graded Unit Game/Assets/Scripts/Interaction/System/Interact.cs
-                    gameManager.GetComponent<HaveConversation>().converse(this.gameObject);
-=======
-                    //gameManager.GetComponent<ConversationManager>().converse(this.gameObject);
->>>>>>> Stashed changes:Graded Unit Game/Assets/Scripts/Interaction/New System/Interactive.cs
-=======
+                    gameManager.GetComponent<DialogueManager>().startDialogue(this.gameObject);
                     gameManager.GetComponent<ConversationManager>().converse(this.gameObject);
->>>>>>> master:Graded Unit Game/Assets/Scripts/Interaction/System/Interact.cs
                     break;
                 case "Action":
                     gameManager.GetComponent<Action>();

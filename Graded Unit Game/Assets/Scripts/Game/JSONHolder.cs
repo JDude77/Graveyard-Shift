@@ -76,16 +76,30 @@ public class JSONHolder : MonoBehaviour
         return null;
     }//End Conversation Getter
 
-    internal Line getLineFromSet(int indexInLineIDs, Set set)
+    public Line getLineFromSet(int indexInSetLinks, Set set)
     {
         //Get the line from a specific index in a set
-        return getLine(set.lineIDs[indexInLineIDs]);
+        return getLine(set.setLinks[indexInSetLinks].lineID);
     }//End Line From Set Getter
 
-    internal Set getSetFromConversation(int indexInSetIDs, Conversation convo)
+    public Set getSetFromConversation(int indexInSetIDs, Conversation convo)
     {
         //Get the set from a specific index in a conversation
         return getSet(convo.setIDs[indexInSetIDs]);
+    }//End Set From Conversation Getter
+
+    public Set getSetFromConversation(string nextSet, Conversation convo)
+    {
+        //Get the set using a specific ID pointer, checking it's in the given conversation
+        if (convo.setIDs.ToString().Contains(nextSet))
+        {
+            return getSet(nextSet);
+        }//End if
+        else
+        {
+            Debug.LogError("Set ID " + nextSet + " not found in Conversation " + convo.conversationID + ".");
+            return null;
+        }//End else
     }//End Set From Conversation Getter
 
     //Find and return a specific set
@@ -153,5 +167,25 @@ public class JSONHolder : MonoBehaviour
         Debug.LogError("Speaker with ID " + speakerID + " not found.");
         return null;
     }//End SpeakingNPC Getter
+
+    //Find a conversation with the given game state
+    public Conversation findConversation(SpeakingNPC npc, GameStateShell gameState)
+    {
+        List<Conversation> convosToSearch = new List<Conversation>();
+        foreach(Conversation conversation in conversations.Values)
+        {
+            if(conversation.speakerID.Equals(npc.speakerID))
+            {
+                convosToSearch.Add(conversation);
+            }//End if
+        }//End foreach
+        bool spoken;
+        gameState.interactedWithAtLeastOnce.TryGetValue(npc.speakerID, out spoken);
+        if(!spoken)
+        {
+            
+        }//End if
+        return conversation;
+    }//End findConversationWithGameState
     #endregion
 }

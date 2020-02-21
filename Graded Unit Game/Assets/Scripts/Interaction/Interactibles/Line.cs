@@ -11,7 +11,7 @@ public class Line
 
     public AudioClip audioClip;
 
-    public Animation animationToPlay;
+    public AnimationClip animationToPlay;
 
     public string doBeforeLine;
 

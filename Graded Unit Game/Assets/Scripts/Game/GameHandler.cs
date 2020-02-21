@@ -42,7 +42,7 @@ public class GameHandler : MonoBehaviour
     }//End UI Is Visible Getter
     #endregion
 
-    // Start is called before the first frame update
+    //Start is called before the first frame update
     private void Start()
     {
         DontDestroyOnLoad(this);
@@ -50,5 +50,5 @@ public class GameHandler : MonoBehaviour
         gameState = GetComponent<GameState>();
         playerCanMove = true;
         uiIsVisible = true;
-    }//End Awake
+    }//End Start
 }

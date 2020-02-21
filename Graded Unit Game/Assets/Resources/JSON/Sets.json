@@ -8,7 +8,8 @@
           "TestLine2"
         ],
         "pickOne": false,
-        "playerChoice":  false
+        "playerChoice": false,
+        "nextSet": null
       },
       {
         "setID": "TestSet2",
@@ -17,7 +18,8 @@
           "TestLine4"
         ],
         "pickOne": false,
-        "playerChoice":  false
+        "playerChoice": false,
+        "nextSet":  null
       },
       {
         "setID": "TestRandom",
@@ -26,7 +28,8 @@
           "TestRandomLine2"
         ],
         "pickOne": true,
-        "playerChoice":  false
+        "playerChoice": false,
+        "nextSet":  null
       }
     ]
 }

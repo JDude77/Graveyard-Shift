@@ -5,6 +5,9 @@ using System.Collections.Generic;
 public class Conversation
 {
     public string conversationID;
+
+    public string speakerID;
+
     public string[] setIDs;
 }
 

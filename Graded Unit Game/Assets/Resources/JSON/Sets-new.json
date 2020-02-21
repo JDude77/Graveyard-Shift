@@ -1,0 +1,47 @@
+{
+    "sets": 
+    [
+        {
+            "setID": "TestSet1",
+            "setLinks": [
+                {
+                    "lineID": "TestLine1",
+                    "nextSet": "TestSet2"
+                }
+            ],
+            "speaker": "NPC"
+        },
+        {
+            "setID": "TestSet2",
+            "setLinks": [
+                {
+                    "lineID": "TestLine2",
+                    "nextSet":  "TestRandom"
+                }
+            ],
+            "speaker": "NPC"
+        },
+        {
+            "setID": "TestRandom",
+            "setLinks": [
+                { "lineID": "RandomLine1" },
+                { "lineID": "RandomLine2" }
+            ],
+            "speaker": "NPC"
+        },
+        {
+            "setID": "PlayerChoice",
+            "setLinks": [
+                {
+                    "lineID": "RandomLine1",
+                    "nextSet": "TestSet2"
+                },
+                {
+                    "lineID": "RandomLine2",
+                    "nextSet": "TestSet1"
+                }
+            ],
+            "speaker": "PLAYER"
+        }
+    ]
+}
