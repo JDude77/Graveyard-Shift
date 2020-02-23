@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ConversationHUD : MonoBehaviour
 {
@@ -12,8 +13,8 @@ public class ConversationHUD : MonoBehaviour
     private SpeakingNPC playerData, npcData;
     private Line currentLine;
     private Image portrait;
-    private Text speakerName, lineInBox;
-    private Text[] linesForPlayer;
+    private TextMeshProUGUI speakerName, lineInBox;
+    private TextMeshProUGUI[] linesForPlayer;
     #endregion
 
     #region Getters & Setters
@@ -37,13 +38,13 @@ public class ConversationHUD : MonoBehaviour
     }//End Portrait Setter
 
     //Name Getter
-    public Text getName()
+    public TextMeshProUGUI getName()
     {
         return speakerName;
     }//End Name Getter
 
     //Name Setter
-    public void setName(Text name)
+    public void setName(TextMeshProUGUI name)
     {
         this.speakerName = name;
     }//End Name Setter
@@ -56,13 +57,13 @@ public class ConversationHUD : MonoBehaviour
     }//End Name Setter
 
     //LineInBox Getter
-    public Text getLineInBox()
+    public TextMeshProUGUI getLineInBox()
     {
         return lineInBox;
     }//End LineInBox Getter
 
     //LineInBox Setter
-    public void setLineInBox(Text lineInBox)
+    public void setLineInBox(TextMeshProUGUI lineInBox)
     {
         this.lineInBox = lineInBox;
     }//End LineInBox Setter
@@ -75,13 +76,13 @@ public class ConversationHUD : MonoBehaviour
     }//End LineInBox Setter
 
     //LinesForPlayer Getter
-    public Text[] getLinesForPlayer()
+    public TextMeshProUGUI[] getLinesForPlayer()
     {
         return linesForPlayer;
     }//End LinesForPlayer Getter
 
     //LinesForPlayer Setter
-    public void setLinesForPlayer(Text[] linesForPlayer)
+    public void setLinesForPlayer(TextMeshProUGUI[] linesForPlayer)
     {
         this.linesForPlayer = linesForPlayer;
     }//End LinesForPlayer Setter
@@ -118,8 +119,8 @@ public class ConversationHUD : MonoBehaviour
                 switch(child.name)
                 {
                     case "Portrait": portrait = child.gameObject.GetComponent<Image>(); break;
-                    case "Name": speakerName = child.gameObject.GetComponent<Text>(); break;
-                    case "Line": lineInBox = child.gameObject.GetComponent<Text>(); break;
+                    case "Name": speakerName = child.gameObject.GetComponent<TextMeshProUGUI>(); break;
+                    case "Line": lineInBox = child.gameObject.GetComponent<TextMeshProUGUI>(); break;
                 }//End switch
             }//End for
         }//End while

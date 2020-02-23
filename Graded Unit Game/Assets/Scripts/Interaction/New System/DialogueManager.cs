@@ -8,28 +8,49 @@ public class DialogueManager : MonoBehaviour
     private SpeakingNPC playerData, NPCData;
     private JSONHolder allData;
     private GameStateShell gameState;
+    private Conversation conversation;
+    private Set set;
+    private List<Line> lines;
+    private bool conversationIsOver;
+    //Could be either CurrentDialogue or direct link to Conversation HUD
+    private CurrentDialogue currentDialogue;
+    private UIManager uiManager;
     #endregion
 
     #region Behaviours
     //Get the values that will always need to be carried by the dialogue manager
     private void Start()
     {
+        conversationIsOver = true;
         allData = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<JSONHolder>();
         playerData = allData.getSpeaker("Player");
         gameState = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameState>().currentGameState;
+        uiManager = GameObject.FindGameObjectWithTag("HUD").GetComponent<UIManager>();
     }//End Start
+
+    private void Update()
+    {
+        if(conversationIsOver)
+        {
+            uiManager.setHUD("exploration");
+        }//End if
+        else
+        {
+            uiManager.setHUD("conversation");
+        }//End else
+    }//End Update
 
     //Start a new conversation with an NPC
     public void startDialogue(GameObject npcGameObject)
     {
         //Set the conversation being over variable to false
-        bool conversationIsOver = false;
+        conversationIsOver = false;
         //Get NPC speaker data
         NPCData = allData.getSpeaker(npcGameObject.name);
         //Find the relevant conversation
-        Conversation conversation = allData.findConversation(NPCData, gameState);
-        Set set = null;
-        List<Line> lines = new List<Line>();
+        conversation = allData.findConversation(NPCData, gameState);
+        set = null;
+        lines = new List<Line>();
         if (!conversationIsOver)
         {
             set = getNextSet(conversation, set);
@@ -85,7 +106,21 @@ public class DialogueManager : MonoBehaviour
 
     private void runLines(List<Line> lines)
     {
-        
+        Line line = lines[0];
+        //runDialogueScript(line.doBeforeLine);
+        AudioSource audioSource = new AudioSource();
+        audioSource.PlayOneShot(line.audioClip);
+        currentDialogue = new CurrentDialogue(line, NPCData);
+        currentDialogue.speakLine(line.text);
+
+        //TODO Pass information to whatever is updating the UI and making text scroll in character by character
+        //runDialogueScript(line.doAfterLine);
+    
     }//End runLines
+
+    public void nextLine()
+    {
+
+    }
     #endregion
 }

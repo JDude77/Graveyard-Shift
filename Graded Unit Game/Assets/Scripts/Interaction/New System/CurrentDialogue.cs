@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 //This is what will pass on the information to the dialogue HUD
-public class CurrentDialogue : MonoBehaviour
+public class CurrentDialogue
 {
     #region Attributes
     #region Data To Pass
@@ -17,6 +17,8 @@ public class CurrentDialogue : MonoBehaviour
     private Sprite currentImage;
     //The sound to play while text scrolls in
     private AudioClip textBlip;
+    //Audio source to hold the blips
+    private AudioSource blipSource;
     //Typing speed
     private float typingSpeed = 0.01f;
     #endregion
@@ -29,10 +31,23 @@ public class CurrentDialogue : MonoBehaviour
     #endregion
 
     #region Behaviours
-    private void Start()
+    public CurrentDialogue(Line line, SpeakingNPC npc)
     {
-        StartCoroutine(Type());
-    }//End Start
+        //Set up all CurrentDialogue variables with Line data
+        conversationHUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<ConversationHUD>();
+        currentLine = line.text;
+        currentName = npc.speakerName;
+        currentImage = npc.portrait;
+        textBlip = npc.voice;
+        //lineDisplay = conversationHUD.gameObject.GetComponentsInChildren<TextMeshProUGUI>()[1];
+        blipSource = new AudioSource();
+    }//End Constructor
+
+    public void speakLine (string currentLine)
+    {
+        this.currentLine = currentLine;
+        Type();
+    }//End speakLine
 
     IEnumerator Type()
     {
@@ -41,6 +56,11 @@ public class CurrentDialogue : MonoBehaviour
         {
             //Add a character from it to the displayed text
             lineDisplay.text += letter;
+            //Play speech blip
+            if (textBlip != null)
+            {
+                blipSource.PlayOneShot(textBlip);
+            }//End if
             //Wait before adding the next one
             yield return new WaitForSeconds(typingSpeed);
         }//End foreach

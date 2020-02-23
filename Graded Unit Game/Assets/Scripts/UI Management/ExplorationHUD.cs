@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,11 +11,11 @@ public class ExplorationHUD : MonoBehaviour
     [SerializeField]
     private GameObject nameObject;
     [SerializeField]
-    private Text nameText;
+    private TextMeshProUGUI nameText;
     [SerializeField]
     private GameObject verbObject;
     [SerializeField]
-    private Text verbText;
+    private TextMeshProUGUI verbText;
     [SerializeField]
     private GameObject cursorObject;
     private Image cursorImage;
@@ -44,10 +45,10 @@ public class ExplorationHUD : MonoBehaviour
                 }//End switch
             }//End for
         }//End while
-        nameText = nameObject.GetComponent<Text>();
+        nameText = nameObject.GetComponent<TextMeshProUGUI>();
         //Get the verb object and the text within it
         
-        verbText = verbObject.GetComponent<Text>();
+        verbText = verbObject.GetComponent<TextMeshProUGUI>();
         //Get the cursor object and the image within it
         
         cursorImage = cursorObject.GetComponent<Image>();

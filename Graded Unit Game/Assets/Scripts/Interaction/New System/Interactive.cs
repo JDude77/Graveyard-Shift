@@ -9,6 +9,7 @@ public class Interactive : MonoBehaviour
     private bool isInteractible, isInteracting;
     private string[] modes = {"Conversation", "Action", "Take", "Portal", "Default"};
     private string interactionMode;
+    [SerializeField]
     private GameObject gameManager;
     [SerializeField]
     private string displayName;
@@ -61,7 +62,7 @@ public class Interactive : MonoBehaviour
         switch(gameObject.tag.ToString())
         {
             case "Conversation Partner":
-                interactionMode = modes[0];
+                changeInteractionMode("conversation");
                 break;
         }//End switch
         gameManager = GameObject.FindGameObjectWithTag("Game Manager");
@@ -109,7 +110,6 @@ public class Interactive : MonoBehaviour
             {
                 case "Conversation":
                     gameManager.GetComponent<DialogueManager>().startDialogue(this.gameObject);
-                    gameManager.GetComponent<ConversationManager>().converse(this.gameObject);
                     break;
                 case "Action":
                     gameManager.GetComponent<Action>();

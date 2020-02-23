@@ -171,21 +171,24 @@ public class JSONHolder : MonoBehaviour
     //Find a conversation with the given game state
     public Conversation findConversation(SpeakingNPC npc, GameStateShell gameState)
     {
+        Conversation result = null;
         List<Conversation> convosToSearch = new List<Conversation>();
-        foreach(Conversation conversation in conversations.Values)
+        foreach (Conversation conversation in conversations.Values)
         {
-            if(conversation.speakerID.Equals(npc.speakerID))
+            result = conversation;
+            break;
+            if (conversation.speakerID.Equals(npc.speakerID))
             {
                 convosToSearch.Add(conversation);
             }//End if
         }//End foreach
         bool spoken;
         gameState.interactedWithAtLeastOnce.TryGetValue(npc.speakerID, out spoken);
-        if(!spoken)
+        if (!spoken)
         {
-            
+
         }//End if
-        return conversation;
+        return result;
     }//End findConversationWithGameState
     #endregion
 }

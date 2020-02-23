@@ -8,7 +8,7 @@ public class Set
 
     public SetLink[] setLinks;
 
-    public IEnumerator speaker;
+    public string speaker;
 }
 
 [System.Serializable]
