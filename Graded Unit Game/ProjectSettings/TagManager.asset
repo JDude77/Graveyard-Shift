@@ -10,6 +10,8 @@ TagManager:
   - Exploration HUD
   - HUD
   - Conversation Partner
+  - Dialogue Box
+  - Player Choices
   layers:
   - Default
   - TransparentFX

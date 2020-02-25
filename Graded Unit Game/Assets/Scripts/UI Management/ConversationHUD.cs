@@ -8,7 +8,7 @@ public class ConversationHUD : MonoBehaviour
 {
     #region Attributes
     [SerializeField]
-    private GameObject convoHUDObject;
+    private GameObject convoHUDObject, playerSpeakingDisplay, npcSpeakingDisplay;
     private JSONHolder jsonHolder;
     private SpeakingNPC playerData, npcData;
     private Line currentLine;
@@ -134,20 +134,15 @@ public class ConversationHUD : MonoBehaviour
             //If NPC is talking
             if(!speakerName.text.Equals(playerData.speakerName))
             {
-
+                playerSpeakingDisplay.SetActive(false);
+                npcSpeakingDisplay.SetActive(true);
             }//End if
             //If it's a player choice scenario
             else
             {
-
+                npcSpeakingDisplay.SetActive(false);
+                playerSpeakingDisplay.SetActive(true);
             }//End else
         }//End if
     }//End Update
-
-    #region Behaviours
-    public void updateSpeaker()
-    {
-
-    }//End updateSpeaker
-    #endregion
 }

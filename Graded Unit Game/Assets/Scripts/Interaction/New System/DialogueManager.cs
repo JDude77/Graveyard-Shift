@@ -51,13 +51,18 @@ public class DialogueManager : MonoBehaviour
         conversation = allData.findConversation(NPCData, gameState);
         set = null;
         lines = new List<Line>();
-        if (!conversationIsOver)
+        while (!conversationIsOver)
         {
-            set = getNextSet(conversation, set);
-            lines = getNextLines(set);
-            runLines(lines);
+            runDialogue();
         }//End if
     }//End startDialogue
+
+    private void runDialogue()
+    {
+        set = getNextSet(conversation, set);
+        lines = getNextLines(set);
+        runLines(lines);
+    }//End runDialogue
 
     private Set getNextSet(Conversation conversation, Set set)
     {
@@ -117,10 +122,5 @@ public class DialogueManager : MonoBehaviour
         //runDialogueScript(line.doAfterLine);
     
     }//End runLines
-
-    public void nextLine()
-    {
-
-    }
     #endregion
 }
