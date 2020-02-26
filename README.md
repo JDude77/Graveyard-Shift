@@ -18,3 +18,9 @@ Upload 2 Has The Following Features:
 Upload 3 Has The Following Features:
   - Beginnings of game state management code
     - Dictionaries of booleans holding relevant information
+
+Getting Closer Has The Following Features:
+ - Most of the dialogue system working
+  - Still needing done are the HUD, player choices and "press [BUTTON] to progress" functionality
+ - Some 3D models in place
+  - None yet animated
