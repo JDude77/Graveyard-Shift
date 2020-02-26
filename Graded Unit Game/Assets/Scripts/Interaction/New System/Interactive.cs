@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Interact : MonoBehaviour
+public class Interactive : MonoBehaviour
 {
     #region Attributes
     [SerializeField]
     private bool isInteractible, isInteracting;
     private string[] modes = {"Conversation", "Action", "Take", "Portal", "Default"};
     private string interactionMode;
+    [SerializeField]
     private GameObject gameManager;
     [SerializeField]
     private string displayName;
@@ -58,33 +59,42 @@ public class Interact : MonoBehaviour
         isInteracting = false;
         //Switch out below line for tag-checking switch statement
         interactionMode = modes[0];
+        switch(gameObject.tag.ToString())
+        {
+            case "Conversation Partner":
+                changeInteractionMode("conversation");
+                break;
+        }//End switch
         gameManager = GameObject.FindGameObjectWithTag("Game Manager");
     }//End Start
 
-    //Change appropriate variables for interaction mode
-    private void Update()
+    #region Behaviours
+    public void changeInteractionMode(string mode)
     {
-        switch(interactionMode)
+        switch (mode.ToLower())
         {
-            case "Conversation":
+            case "conversation":
+                interactionMode = modes[0];
                 displayVerb = "Talk";
                 break;
-            case "Action":
+            case "action":
+                interactionMode = modes[1];
                 displayVerb = "Use";
                 break;
-            case "Take":
+            case "take":
+                interactionMode = modes[2];
                 displayVerb = "Take";
                 break;
-            case "Portal":
+            case "portal":
+                interactionMode = modes[3];
                 displayVerb = "Open Portal";
                 break;
             default:
                 Debug.Log("Error: No interaction mode set for " + name + ".");
                 break;
         }//End switch
-    }//End Update
+    }//End changeInteractionMode
 
-    #region Behaviours
     public void interact()
     {
         //If is set to not be interactible right now, don't interact
@@ -99,7 +109,7 @@ public class Interact : MonoBehaviour
             switch(interactionMode)
             {
                 case "Conversation":
-                    gameManager.GetComponent<ConversationManager>().converse(this.gameObject);
+                    gameManager.GetComponent<DialogueManager>().startDialogue(this.gameObject);
                     break;
                 case "Action":
                     gameManager.GetComponent<Action>();

@@ -1,32 +1,47 @@
 {
     "sets": 
     [
-      {
-        "setID": "TestSet1",
-        "lineIDs": [
-          "TestLine1",
-          "TestLine2"
-        ],
-        "pickOne": false,
-        "playerChoice":  false
-      },
-      {
-        "setID": "TestSet2",
-        "lineIDs": [
-          "TestLine3",
-          "TestLine4"
-        ],
-        "pickOne": false,
-        "playerChoice":  false
-      },
-      {
-        "setID": "TestRandom",
-        "lineIDs": [
-          "TestRandomLine1",
-          "TestRandomLine2"
-        ],
-        "pickOne": true,
-        "playerChoice":  false
-      }
+        {
+            "setID": "TestSet1",
+            "setLines": [
+                {
+                    "lineID": "TestLine1",
+                    "nextSet": "TestSet2"
+                }
+            ],
+            "speaker": "NPC"
+        },
+        {
+            "setID": "TestSet2",
+            "setLines": [
+                {
+                    "lineID": "TestLine2",
+                    "nextSet":  "TestRandom"
+                }
+            ],
+            "speaker": "NPC"
+        },
+        {
+            "setID": "TestRandom",
+            "setLines": [
+                { "lineID": "TestRandom1" },
+                { "lineID": "TestRandom2" }
+            ],
+            "speaker": "NPC"
+        },
+        {
+            "setID": "PlayerChoice",
+            "setLines": [
+                {
+                    "lineID": "RandomLine1",
+                    "nextSet": "TestSet2"
+                },
+                {
+                    "lineID": "RandomLine2",
+                    "nextSet": "TestSet1"
+                }
+            ],
+            "speaker": "PLAYER"
+        }
     ]
 }

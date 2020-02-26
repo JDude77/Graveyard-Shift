@@ -1,0 +1,229 @@
+fileFormatVersion: 2
+guid: 68218270941b97e448fd1f87a29eb05c
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Ankle.l
+    100002: Ankle.r
+    100004: Ankle.r_end
+    100006: Armature
+    100008: Base
+    100010: Bicep.l
+    100012: Bicep.r
+    100014: Foot.l
+    100016: Foot.l_end
+    100018: Forearm.l
+    100020: Forearm.r
+    100022: Hand.l
+    100024: Hand.r
+    100026: Head
+    100028: Head_end
+    100030: //RootNode
+    100032: Illden
+    100034: Index Lower.l
+    100036: Index Lower.r
+    100038: Index Middle.l
+    100040: Index Middle.r
+    100042: Index Upper.l
+    100044: Index Upper.l_end
+    100046: Index Upper.r
+    100048: Index Upper.r_end
+    100050: Lower Spine
+    100052: Middle Lower.l
+    100054: Middle Lower.r
+    100056: Middle Middle.l
+    100058: Middle Middle.r
+    100060: Middle Upper.l
+    100062: Middle Upper.l_end
+    100064: Middle Upper.r
+    100066: Middle Upper.r_end
+    100068: Neck
+    100070: Pelvis
+    100072: Pinky Lower.l
+    100074: Pinky Lower.r
+    100076: Pinky Middle.l
+    100078: Pinky Middle.r
+    100080: Pinky Upper.l
+    100082: Pinky Upper.l_end
+    100084: Pinky Upper.r
+    100086: Pinky Upper.r_end
+    100088: Ring Lower.l
+    100090: Ring Lower.r
+    100092: Ring Middle.l
+    100094: Ring Middle.r
+    100096: Ring Upper.l
+    100098: Ring Upper.l_end
+    100100: Ring Upper.r
+    100102: Ring Upper.r_end
+    100104: Shin.l
+    100106: Shin.r
+    100108: Shoulder.l
+    100110: Shoulder.r
+    100112: Thigh.l
+    100114: Thigh.r
+    100116: Thumb Lower.l
+    100118: Thumb Lower.r
+    100120: Thumb Middle.l
+    100122: Thumb Middle.r
+    100124: Thumb Upper.l
+    100126: Thumb Upper.l_end
+    100128: Thumb Upper.r
+    100130: Thumb Upper.r_end
+    100132: Upper Spine
+    400000: Ankle.l
+    400002: Ankle.r
+    400004: Ankle.r_end
+    400006: Armature
+    400008: Base
+    400010: Bicep.l
+    400012: Bicep.r
+    400014: Foot.l
+    400016: Foot.l_end
+    400018: Forearm.l
+    400020: Forearm.r
+    400022: Hand.l
+    400024: Hand.r
+    400026: Head
+    400028: Head_end
+    400030: //RootNode
+    400032: Illden
+    400034: Index Lower.l
+    400036: Index Lower.r
+    400038: Index Middle.l
+    400040: Index Middle.r
+    400042: Index Upper.l
+    400044: Index Upper.l_end
+    400046: Index Upper.r
+    400048: Index Upper.r_end
+    400050: Lower Spine
+    400052: Middle Lower.l
+    400054: Middle Lower.r
+    400056: Middle Middle.l
+    400058: Middle Middle.r
+    400060: Middle Upper.l
+    400062: Middle Upper.l_end
+    400064: Middle Upper.r
+    400066: Middle Upper.r_end
+    400068: Neck
+    400070: Pelvis
+    400072: Pinky Lower.l
+    400074: Pinky Lower.r
+    400076: Pinky Middle.l
+    400078: Pinky Middle.r
+    400080: Pinky Upper.l
+    400082: Pinky Upper.l_end
+    400084: Pinky Upper.r
+    400086: Pinky Upper.r_end
+    400088: Ring Lower.l
+    400090: Ring Lower.r
+    400092: Ring Middle.l
+    400094: Ring Middle.r
+    400096: Ring Upper.l
+    400098: Ring Upper.l_end
+    400100: Ring Upper.r
+    400102: Ring Upper.r_end
+    400104: Shin.l
+    400106: Shin.r
+    400108: Shoulder.l
+    400110: Shoulder.r
+    400112: Thigh.l
+    400114: Thigh.r
+    400116: Thumb Lower.l
+    400118: Thumb Lower.r
+    400120: Thumb Middle.l
+    400122: Thumb Middle.r
+    400124: Thumb Upper.l
+    400126: Thumb Upper.l_end
+    400128: Thumb Upper.r
+    400130: Thumb Upper.r_end
+    400132: Upper Spine
+    2100000: No Name
+    4300000: Illden
+    9500000: //RootNode
+    13700000: Illden
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

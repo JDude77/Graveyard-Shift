@@ -3,6 +3,7 @@
     [
         {
             "conversationID": "TestConversation1",
+            "speakerID":  "Janice",
             "setIDs": [
               "TestSet1",
               "TestSet2",

@@ -2,99 +2,134 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ConversationHUD : MonoBehaviour
 {
     #region Attributes
     [SerializeField]
-    private GameObject convoHUDObject;
+    private GameObject convoHUDObject, playerSpeakingDisplay, npcSpeakingDisplay;
     private JSONHolder jsonHolder;
     private SpeakingNPC playerData, npcData;
-    private Line currentLine;
-    private Image portrait;
-    private Text speakerName, lineInBox;
-    private Text[] linesForPlayer;
+    private CurrentDialogue currentDialogue;
+    private Image portraitNPCDisplay, portraitPlayerDisplay;
+    private TextMeshProUGUI speakerNameNPCDisplay, lineInBoxNPCDisplay, speakerNamePlayerDisplay, lineInBoxPlayerDisplay;
     #endregion
 
     #region Getters & Setters
-    //Portrait Getter
-    public Image getPortrait()
+    //NPC Portrait Getter
+    public Image getNPCPortrait()
     {
-        return portrait;
+        return portraitNPCDisplay;
     }//End Portrait Getter
 
-    //Portrait Setter
-    public void setPortrait(Image portrait)
+    //NPC Portrait Setter
+    public void setNPCPortrait(Image portrait)
     {
-        this.portrait = portrait;
+        this.portraitNPCDisplay = portrait;
     }//End Portrait Setter
 
-    //Just-In-Case Portrait Sprite Setter
-    public void setPortrait(Sprite portrait)
+    //Just-In-Case NPC Portrait Sprite Setter
+    public void setNPCPortrait(Sprite portrait)
     {
-        Debug.LogWarning("You asked setPortrait to take in a sprite. It needs an image.");
-        this.portrait.sprite = portrait;
+        Debug.LogWarning("You asked setNPCPortrait to take in a sprite. It needs an image.");
+        this.portraitNPCDisplay.sprite = portrait;
     }//End Portrait Setter
 
-    //Name Getter
-    public Text getName()
+    //Just-In-Case Player Portrait Sprite Setter
+    public void setPlayerPortrait(Sprite portrait)
     {
-        return speakerName;
+        Debug.LogWarning("You asked setPlayerPortrait to take in a sprite. It needs an image.");
+        this.portraitPlayerDisplay.sprite = portrait;
+    }//End Portrait Setter
+
+    //Player Portrait Getter
+    public Image getPlayerPortrait()
+    {
+        return portraitPlayerDisplay;
+    }//End Portrait Getter
+
+    //Player Portrait Setter
+    public void setPlayerPortrait(Image portrait)
+    {
+        this.portraitPlayerDisplay = portrait;
+    }//End Portrait Setter
+
+    //NPC Name Getter
+    public TextMeshProUGUI getNPCName()
+    {
+        return speakerNameNPCDisplay;
     }//End Name Getter
 
-    //Name Setter
-    public void setName(Text name)
+    //NPC Name Setter
+    public void setNPCName(TextMeshProUGUI name)
     {
-        this.speakerName = name;
+        this.speakerNameNPCDisplay = name;
     }//End Name Setter
 
-    //Just-In-Case Name String Setter
-    public void setName(string name)
+    //Just-In-Case NPC Name String Setter
+    public void setNPCName(string name)
     {
-        Debug.LogWarning("You asked setName to take in a string. It needs a Text asset.");
-        this.speakerName.text = name;
+        Debug.LogWarning("You asked setNPCName to take in a string. It needs a Text asset.");
+        this.speakerNameNPCDisplay.text = name;
     }//End Name Setter
 
-    //LineInBox Getter
-    public Text getLineInBox()
+    //Player Name Getter
+    public TextMeshProUGUI getPlayerName()
     {
-        return lineInBox;
+        return speakerNamePlayerDisplay;
+    }//End Name Getter
+
+    //Player Name Setter
+    public void setPlayerName(TextMeshProUGUI name)
+    {
+        this.speakerNamePlayerDisplay = name;
+    }//End Name Setter
+
+    //Just-In-Case Player Name String Setter
+    public void setPlayerName(string name)
+    {
+        Debug.LogWarning("You asked setPlayerName to take in a string. It needs a Text asset.");
+        this.speakerNamePlayerDisplay.text = name;
+    }//End Name Setter
+
+    //NPC LineInBox Getter
+    public TextMeshProUGUI getNPCLineInBox()
+    {
+        return lineInBoxNPCDisplay;
     }//End LineInBox Getter
 
-    //LineInBox Setter
-    public void setLineInBox(Text lineInBox)
+    //NPC LineInBox Setter
+    public void setNPCLineInBox(TextMeshProUGUI lineInBox)
     {
-        this.lineInBox = lineInBox;
+        this.lineInBoxNPCDisplay = lineInBox;
     }//End LineInBox Setter
 
-    //Just-In-Case LineInBox String Setter
-    public void setLineInBox(string lineInBox)
+    //Just-In-Case NPC LineInBox String Setter
+    public void setNPCLineInBox(string lineInBox)
     {
-        Debug.LogWarning("You asked setLineInBox to take in a string. It needs a Text asset.");
-        this.lineInBox.text = lineInBox;
+        Debug.LogWarning("You asked setNPCLineInBox to take in a string. It needs a Text asset.");
+        this.lineInBoxNPCDisplay.text = lineInBox;
     }//End LineInBox Setter
 
-    //LinesForPlayer Getter
-    public Text[] getLinesForPlayer()
+    //Player LineInBox Getter
+    public TextMeshProUGUI getPlayerLineInBox()
     {
-        return linesForPlayer;
-    }//End LinesForPlayer Getter
+        return lineInBoxPlayerDisplay;
+    }//End LineInBox Getter
 
-    //LinesForPlayer Setter
-    public void setLinesForPlayer(Text[] linesForPlayer)
+    //Player LineInBox Setter
+    public void setPlayerLineInBox(TextMeshProUGUI lineInBox)
     {
-        this.linesForPlayer = linesForPlayer;
-    }//End LinesForPlayer Setter
+        this.lineInBoxPlayerDisplay = lineInBox;
+    }//End LineInBox Setter
 
-    //Just-In-Case LinesForPlayer String Array Setter
-    public void setLinesForPlayer(string[] linesForPlayer)
+    //Just-In-Case Player LineInBox String Setter
+    public void setPlayerLineInBox(string lineInBox)
     {
-        Debug.LogWarning("You asked setLinesForPlayer to take in a string array. It needs a Text asset array.");
-        for(int i = 0; i < this.linesForPlayer.Length; i++)
-        {
-            this.linesForPlayer[i].text = linesForPlayer[i];
-        }//End for
-    }//End LinesForPlayer Setter
+        Debug.LogWarning("You asked setPlayerLineInBox to take in a string. It needs a Text asset.");
+        this.lineInBoxPlayerDisplay.text = lineInBox;
+    }//End LineInBox Setter
 
     //NPC Speaker Data Setter
     public void setNPCData(SpeakingNPC npcData)
@@ -105,22 +140,49 @@ public class ConversationHUD : MonoBehaviour
 
     private void Start()
     {
+        //Create blank currentDialogue
+        currentDialogue = null;
         //Get access to the JSON Holder
         jsonHolder = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<JSONHolder>();
         //Get the player speaker data
         playerData = jsonHolder.getSpeaker("Player");
         //Get the portrait, name, and line objects from the UI
-        while(portrait == null || speakerName == null || lineInBox == null)
+        while(portraitNPCDisplay == null || speakerNameNPCDisplay == null || lineInBoxNPCDisplay == null || portraitPlayerDisplay == null || speakerNamePlayerDisplay == null || lineInBoxPlayerDisplay == null)
         {
             for(int i = 0; i < convoHUDObject.transform.childCount; i++)
             {
                 var child = convoHUDObject.transform.GetChild(i);
                 switch(child.name)
                 {
-                    case "Portrait": portrait = child.gameObject.GetComponent<Image>(); break;
-                    case "Name": speakerName = child.gameObject.GetComponent<Text>(); break;
-                    case "Line": lineInBox = child.gameObject.GetComponent<Text>(); break;
+                    case "NPC Dialogue Box":
+                        npcSpeakingDisplay = child.gameObject;
+                        for (int j = 0; j < npcSpeakingDisplay.transform.childCount; j++)
+                        {
+                            var npcChild = npcSpeakingDisplay.transform.GetChild(j);
+                            switch (npcChild.name)
+                            {
+                                case "Portrait": portraitNPCDisplay = npcChild.gameObject.GetComponent<Image>(); break;
+                                case "Name": speakerNameNPCDisplay = npcChild.gameObject.GetComponent<TextMeshProUGUI>(); break;
+                                case "Line": lineInBoxNPCDisplay = npcChild.gameObject.GetComponent<TextMeshProUGUI>(); break;
+                            }//End switch
+                        }//End for
+                        break;
+                    case "Player Choices":
+                        playerSpeakingDisplay = child.gameObject;
+                        var playerDialogueBox = playerSpeakingDisplay.transform.GetChild(0);
+                        for (int j = 0; j < playerDialogueBox.transform.childCount; j++)
+                        {
+                            var playerChild = playerDialogueBox.transform.GetChild(j);
+                            switch (playerChild.name)
+                            {
+                                case "Portrait": portraitPlayerDisplay = playerChild.gameObject.GetComponent<Image>(); break;
+                                case "Name": speakerNamePlayerDisplay = playerChild.gameObject.GetComponent<TextMeshProUGUI>(); break;
+                                case "Line": lineInBoxPlayerDisplay = playerChild.gameObject.GetComponent<TextMeshProUGUI>(); break;
+                            }//End switch
+                        }//End for
+                        break;
                 }//End switch
+                child.gameObject.SetActive(false);
             }//End for
         }//End while
     }//End Start
@@ -130,23 +192,26 @@ public class ConversationHUD : MonoBehaviour
         //If the HUD as a whole is active
         if(convoHUDObject.activeSelf)
         {
-            //If NPC is talking
-            if(!speakerName.text.Equals(playerData.speakerName))
+            //If there is a current dialogue in existence
+            if (currentDialogue != null)
             {
-
+                //If NPC is talking
+                if (currentDialogue.getCurrentName().Equals("NPC"))
+                {
+                    playerSpeakingDisplay.SetActive(false);
+                    npcSpeakingDisplay.SetActive(true);
+                }//End if
+                 //If it's a player choice scenario
+                else if (currentDialogue.getCurrentName().Equals("PLAYER"))
+                {
+                    npcSpeakingDisplay.SetActive(false);
+                    playerSpeakingDisplay.SetActive(true);
+                }//End else if
+                else
+                {
+                    Debug.Log("This is running every time but the conversation HUD isn't on. Not good.");
+                }//End else
             }//End if
-            //If it's a player choice scenario
-            else
-            {
-
-            }//End else
         }//End if
     }//End Update
-
-    #region Behaviours
-    public void updateSpeaker()
-    {
-
-    }//End updateSpeaker
-    #endregion
 }

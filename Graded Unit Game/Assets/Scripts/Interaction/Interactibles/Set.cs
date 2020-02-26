@@ -6,11 +6,9 @@ public class Set
 {
     public string setID;
 
-    public string[] lineIDs;
+    public SetLine[] setLines;
 
-    public bool pickOne;
-
-    public bool playerChoice;
+    public string speaker;
 }
 
 [System.Serializable]

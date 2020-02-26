@@ -76,16 +76,51 @@ public class JSONHolder : MonoBehaviour
         return null;
     }//End Conversation Getter
 
-    internal Line getLineFromSet(int indexInLineIDs, Set set)
+    //Get a line held in a specific set
+    public Line getLineFromSet(int indexInSetLines, Set set)
     {
         //Get the line from a specific index in a set
-        return getLine(set.lineIDs[indexInLineIDs]);
+        if (getLine(set.setLines[indexInSetLines].lineID) != null)
+        {
+            return getLine(set.setLines[indexInSetLines].lineID);
+        }//End if
+        else
+        {
+            return null;
+        }//End else
     }//End Line From Set Getter
 
-    internal Set getSetFromConversation(int indexInSetIDs, Conversation convo)
+    //Get a set held in a specific conversation
+    public Set getSetFromConversation(int indexInSetIDs, Conversation convo)
     {
         //Get the set from a specific index in a conversation
-        return getSet(convo.setIDs[indexInSetIDs]);
+        if (indexInSetIDs < convo.setIDs.Length)
+        {
+            return getSet(convo.setIDs[indexInSetIDs]);
+        }//End if
+        else
+        {
+            return null;
+        }//End else
+    }//End Set From Conversation Getter
+
+    public Set getSetFromConversation(string nextSet, Conversation convo)
+    {
+        //Get the set using a specific ID pointer, checking it's in the given conversation
+        int index = 0;
+        while(index < convo.setIDs.Length)
+        {
+            if (convo.setIDs[index].Equals(nextSet))
+            {
+                return getSet(nextSet);
+            }//End if
+            else
+            {
+                index++;
+            }//End else
+        }//End while
+        Debug.LogError("Set ID " + nextSet + " not found in Conversation " + convo.conversationID + ".");
+        return null;
     }//End Set From Conversation Getter
 
     //Find and return a specific set
@@ -153,5 +188,28 @@ public class JSONHolder : MonoBehaviour
         Debug.LogError("Speaker with ID " + speakerID + " not found.");
         return null;
     }//End SpeakingNPC Getter
+
+    //Find a conversation with the given game state
+    public Conversation findConversation(SpeakingNPC npc, GameStateShell gameState)
+    {
+        Conversation result = null;
+        List<Conversation> convosToSearch = new List<Conversation>();
+        foreach (Conversation conversation in conversations.Values)
+        {
+            result = conversation;
+            break;
+            if (conversation.speakerID.Equals(npc.speakerID))
+            {
+                convosToSearch.Add(conversation);
+            }//End if
+        }//End foreach
+        bool spoken;
+        gameState.interactedWithAtLeastOnce.TryGetValue(npc.speakerID, out spoken);
+        if (!spoken)
+        {
+
+        }//End if
+        return result;
+    }//End findConversationWithGameState
     #endregion
 }
