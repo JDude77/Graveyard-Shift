@@ -20,7 +20,7 @@ Upload 3 Has The Following Features:
     - Dictionaries of booleans holding relevant information
 
 Getting Closer Has The Following Features:
- - Most of the dialogue system working
-  - Still needing done are the HUD, player choices and "press [BUTTON] to progress" functionality
- - Some 3D models in place
-  - None yet animated
+  - Most of the dialogue system working
+    - Still needing done are the HUD, player choices and "press [BUTTON] to progress" functionality
+  - Some 3D models in place
+    - None yet animated
