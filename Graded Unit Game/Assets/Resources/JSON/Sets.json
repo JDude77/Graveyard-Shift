@@ -3,7 +3,7 @@
     [
         {
             "setID": "TestSet1",
-            "setLinks": [
+            "setLines": [
                 {
                     "lineID": "TestLine1",
                     "nextSet": "TestSet2"
@@ -13,7 +13,7 @@
         },
         {
             "setID": "TestSet2",
-            "setLinks": [
+            "setLines": [
                 {
                     "lineID": "TestLine2",
                     "nextSet":  "TestRandom"
@@ -23,15 +23,15 @@
         },
         {
             "setID": "TestRandom",
-            "setLinks": [
-                { "lineID": "RandomLine1" },
-                { "lineID": "RandomLine2" }
+            "setLines": [
+                { "lineID": "TestRandom1" },
+                { "lineID": "TestRandom2" }
             ],
             "speaker": "NPC"
         },
         {
             "setID": "PlayerChoice",
-            "setLinks": [
+            "setLines": [
                 {
                     "lineID": "RandomLine1",
                     "nextSet": "TestSet2"

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 //This is what will pass on the information to the dialogue HUD
-public class CurrentDialogue
+public class CurrentDialogue : MonoBehaviour
 {
     #region Attributes
     #region Data To Pass
-    //The line to display now (NPC talking)
+    //The line to display now
     private string currentLine;
     //The name to display now
     private string currentName;
@@ -23,14 +24,51 @@ public class CurrentDialogue
     private float typingSpeed = 0.01f;
     #endregion
     #region Data Pass Locations
-    //The display used to show the text on screen
-    private TextMeshProUGUI lineDisplay;
+    //Player Choice Prefab
+    private GameObject dialogueChoicePrefab;
     //The Conversation HUD Manager
     private ConversationHUD conversationHUD;
     #endregion
     #endregion
 
+    #region Getters & Setters
+    public string getCurrentLine()
+    {
+        return currentLine;
+    }//End Current Line Getter
+
+    public void setCurrentLine(string currentLine)
+    {
+        this.currentLine = currentLine;
+    }//End Current Line Setter
+
+    public string getCurrentName()
+    {
+        return currentName;
+    }//End Current Name Getter
+
+    public void setCurrentName(string currentName)
+    {
+        this.currentName = currentName;
+    }//End Current Name Setter
+
+    public Sprite getCurrentImage()
+    {
+        return currentImage;
+    }//End Current Image Getter
+
+    public void setCurrentImage(Sprite currentImage)
+    {
+        this.currentImage = currentImage;
+    }//End Current Image Setter
+    #endregion
+
     #region Behaviours
+    private void Awake()
+    {
+        dialogueChoicePrefab = (GameObject) Resources.Load("Prefabs/Choice");
+    }//End Awake
+
     public CurrentDialogue(Line line, SpeakingNPC npc)
     {
         //Set up all CurrentDialogue variables with Line data
@@ -39,14 +77,13 @@ public class CurrentDialogue
         currentName = npc.speakerName;
         currentImage = npc.portrait;
         textBlip = npc.voice;
-        //lineDisplay = conversationHUD.gameObject.GetComponentsInChildren<TextMeshProUGUI>()[1];
-        blipSource = new AudioSource();
+        blipSource = Instantiate(new AudioSource(), GameObject.FindGameObjectWithTag("Player").transform);
     }//End Constructor
 
     public void speakLine (string currentLine)
     {
         this.currentLine = currentLine;
-        Type();
+        StartCoroutine(Type());
     }//End speakLine
 
     IEnumerator Type()
@@ -55,7 +92,7 @@ public class CurrentDialogue
         foreach(char letter in currentLine)
         {
             //Add a character from it to the displayed text
-            lineDisplay.text += letter;
+            //lineDisplay.text += letter;
             //Play speech blip
             if (textBlip != null)
             {

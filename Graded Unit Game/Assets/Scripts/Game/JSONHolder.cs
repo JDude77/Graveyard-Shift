@@ -76,30 +76,51 @@ public class JSONHolder : MonoBehaviour
         return null;
     }//End Conversation Getter
 
-    public Line getLineFromSet(int indexInSetLinks, Set set)
+    //Get a line held in a specific set
+    public Line getLineFromSet(int indexInSetLines, Set set)
     {
         //Get the line from a specific index in a set
-        return getLine(set.setLinks[indexInSetLinks].lineID);
+        if (getLine(set.setLines[indexInSetLines].lineID) != null)
+        {
+            return getLine(set.setLines[indexInSetLines].lineID);
+        }//End if
+        else
+        {
+            return null;
+        }//End else
     }//End Line From Set Getter
 
+    //Get a set held in a specific conversation
     public Set getSetFromConversation(int indexInSetIDs, Conversation convo)
     {
         //Get the set from a specific index in a conversation
-        return getSet(convo.setIDs[indexInSetIDs]);
+        if (indexInSetIDs < convo.setIDs.Length)
+        {
+            return getSet(convo.setIDs[indexInSetIDs]);
+        }//End if
+        else
+        {
+            return null;
+        }//End else
     }//End Set From Conversation Getter
 
     public Set getSetFromConversation(string nextSet, Conversation convo)
     {
         //Get the set using a specific ID pointer, checking it's in the given conversation
-        if (convo.setIDs.ToString().Contains(nextSet))
+        int index = 0;
+        while(index < convo.setIDs.Length)
         {
-            return getSet(nextSet);
-        }//End if
-        else
-        {
-            Debug.LogError("Set ID " + nextSet + " not found in Conversation " + convo.conversationID + ".");
-            return null;
-        }//End else
+            if (convo.setIDs[index].Equals(nextSet))
+            {
+                return getSet(nextSet);
+            }//End if
+            else
+            {
+                index++;
+            }//End else
+        }//End while
+        Debug.LogError("Set ID " + nextSet + " not found in Conversation " + convo.conversationID + ".");
+        return null;
     }//End Set From Conversation Getter
 
     //Find and return a specific set

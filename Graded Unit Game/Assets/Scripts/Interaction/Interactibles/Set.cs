@@ -6,7 +6,7 @@ public class Set
 {
     public string setID;
 
-    public SetLink[] setLinks;
+    public SetLine[] setLines;
 
     public string speaker;
 }

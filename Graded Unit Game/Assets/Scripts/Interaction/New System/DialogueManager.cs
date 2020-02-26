@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -59,9 +60,25 @@ public class DialogueManager : MonoBehaviour
 
     private void runDialogue()
     {
+        //Try to get the next set in the conversation
         set = getNextSet(conversation, set);
-        lines = getNextLines(set);
-        runLines(lines);
+        //If there is no next set in the conversation, the conversation is over
+        if (set != null)
+        {
+            lines = getNextLines(set);
+            if(set.speaker.Equals("PLAYER"))
+            {
+                
+            }//End if
+            else if(set.speaker.Equals("NPC"))
+            {
+                
+            }//End else if
+            else
+            {
+                Debug.LogError("ERROR IN SET JSON: PLAYER or NPC speaker marker in " + set.setID + " mistyped as " + set.speaker + ".");
+            }//End else
+        }//End if
     }//End runDialogue
 
     private Set getNextSet(Conversation conversation, Set set)
@@ -72,15 +89,23 @@ public class DialogueManager : MonoBehaviour
             return allData.getSetFromConversation(0, conversation);
         }//End if
         //Get specific next set pointed to by the current set
-        if(set.setLinks[0].nextSet != null)
+        if(set.setLines[0].nextSet != null)
         {
-            return allData.getSetFromConversation(set.setLinks[0].nextSet, conversation);
+            return allData.getSetFromConversation(set.setLines[0].nextSet, conversation);
         }//End if
         //Move on to the next set in the array
         else
         {
-            int index = System.Array.IndexOf(conversation.setIDs, set.setLinks[0].nextSet);
-            return allData.getSetFromConversation(index, conversation);
+            int index = System.Array.IndexOf(conversation.setIDs, set.setLines[0].nextSet);
+            if (index == -1)
+            {
+                conversationIsOver = true;
+                return null;
+            }//End else
+            else
+            {
+                return allData.getSetFromConversation(index, conversation);
+            }//End if
         }//End else
     }//End getNextSet
 
@@ -90,15 +115,15 @@ public class DialogueManager : MonoBehaviour
         //If the set is a player choice set, return all lines
         if(set.speaker.Equals("PLAYER"))
         {
-            for(int i = 0; i < set.setLinks.Length; i++)
+            for(int i = 0; i < set.setLines.Length; i++)
             {
                 lines.Add(allData.getLineFromSet(i, set));
             }//End for
         }//End if
         //If the set is a random choice set, return one line at random
-        else if(set.speaker.Equals("NPC") && set.setLinks.Length > 1)
+        else if(set.speaker.Equals("NPC") && set.setLines.Length > 1)
         {
-            int indexOfChoice = Random.Range(0, set.setLinks.Length - 1);
+            int indexOfChoice = UnityEngine.Random.Range(0, set.setLines.Length);
             lines.Add(allData.getLineFromSet(indexOfChoice, set));
         }//End if
         //If the set is a sequential choice set, return the one line available
@@ -108,19 +133,5 @@ public class DialogueManager : MonoBehaviour
         }//End else
         return lines;
     }//End getNextLine
-
-    private void runLines(List<Line> lines)
-    {
-        Line line = lines[0];
-        //runDialogueScript(line.doBeforeLine);
-        AudioSource audioSource = new AudioSource();
-        audioSource.PlayOneShot(line.audioClip);
-        currentDialogue = new CurrentDialogue(line, NPCData);
-        currentDialogue.speakLine(line.text);
-
-        //TODO Pass information to whatever is updating the UI and making text scroll in character by character
-        //runDialogueScript(line.doAfterLine);
-    
-    }//End runLines
     #endregion
 }

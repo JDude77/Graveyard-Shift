@@ -6,17 +6,17 @@ using TMPro;
 public class DialogueOption : MonoBehaviour
 {
     #region Attributes
-    private SetLink setLink;
+    private SetLine setLine;
     private TextMeshProUGUI text;
     #endregion
 
-    #region Constructor
-    public DialogueOption(SetLink setLink)
+    #region Getters & Setters
+    public void setDialogueOption(SetLine setLine)
     {
         JSONHolder jsonHolder = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<JSONHolder>();
-        this.setLink = setLink;
+        this.setLine = setLine;
         text = gameObject.GetComponentInChildren<TextMeshProUGUI>();
-        text.text = jsonHolder.getLine(setLink.lineID).text;
-    }//End Constructor
+        text.text = jsonHolder.getLine(setLine.lineID).text;
+    }//End Dialogue Option Setter
     #endregion
 }

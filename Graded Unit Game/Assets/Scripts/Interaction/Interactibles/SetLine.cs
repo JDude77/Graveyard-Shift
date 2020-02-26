@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 [System.Serializable]
-public class SetLink
+public class SetLine
 {
     public string lineID;
 
