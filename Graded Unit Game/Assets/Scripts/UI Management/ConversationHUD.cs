@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class ConversationHUD : MonoBehaviour
 {
@@ -136,6 +137,18 @@ public class ConversationHUD : MonoBehaviour
     {
         this.npcData = npcData;
     }//End NPC Data Setter
+
+    //Current Dialogue Getter
+    public CurrentDialogue getCurrentDialogue()
+    {
+        return currentDialogue;
+    }//End Current Dialogue Getter
+
+    //Current Dialogue Setter
+    public void setCurrentDialogue(CurrentDialogue currentDialogue)
+    {
+        this.currentDialogue = currentDialogue;
+    }//End Current Dialogue Setter
     #endregion
 
     private void Start()
@@ -147,7 +160,7 @@ public class ConversationHUD : MonoBehaviour
         //Get the player speaker data
         playerData = jsonHolder.getSpeaker("Player");
         //Get the portrait, name, and line objects from the UI
-        while(portraitNPCDisplay == null || speakerNameNPCDisplay == null || lineInBoxNPCDisplay == null || portraitPlayerDisplay == null || speakerNamePlayerDisplay == null || lineInBoxPlayerDisplay == null)
+        while (portraitNPCDisplay == null || speakerNameNPCDisplay == null || lineInBoxNPCDisplay == null || portraitPlayerDisplay == null || speakerNamePlayerDisplay == null || lineInBoxPlayerDisplay == null)
         {
             for(int i = 0; i < convoHUDObject.transform.childCount; i++)
             {
@@ -182,36 +195,39 @@ public class ConversationHUD : MonoBehaviour
                         }//End for
                         break;
                 }//End switch
-                child.gameObject.SetActive(false);
             }//End for
         }//End while
+        playerSpeakingDisplay.SetActive(false);
+        npcSpeakingDisplay.SetActive(false);
     }//End Start
 
     private void Update()
     {
         //If the HUD as a whole is active
-        if(convoHUDObject.activeSelf)
+        if(convoHUDObject.activeInHierarchy)
         {
-            //If there is a current dialogue in existence
-            if (currentDialogue != null)
+            //If NPC is talking
+            if (!currentDialogue.getCurrentName().Equals(playerData.speakerName))
             {
-                //If NPC is talking
-                if (currentDialogue.getCurrentName().Equals("NPC"))
-                {
-                    playerSpeakingDisplay.SetActive(false);
-                    npcSpeakingDisplay.SetActive(true);
-                }//End if
-                 //If it's a player choice scenario
-                else if (currentDialogue.getCurrentName().Equals("PLAYER"))
-                {
-                    npcSpeakingDisplay.SetActive(false);
-                    playerSpeakingDisplay.SetActive(true);
-                }//End else if
-                else
-                {
-                    Debug.Log("This is running every time but the conversation HUD isn't on. Not good.");
-                }//End else
+                playerSpeakingDisplay.SetActive(false);
+                npcSpeakingDisplay.SetActive(true);
             }//End if
+                //If it's a player choice scenario
+            else
+            {
+                npcSpeakingDisplay.SetActive(false);
+                playerSpeakingDisplay.SetActive(true);
+            }//End else
         }//End if
     }//End Update
+
+    public void displayDialogueOptions(List<GameObject> dialogueOptionObjects)
+    {
+        VerticalLayoutGroup choiceArea = playerSpeakingDisplay.GetComponentInChildren<VerticalLayoutGroup>();
+        GameObject choiceAreaObject = choiceArea.gameObject;
+        foreach (GameObject option in dialogueOptionObjects)
+        {
+            var newOption = Instantiate(option, choiceAreaObject.transform);
+        }//End foreach
+    }//End displayDialogueOptions
 }

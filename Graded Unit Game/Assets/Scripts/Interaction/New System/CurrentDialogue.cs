@@ -22,6 +22,8 @@ public class CurrentDialogue : MonoBehaviour
     private AudioSource blipSource;
     //Typing speed
     private float typingSpeed = 0.01f;
+    //Dialogue options for a player
+    private List<SetLine> dialogueOptions;
     #endregion
     #region Data Pass Locations
     //Player Choice Prefab
@@ -61,6 +63,16 @@ public class CurrentDialogue : MonoBehaviour
     {
         this.currentImage = currentImage;
     }//End Current Image Setter
+
+    public List<SetLine> getDialogueOptions()
+    {
+        return dialogueOptions;
+    }//End Dialogue Options Getter
+
+    public void setDialogueOptions(List<SetLine> dialogueOptions)
+    {
+        this.dialogueOptions = dialogueOptions;
+    }//End Dialogue Options Setter
     #endregion
 
     #region Behaviours
@@ -68,6 +80,11 @@ public class CurrentDialogue : MonoBehaviour
     {
         dialogueChoicePrefab = (GameObject) Resources.Load("Prefabs/Choice");
     }//End Awake
+
+    public CurrentDialogue()
+    {
+        conversationHUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<ConversationHUD>();
+    }//End public
 
     public CurrentDialogue(Line line, SpeakingNPC npc)
     {
@@ -77,13 +94,34 @@ public class CurrentDialogue : MonoBehaviour
         currentName = npc.speakerName;
         currentImage = npc.portrait;
         textBlip = npc.voice;
-        blipSource = Instantiate(new AudioSource(), GameObject.FindGameObjectWithTag("Player").transform);
     }//End Constructor
 
-    public void speakLine (string currentLine)
+    public void setUpDialogueOptions()
     {
-        this.currentLine = currentLine;
-        StartCoroutine(Type());
+        if (dialogueOptions.Count != 0)
+        {
+            List<GameObject> dialogueOptionObjects = new List<GameObject>();
+            for (int i = 0; i < dialogueOptions.Count; i++)
+            {
+                dialogueOptionObjects.Add(dialogueChoicePrefab);
+                dialogueOptionObjects[i].GetComponent<DialogueOption>().setDialogueOption(dialogueOptions[i]);
+            }//End for
+            conversationHUD.displayDialogueOptions(dialogueOptionObjects);
+        }//End if
+        else
+        {
+            Debug.LogError("There was a call to set up dialogue options, but there were no dialogue options set.");
+        }//End else
+    }//End setUpDialogueOptions
+
+    public void speakLine()
+    {
+        conversationHUD.setNPCLineInBox(currentLine);
+        conversationHUD.setNPCName(currentName);
+        conversationHUD.setNPCPortrait(currentImage);
+        conversationHUD.setCurrentDialogue(this);
+        //StopAllCoroutines();
+        //StartCoroutine(Type());
     }//End speakLine
 
     IEnumerator Type()

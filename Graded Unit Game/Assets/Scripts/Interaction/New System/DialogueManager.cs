@@ -52,32 +52,57 @@ public class DialogueManager : MonoBehaviour
         conversation = allData.findConversation(NPCData, gameState);
         set = null;
         lines = new List<Line>();
-        while (!conversationIsOver)
-        {
-            runDialogue();
-        }//End if
+        runDialogue();
     }//End startDialogue
 
     private void runDialogue()
     {
+        currentDialogue = new CurrentDialogue();
         //Try to get the next set in the conversation
         set = getNextSet(conversation, set);
-        //If there is no next set in the conversation, the conversation is over
-        if (set != null)
+        if (!conversationIsOver)
         {
-            lines = getNextLines(set);
-            if(set.speaker.Equals("PLAYER"))
+            //If there is no next set in the conversation, the conversation is over
+            if (set != null)
             {
-                
+                lines = getNextLines(set);
+                if (set.speaker.Equals("PLAYER"))
+                {
+                    //Set up the player choices and present them on the screen
+                    List<SetLine> dialogueOptions = new List<SetLine>();
+                    foreach (SetLine setLine in set.setLines)
+                    {
+                        dialogueOptions.Add(setLine);
+                    }//End foreach
+                    currentDialogue.setDialogueOptions(dialogueOptions);
+                    currentDialogue.setUpDialogueOptions();
+                    //Make currentDialogue deal with displaying the player choice
+                }//End if
+                else if (set.speaker.Equals("NPC"))
+                {
+                    //Display individual NPC line
+                    //currentDialogue.setCurrentImage(NPCData.portrait);
+                    currentDialogue.setCurrentLine(lines[0].text);
+                    if(gameState.characterNameIsKnown.TryGetValue(NPCData.speakerID, out bool nameIsKnown))
+                    {
+                        currentDialogue.setCurrentName(NPCData.speakerName);
+                    }//End if
+                    else
+                    {
+                        string unknownName = NPCData.speakerName;
+                        foreach(Char letter in NPCData.speakerName)
+                        {
+                            unknownName.Replace(letter, '?');
+                        }//End foreach
+                        currentDialogue.setCurrentName(unknownName);
+                    }//End else
+                    currentDialogue.speakLine();
+                }//End else if
+                else
+                {
+                    Debug.LogError("ERROR IN SET JSON: PLAYER or NPC speaker marker in " + set.setID + " mistyped as " + set.speaker + ".");
+                }//End else
             }//End if
-            else if(set.speaker.Equals("NPC"))
-            {
-                
-            }//End else if
-            else
-            {
-                Debug.LogError("ERROR IN SET JSON: PLAYER or NPC speaker marker in " + set.setID + " mistyped as " + set.speaker + ".");
-            }//End else
         }//End if
     }//End runDialogue
 
@@ -131,6 +156,10 @@ public class DialogueManager : MonoBehaviour
         {
             lines.Add(allData.getLineFromSet(0, set));
         }//End else
+        foreach (Line line in lines)
+        {
+            gameState.updateGameState(line.lineID);
+        }//End foreach
         return lines;
     }//End getNextLine
     #endregion

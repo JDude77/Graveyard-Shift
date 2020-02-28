@@ -109,7 +109,7 @@ public class Interactive : MonoBehaviour
             switch(interactionMode)
             {
                 case "Conversation":
-                    gameManager.GetComponent<DialogueManager>().startDialogue(this.gameObject);
+                    gameManager.GetComponent<DialogueManager>().startDialogue(gameObject);
                     break;
                 case "Action":
                     gameManager.GetComponent<Action>();

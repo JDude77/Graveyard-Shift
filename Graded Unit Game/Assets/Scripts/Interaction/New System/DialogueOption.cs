@@ -18,5 +18,10 @@ public class DialogueOption : MonoBehaviour
         text = gameObject.GetComponentInChildren<TextMeshProUGUI>();
         text.text = jsonHolder.getLine(setLine.lineID).text;
     }//End Dialogue Option Setter
+
+    public SetLine getSetLine()
+    {
+        return setLine;
+    }//End Set Line Getter
     #endregion
 }

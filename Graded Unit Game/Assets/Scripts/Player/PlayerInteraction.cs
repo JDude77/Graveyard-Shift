@@ -137,7 +137,6 @@ public class PlayerInteraction : MonoBehaviour
                         isInteracting = true;
                         player.GetComponentInChildren<MouseLook>().setSwivel(true);
                         other.GetComponent<Interactive>().interact();
-                        isInteracting = false;
                     }//End if
                     else
                     {

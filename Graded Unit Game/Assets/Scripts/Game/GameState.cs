@@ -59,7 +59,7 @@ public class GameState : MonoBehaviour
         {
             gameStateShell.lineHasBeenSeen.Add(l.lineID, false);
         }//End foreach
-        gameStateShell.levelIsComplete.Add("Writer", false);
+        gameStateShell.levelIsComplete.Add("Musician", false);
 
         return gameStateShell;
     }//End initGameState
@@ -101,4 +101,32 @@ public struct GameStateShell
     public Dictionary<string, bool> lineHasBeenSeen;
     //Uncomment the below if/when items are added to the game
     //public Dictionary<string, bool> itemHasBeenInteractedWith;
+
+    public void updateGameState(string keyForValue)
+    {
+        if (characterNameIsKnown.ContainsKey(keyForValue))
+        {
+            Debug.Log("CharacterIsKnown dictionary of " + keyForValue + " entry boolean updated to true.");
+            characterNameIsKnown[keyForValue] = true;
+        }//End if
+        else if (interactedWithAtLeastOnce.ContainsKey(keyForValue))
+        {
+            Debug.Log("InteractedWithAtLeastOnce dictionary of " + keyForValue + " entry boolean updated to true.");
+            this.interactedWithAtLeastOnce[keyForValue] = true;
+        }//End else if
+        else if (levelIsComplete.ContainsKey(keyForValue))
+        {
+            Debug.Log("LevelIsComplete dictionary of " + keyForValue + " entry boolean updated to true.");
+            levelIsComplete[keyForValue] = true;
+        }//End else if
+        else if (lineHasBeenSeen.ContainsKey(keyForValue))
+        {
+            Debug.Log("LineHasBeenSeen dictionary of " + keyForValue + " entry boolean updated to true.");
+            lineHasBeenSeen[keyForValue] = true;
+        }//End else if
+        else
+        {
+            Debug.LogWarning("UpdateGameState was called to change " + keyForValue + ", but a corresponding key was not found.");
+        }//End else
+    }//End updateGameState
 }
