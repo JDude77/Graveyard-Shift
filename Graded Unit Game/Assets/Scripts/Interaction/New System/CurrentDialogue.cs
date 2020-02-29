@@ -12,6 +12,8 @@ public class CurrentDialogue : MonoBehaviour
     #region Data To Pass
     //The line to display now
     private string currentLine;
+    //What is currently actually displayed of the chosen dialogue
+    private string displayLine = "";
     //The name to display now
     private string currentName;
     //The portrait to display now
@@ -73,6 +75,11 @@ public class CurrentDialogue : MonoBehaviour
     {
         this.dialogueOptions = dialogueOptions;
     }//End Dialogue Options Setter
+
+    public string getDisplayLine()
+    {
+        return displayLine;
+    }//End Display Line Getter
     #endregion
 
     #region Behaviours
@@ -83,13 +90,12 @@ public class CurrentDialogue : MonoBehaviour
 
     public CurrentDialogue()
     {
-        conversationHUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<ConversationHUD>();
+        
     }//End public
 
     public CurrentDialogue(Line line, SpeakingNPC npc)
     {
         //Set up all CurrentDialogue variables with Line data
-        conversationHUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<ConversationHUD>();
         currentLine = line.text;
         currentName = npc.speakerName;
         currentImage = npc.portrait;
@@ -116,29 +122,41 @@ public class CurrentDialogue : MonoBehaviour
 
     public void speakLine()
     {
-        conversationHUD.setNPCLineInBox(currentLine);
+        Coroutine coroutine = null;
+        conversationHUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<ConversationHUD>();
         conversationHUD.setNPCName(currentName);
         conversationHUD.setNPCPortrait(currentImage);
         conversationHUD.setCurrentDialogue(this);
-        //StopAllCoroutines();
-        //StartCoroutine(Type());
+        coroutine = StartCoroutine(TypeLine());
+        Debug.Log("End of speakLine");
     }//End speakLine
 
-    IEnumerator Type()
+    private IEnumerator TypeLine()
     {
+        conversationHUD.setNPCLineInBox("");
+        displayLine = "";
         //For every letter in the line of text
         foreach(char letter in currentLine)
         {
             //Add a character from it to the displayed text
-            //lineDisplay.text += letter;
+            displayLine += letter;
+            switch(letter)
+            {
+                case ',': typingSpeed = 0.25f; break;
+                case '.': typingSpeed = 0.5f; break;
+                default: typingSpeed = 0.01f; break;
+            }//End switch
+            conversationHUD.setNPCLineInBox(displayLine);
             //Play speech blip
             if (textBlip != null)
             {
                 blipSource.PlayOneShot(textBlip);
             }//End if
             //Wait before adding the next one
+            Debug.Log("Coroutine Iteration Finished");
             yield return new WaitForSeconds(typingSpeed);
         }//End foreach
+        Debug.Log("Coroutine Finished");
     }//End Type enumerator
     #endregion
 }

@@ -38,6 +38,24 @@ public class DialogueManager : MonoBehaviour
         else
         {
             uiManager.setHUD("conversation");
+            //If there is an active speaker
+            if(set.speaker != null)
+            {
+                //If the active speaker is the NPC
+                if (set.speaker.Equals("NPC"))
+                {
+                    //AND if the current line of dialogue has finished typing out in the NPC dialogue display
+                    if (currentDialogue.getCurrentLine().Equals(currentDialogue.getDisplayLine()))
+                    {
+                        //Allow the player to press a button to continue the conversation
+                        //THIS IS WHAT YOU WERE DOING BEFORE YOU STOPPED WORKING
+                        if(Input.GetAxis("Interact") != 0)
+                        {
+                            runDialogue(null);
+                        }//End if
+                    }//End if
+                }//End if
+            }//End if
         }//End else
     }//End Update
 
@@ -52,14 +70,35 @@ public class DialogueManager : MonoBehaviour
         conversation = allData.findConversation(NPCData, gameState);
         set = null;
         lines = new List<Line>();
-        runDialogue();
+        runDialogue(null);
     }//End startDialogue
 
-    private void runDialogue()
+    public void runDialogue(SetLine setLineFromDialogueChoice)
     {
-        currentDialogue = new CurrentDialogue();
+        //Destroy old dialogue object
+        if(gameObject.GetComponent<CurrentDialogue>())
+        {
+            Destroy(gameObject.GetComponent<CurrentDialogue>());
+        }//End if
+        //Destroy old player choice objects
+        if(gameObject.GetComponentsInChildren<DialogueOption>() != null)
+        {
+            foreach(DialogueOption oldOption in gameObject.GetComponentsInChildren<DialogueOption>())
+            {
+                Destroy(oldOption.gameObject);
+            }//End foreach
+        }//End if
+        gameObject.AddComponent<CurrentDialogue>();
+        currentDialogue = gameObject.GetComponent<CurrentDialogue>();
         //Try to get the next set in the conversation
-        set = getNextSet(conversation, set);
+        if (setLineFromDialogueChoice == null)
+        {
+            set = getNextSet(conversation, set);
+        }//End if
+        else
+        {
+            set = allData.getSetFromConversation(setLineFromDialogueChoice.nextSet, conversation);
+        }//End else
         if (!conversationIsOver)
         {
             //If there is no next set in the conversation, the conversation is over
@@ -104,6 +143,11 @@ public class DialogueManager : MonoBehaviour
                 }//End else
             }//End if
         }//End if
+        else
+        {
+            PlayerInteraction playerInteraction = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponentInChildren<PlayerInteraction>();
+            playerInteraction.setIsInteracting(false);
+        }//End else
     }//End runDialogue
 
     private Set getNextSet(Conversation conversation, Set set)

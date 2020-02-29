@@ -107,51 +107,54 @@ public class PlayerInteraction : MonoBehaviour
         {
             //Set other to the object being hit
             other = hitInfo.transform.gameObject;
-            //Activate interaction hit glow
-            GameObject child = other.transform.GetChild(0).gameObject;
-            child.SetActive(true);
-            HUDHandler.setNameText(other.GetComponent<Interactive>().getDisplayName());
-            HUDHandler.setVerbText(other.GetComponent<Interactive>().getDisplayVerb());
-            HUDHandler.setHovering(true, other.GetComponent<Interactive>().getIsInteractible());
-            //If the interaction button is used
-            if (Input.GetAxisRaw("Interact") != 0)
+            if (!isInteracting)
             {
-                //If the button wasn't pressed last frame
-                if (interactButtonDown == false)
+                //Activate interaction hit glow
+                GameObject child = other.transform.GetChild(0).gameObject;
+                child.SetActive(true);
+                HUDHandler.setNameText(other.GetComponent<Interactive>().getDisplayName());
+                HUDHandler.setVerbText(other.GetComponent<Interactive>().getDisplayVerb());
+                HUDHandler.setHovering(true, other.GetComponent<Interactive>().getIsInteractible());
+                //If the interaction button is used
+                if (Input.GetAxisRaw("Interact") != 0)
                 {
-                    Debug.Log("Interaction with " + other.name);
-                    //Run interaction function
-                    if (other.GetComponent<Interactive>() != null)
+                    //If the button wasn't pressed last frame
+                    if (interactButtonDown == false)
                     {
-                        Debug.Log("Interaction script found.");
-                        otherIsInteractible = other.GetComponent<Interactive>().getIsInteractible();
+                        Debug.Log("Interaction with " + other.name);
+                        //Run interaction function
+                        if (other.GetComponent<Interactive>() != null)
+                        {
+                            Debug.Log("Interaction script found.");
+                            otherIsInteractible = other.GetComponent<Interactive>().getIsInteractible();
+                        }//End if
+                        else
+                        {
+                            Debug.LogWarning("Interaction script not found.");
+                            otherIsInteractible = false;
+                        }//End else
+                        if (otherIsInteractible)
+                        {
+                            Debug.Log("Interaction able to start.");
+                            isInteracting = true;
+                            player.GetComponentInChildren<MouseLook>().setSwivel(true);
+                            other.GetComponent<Interactive>().interact();
+                        }//End if
+                        else
+                        {
+                            Debug.LogError("Interaction didn't happen: isInteractible is false.");
+                            player.GetComponentInChildren<MouseLook>().setSwivel(false);
+                        }//End else
+                         //Set interaction button in use to true
+                        interactButtonDown = true;
                     }//End if
-                    else
-                    {
-                        Debug.LogWarning("Interaction script not found.");
-                        otherIsInteractible = false;
-                    }//End else
-                    if(otherIsInteractible)
-                    {
-                        Debug.Log("Interaction able to start.");
-                        isInteracting = true;
-                        player.GetComponentInChildren<MouseLook>().setSwivel(true);
-                        other.GetComponent<Interactive>().interact();
-                    }//End if
-                    else
-                    {
-                        Debug.LogError("Interaction didn't happen: isInteractible is false.");
-                        player.GetComponentInChildren<MouseLook>().setSwivel(false);
-                    }//End else
-                    //Set interaction button in use to true
-                    interactButtonDown = true;
                 }//End if
-            }//End if
-            //If the interaction button is not being used
-            if (Input.GetAxisRaw("Interact") == 0)
-            {
-                //Set interaction button in use to false
-                interactButtonDown = false;
+                 //If the interaction button is not being used
+                if (Input.GetAxisRaw("Interact") == 0)
+                {
+                    //Set interaction button in use to false
+                    interactButtonDown = false;
+                }//End if
             }//End if
         }//End if
         //If the raycast doesn't hit an interactible

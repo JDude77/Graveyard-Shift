@@ -24,4 +24,12 @@ public class DialogueOption : MonoBehaviour
         return setLine;
     }//End Set Line Getter
     #endregion
+
+    #region Behaviours
+    public void thisOptionWasChosen()
+    {
+        DialogueManager dialogueManager = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<DialogueManager>();
+        dialogueManager.runDialogue(setLine);
+    }//End thisOptionWasChosen
+    #endregion
 }

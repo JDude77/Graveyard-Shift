@@ -204,20 +204,24 @@ public class ConversationHUD : MonoBehaviour
     private void Update()
     {
         //If the HUD as a whole is active
-        if(convoHUDObject.activeInHierarchy)
+        if(convoHUDObject.activeSelf)
         {
-            //If NPC is talking
-            if (!currentDialogue.getCurrentName().Equals(playerData.speakerName))
+            //If there even is a current dialogue to worry about displaying
+            if (currentDialogue != null)
             {
-                playerSpeakingDisplay.SetActive(false);
-                npcSpeakingDisplay.SetActive(true);
+                //If NPC is talking
+                if (!currentDialogue.getCurrentName().Equals(playerData.speakerName))
+                {
+                    playerSpeakingDisplay.SetActive(false);
+                    npcSpeakingDisplay.SetActive(true);
+                }//End if
+                 //If it's a player choice scenario
+                else
+                {
+                    npcSpeakingDisplay.SetActive(false);
+                    playerSpeakingDisplay.SetActive(true);
+                }//End else
             }//End if
-                //If it's a player choice scenario
-            else
-            {
-                npcSpeakingDisplay.SetActive(false);
-                playerSpeakingDisplay.SetActive(true);
-            }//End else
         }//End if
     }//End Update
 
