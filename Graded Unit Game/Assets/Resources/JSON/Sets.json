@@ -1,6 +1,5 @@
 {
-    "sets": 
-    [
+    "sets": [
         {
             "setID": "TestSet1",
             "setLines": [
@@ -16,7 +15,7 @@
             "setLines": [
                 {
                     "lineID": "TestLine2",
-                    "nextSet":  "TestRandom"
+                    "nextSet": "TestRandom"
                 }
             ],
             "speaker": "NPC"
@@ -26,11 +25,11 @@
             "setLines": [
                 {
                     "lineID": "TestRandom1",
-                    "nextSet":  "PlayerChoice"
+                    "nextSet": "PlayerChoice"
                 },
                 {
                     "lineID": "TestRandom2",
-                    "nextSet":  "PlayerChoice"
+                    "nextSet": "PlayerChoice"
                 }
             ],
             "speaker": "NPC"
@@ -44,10 +43,19 @@
                 },
                 {
                     "lineID": "TestRandom2",
-                    "nextSet": "TestSet1"
+                    "nextSet": "TestSetEnd"
                 }
             ],
             "speaker": "PLAYER"
+        },
+        {
+            "setID": "TestSetEnd",
+            "setLines": [
+                {
+                    "lineID": "TestEnd"
+                }
+            ],
+            "speaker": "NPC"
         }
     ]
 }

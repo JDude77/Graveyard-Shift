@@ -65,6 +65,7 @@ public class MouseLook : MonoBehaviour
     {
         if (!player.GetComponent<PlayerInteraction>().getIsInteracting())
         {
+            Cursor.lockState = CursorLockMode.Locked;
             swivel = false;
             //Get movement of mouse according to mouse sensitivity and make sure it's the same across framerate
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;

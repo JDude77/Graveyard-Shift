@@ -7,7 +7,6 @@ public class DialogueManager : MonoBehaviour
 {
     #region Attributes
     private SpeakingNPC playerData, NPCData;
-    private JSONHolder allData;
     private GameStateShell gameState;
     private Conversation conversation;
     private Set set;
@@ -23,8 +22,7 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         conversationIsOver = true;
-        allData = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<JSONHolder>();
-        playerData = allData.getSpeaker("Player");
+        playerData = JSONHolder.getSpeaker("Player");
         gameState = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameState>().currentGameState;
         uiManager = GameObject.FindGameObjectWithTag("HUD").GetComponent<UIManager>();
     }//End Start
@@ -56,11 +54,6 @@ public class DialogueManager : MonoBehaviour
                         }//End if
                     }//End if
                 }//End if
-                //If the active speaker is the player
-                if(set.speaker.Equals("PLAYER"))
-                {
-
-                }//End if
             }//End if
         }//End else
     }//End Update
@@ -71,9 +64,9 @@ public class DialogueManager : MonoBehaviour
         //Set the conversation being over variable to false
         conversationIsOver = false;
         //Get NPC speaker data
-        NPCData = allData.getSpeaker(npcGameObject.name);
+        NPCData = JSONHolder.getSpeaker(npcGameObject.name);
         //Find the relevant conversation
-        conversation = allData.findConversation(NPCData, gameState);
+        conversation = JSONHolder.findConversation(NPCData, gameState);
         set = null;
         lines = new List<Line>();
         runDialogue(null);
@@ -104,7 +97,7 @@ public class DialogueManager : MonoBehaviour
         }//End if
         else
         {
-            set = allData.getSetFromConversation(setLineFromDialogueChoice.nextSet, conversation);
+            set = JSONHolder.getSetFromConversation(setLineFromDialogueChoice.nextSet, conversation);
         }//End else
         if (!conversationIsOver)
         {
@@ -163,12 +156,12 @@ public class DialogueManager : MonoBehaviour
         //If it's the start of the conversation, get the first set
         if(set == null)
         {
-            return allData.getSetFromConversation(0, conversation);
+            return JSONHolder.getSetFromConversation(0, conversation);
         }//End if
         //Get specific next set pointed to by the current set
         if(set.setLines[0].nextSet != null)
         {
-            return allData.getSetFromConversation(set.setLines[0].nextSet, conversation);
+            return JSONHolder.getSetFromConversation(set.setLines[0].nextSet, conversation);
         }//End if
         //Move on to the next set in the array
         else
@@ -181,7 +174,7 @@ public class DialogueManager : MonoBehaviour
             }//End else
             else
             {
-                return allData.getSetFromConversation(index, conversation);
+                return JSONHolder.getSetFromConversation(index, conversation);
             }//End if
         }//End else
     }//End getNextSet
@@ -194,19 +187,19 @@ public class DialogueManager : MonoBehaviour
         {
             for(int i = 0; i < set.setLines.Length; i++)
             {
-                lines.Add(allData.getLineFromSet(i, set));
+                lines.Add(JSONHolder.getLineFromSet(i, set));
             }//End for
         }//End if
         //If the set is a random choice set, return one line at random
         else if(set.speaker.Equals("NPC") && set.setLines.Length > 1)
         {
             int indexOfChoice = UnityEngine.Random.Range(0, set.setLines.Length);
-            lines.Add(allData.getLineFromSet(indexOfChoice, set));
+            lines.Add(JSONHolder.getLineFromSet(indexOfChoice, set));
         }//End if
         //If the set is a sequential choice set, return the one line available
         else
         {
-            lines.Add(allData.getLineFromSet(0, set));
+            lines.Add(JSONHolder.getLineFromSet(0, set));
         }//End else
         foreach (Line line in lines)
         {

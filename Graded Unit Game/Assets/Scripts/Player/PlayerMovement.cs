@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     #region Attributes
+    private PlayerInteraction playerInteraction;
     private CharacterController controller;
     private float playerSpeed = 3f;
     private Vector3 velocity;
@@ -47,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         groundCheck = transform.Find("GroundCheck").transform;
         groundMask = LayerMask.GetMask("Ground");
+        playerInteraction = GetComponent<PlayerInteraction>();
         //Enable player control
         canMove = true;
     }//End Start
@@ -55,9 +58,22 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         //Run all movement code
+        checkIfCanMove();
         handleGravity();
         doMovement();
     }//End Update
+
+    private void checkIfCanMove()
+    {
+        if(playerInteraction.getIsInteracting())
+        {
+            canMove = false;
+        }//End if
+        else
+        {
+            canMove = true;
+        }//End else
+    }//End checkIfCanMove
 
     #region Behaviours
     //Make the player fall

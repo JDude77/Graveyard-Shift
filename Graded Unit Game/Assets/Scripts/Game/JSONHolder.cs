@@ -1,23 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using JSONUtilityExtended;
-using System;
 
-public class JSONHolder : MonoBehaviour
+public static class JSONHolder
 {
-    private TextAsset[] jsonData;
+    private static TextAsset[] jsonData;
     [SerializeField]
-    private Dictionary<GameStateShell, Conversation> conversations;
+    private static Dictionary<GameStateShell, Conversation> conversations;
     [SerializeField]
-    private Dictionary<string, Set> sets;
+    private static Dictionary<string, Set> sets;
     [SerializeField]
-    private Dictionary<string, Line> lines;
+    private static Dictionary<string, Line> lines;
     [SerializeField]
-    private Dictionary<string, SpeakingNPC> speakers;
-    private JSONUtility jsonFunctions;
+    private static Dictionary<string, SpeakingNPC> speakers;
+    private static JSONUtility jsonFunctions;
 
-    private void Awake()
+    private static void Awake()
+    {
+        jsonFunctions = new JSONUtility();
+        jsonData = jsonFunctions.getConversationData();
+        conversations = jsonFunctions.getConversations(jsonData[0]);
+        sets = jsonFunctions.getSets(jsonData[1]);
+        lines = jsonFunctions.getLines(jsonData[2]);
+        speakers = jsonFunctions.getSpeakers(jsonData[3]);
+    }//End Awake
+
+    static JSONHolder()
     {
         jsonFunctions = new JSONUtility();
         jsonData = jsonFunctions.getConversationData();
@@ -29,25 +37,25 @@ public class JSONHolder : MonoBehaviour
 
     #region Getters
     //Conversation Dictionary Getter
-    public Dictionary<GameStateShell, Conversation> getConversations()
+    public static Dictionary<GameStateShell, Conversation> getConversations()
     {
         return conversations;
     }//End Conversation getter
 
     //Set Dictionary Getter
-    public Dictionary<string, Set> getSets()
+    public static Dictionary<string, Set> getSets()
     {
         return sets;
     }//End Sets getter
 
     //Line Dictionary Getter
-    public Dictionary<string, Line> getLines()
+    public static Dictionary<string, Line> getLines()
     {
         return lines;
     }//End Lines getter
 
     //Speaker Dictionary Getter
-    public Dictionary<string, SpeakingNPC> getSpeakers()
+    public static Dictionary<string, SpeakingNPC> getSpeakers()
     {
         return speakers;
     }//End Speakers getter
@@ -55,7 +63,7 @@ public class JSONHolder : MonoBehaviour
 
     #region Behaviours
     //Find and return a specific conversation
-    public Conversation getConversation(string conversationID)
+    public static Conversation getConversation(string conversationID)
     {
         int index = 0;
         Conversation[] convosToSearch = new Conversation[conversations.Count];
@@ -77,7 +85,7 @@ public class JSONHolder : MonoBehaviour
     }//End Conversation Getter
 
     //Get a line held in a specific set
-    public Line getLineFromSet(int indexInSetLines, Set set)
+    public static Line getLineFromSet(int indexInSetLines, Set set)
     {
         //Get the line from a specific index in a set
         if (getLine(set.setLines[indexInSetLines].lineID) != null)
@@ -91,7 +99,7 @@ public class JSONHolder : MonoBehaviour
     }//End Line From Set Getter
 
     //Get a set held in a specific conversation
-    public Set getSetFromConversation(int indexInSetIDs, Conversation convo)
+    public static Set getSetFromConversation(int indexInSetIDs, Conversation convo)
     {
         //Get the set from a specific index in a conversation
         if (indexInSetIDs < convo.setIDs.Length)
@@ -104,7 +112,7 @@ public class JSONHolder : MonoBehaviour
         }//End else
     }//End Set From Conversation Getter
 
-    public Set getSetFromConversation(string nextSet, Conversation convo)
+    public static Set getSetFromConversation(string nextSet, Conversation convo)
     {
         //Get the set using a specific ID pointer, checking it's in the given conversation
         int index = 0;
@@ -124,7 +132,7 @@ public class JSONHolder : MonoBehaviour
     }//End Set From Conversation Getter
 
     //Find and return a specific set
-    public Set getSet(string setID)
+    public static Set getSet(string setID)
     {
         int index = 0;
         Set[] setsToSearch = new Set[sets.Count];
@@ -146,7 +154,7 @@ public class JSONHolder : MonoBehaviour
     }//End Set Getter
 
     //Find and return a specific line
-    public Line getLine(string lineID)
+    public static Line getLine(string lineID)
     {
         int index = 0;
         Line[] linesToSearch = new Line[lines.Count];
@@ -168,7 +176,7 @@ public class JSONHolder : MonoBehaviour
     }//End Line Getter
 
     //Find and return a specific speaker
-    public SpeakingNPC getSpeaker(string speakerID)
+    public static SpeakingNPC getSpeaker(string speakerID)
     {
         int index = 0;
         SpeakingNPC[] speakingNPCsToSearch = new SpeakingNPC[speakers.Count];
@@ -190,7 +198,7 @@ public class JSONHolder : MonoBehaviour
     }//End SpeakingNPC Getter
 
     //Find a conversation with the given game state
-    public Conversation findConversation(SpeakingNPC npc, GameStateShell gameState)
+    public static Conversation findConversation(SpeakingNPC npc, GameStateShell gameState)
     {
         Conversation result = null;
         List<Conversation> convosToSearch = new List<Conversation>();

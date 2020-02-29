@@ -10,7 +10,6 @@ public class ConversationHUD : MonoBehaviour
     #region Attributes
     [SerializeField]
     private GameObject convoHUDObject, playerSpeakingDisplay, npcSpeakingDisplay;
-    private JSONHolder jsonHolder;
     private SpeakingNPC playerData, npcData;
     private CurrentDialogue currentDialogue;
     private Image portraitNPCDisplay, portraitPlayerDisplay;
@@ -161,10 +160,8 @@ public class ConversationHUD : MonoBehaviour
     {
         //Create blank currentDialogue
         currentDialogue = null;
-        //Get access to the JSON Holder
-        jsonHolder = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<JSONHolder>();
         //Get the player speaker data
-        playerData = jsonHolder.getSpeaker("Player");
+        playerData = JSONHolder.getSpeaker("Player");
         //Get the portrait, name, and line objects from the UI
         while (portraitNPCDisplay == null || speakerNameNPCDisplay == null || lineInBoxNPCDisplay == null || portraitPlayerDisplay == null || speakerNamePlayerDisplay == null || lineInBoxPlayerDisplay == null)
         {

@@ -34,7 +34,9 @@ public class CurrentDialogue : MonoBehaviour
     [SerializeField]
     //Dialogue options for a player
     private List<SetLine> dialogueOptions;
-    //Coroutine for ytping letter by letter
+    //Tracking whether an option has been chosen
+    private bool optionChosen;
+    //Coroutine for typing letter by letter
     [SerializeField]
     private IEnumerator typing;
     #endregion
@@ -91,6 +93,16 @@ public class CurrentDialogue : MonoBehaviour
     {
         return displayLine;
     }//End Display Line Getter
+
+    public bool getOptionChosen()
+    {
+        return optionChosen;
+    }//End Option Chosen Getter
+
+    internal void setOptionChosen(bool optionChosen)
+    {
+        this.optionChosen = optionChosen;
+    }//End Option Chosen Setter
     #endregion
 
     #region Behaviours
@@ -98,6 +110,8 @@ public class CurrentDialogue : MonoBehaviour
     {
         dialogueChoicePrefab = (GameObject) Resources.Load("Prefabs/Option");
         conversationHUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<ConversationHUD>();
+        conversationHUD.setNPCLineInBox("");
+        conversationHUD.setPlayerLineInBox("");
     }//End Awake
 
     public CurrentDialogue()

@@ -8,7 +8,8 @@
               "TestSet1",
               "TestSet2",
               "TestRandom",
-              "PlayerChoice"
+                "PlayerChoice",
+                "TestSetEnd"
             ]
         }
     ]
