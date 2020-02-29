@@ -11,21 +11,32 @@ public class CurrentDialogue : MonoBehaviour
     #region Attributes
     #region Data To Pass
     //The line to display now
+    [SerializeField]
     private string currentLine;
     //What is currently actually displayed of the chosen dialogue
+    [SerializeField]
     private string displayLine = "";
+    [SerializeField]
     //The name to display now
     private string currentName;
     //The portrait to display now
+    [SerializeField]
     private Sprite currentImage;
     //The sound to play while text scrolls in
+    [SerializeField]
     private AudioClip textBlip;
     //Audio source to hold the blips
+    [SerializeField]
     private AudioSource blipSource;
     //Typing speed
+    [SerializeField]
     private float typingSpeed = 0.01f;
+    [SerializeField]
     //Dialogue options for a player
     private List<SetLine> dialogueOptions;
+    //Coroutine for ytping letter by letter
+    [SerializeField]
+    private IEnumerator typing;
     #endregion
     #region Data Pass Locations
     //Player Choice Prefab
@@ -85,7 +96,8 @@ public class CurrentDialogue : MonoBehaviour
     #region Behaviours
     private void Awake()
     {
-        dialogueChoicePrefab = (GameObject) Resources.Load("Prefabs/Choice");
+        dialogueChoicePrefab = (GameObject) Resources.Load("Prefabs/Option");
+        conversationHUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<ConversationHUD>();
     }//End Awake
 
     public CurrentDialogue()
@@ -106,13 +118,16 @@ public class CurrentDialogue : MonoBehaviour
     {
         if (dialogueOptions.Count != 0)
         {
+            VerticalLayoutGroup choiceArea = conversationHUD.getPlayerSpeakingDisplay().GetComponentInChildren<VerticalLayoutGroup>();
+            GameObject choiceAreaObject = choiceArea.gameObject;
             List<GameObject> dialogueOptionObjects = new List<GameObject>();
             for (int i = 0; i < dialogueOptions.Count; i++)
             {
                 dialogueOptionObjects.Add(dialogueChoicePrefab);
                 dialogueOptionObjects[i].GetComponent<DialogueOption>().setDialogueOption(dialogueOptions[i]);
+                var newOption = Instantiate(dialogueOptionObjects[i], choiceAreaObject.transform);
             }//End for
-            conversationHUD.displayDialogueOptions(dialogueOptionObjects);
+            conversationHUD.setCurrentDialogue(this);
         }//End if
         else
         {
@@ -122,13 +137,17 @@ public class CurrentDialogue : MonoBehaviour
 
     public void speakLine()
     {
-        Coroutine coroutine = null;
-        conversationHUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<ConversationHUD>();
+        typing = TypeLine();
+        if (typing != null)
+        {
+            StopCoroutine(typing);
+        }//End if
         conversationHUD.setNPCName(currentName);
         conversationHUD.setNPCPortrait(currentImage);
         conversationHUD.setCurrentDialogue(this);
-        coroutine = StartCoroutine(TypeLine());
-        Debug.Log("End of speakLine");
+        conversationHUD.setNPCLineInBox(currentLine);
+        
+        StartCoroutine(typing);
     }//End speakLine
 
     private IEnumerator TypeLine()
@@ -153,10 +172,14 @@ public class CurrentDialogue : MonoBehaviour
                 blipSource.PlayOneShot(textBlip);
             }//End if
             //Wait before adding the next one
-            Debug.Log("Coroutine Iteration Finished");
             yield return new WaitForSeconds(typingSpeed);
         }//End foreach
-        Debug.Log("Coroutine Finished");
     }//End Type enumerator
+
+    public void speakerIsPlayer(SpeakingNPC playerData)
+    {
+        currentImage = playerData.portrait;
+        currentName = playerData.speakerName;
+    }//End speakerIsPlayer
     #endregion
 }

@@ -44,6 +44,7 @@ public class DialogueManager : MonoBehaviour
                 //If the active speaker is the NPC
                 if (set.speaker.Equals("NPC"))
                 {
+                    
                     //AND if the current line of dialogue has finished typing out in the NPC dialogue display
                     if (currentDialogue.getCurrentLine().Equals(currentDialogue.getDisplayLine()))
                     {
@@ -54,6 +55,11 @@ public class DialogueManager : MonoBehaviour
                             runDialogue(null);
                         }//End if
                     }//End if
+                }//End if
+                //If the active speaker is the player
+                if(set.speaker.Equals("PLAYER"))
+                {
+
                 }//End if
             }//End if
         }//End else
@@ -78,14 +84,15 @@ public class DialogueManager : MonoBehaviour
         //Destroy old dialogue object
         if(gameObject.GetComponent<CurrentDialogue>())
         {
-            Destroy(gameObject.GetComponent<CurrentDialogue>());
+            currentDialogue = null;
+            DestroyImmediate(gameObject.GetComponent<CurrentDialogue>());
         }//End if
         //Destroy old player choice objects
-        if(gameObject.GetComponentsInChildren<DialogueOption>() != null)
+        if(GameObject.FindGameObjectWithTag("Dialogue Choice"))
         {
-            foreach(DialogueOption oldOption in gameObject.GetComponentsInChildren<DialogueOption>())
+            foreach(GameObject oldOption in GameObject.FindGameObjectsWithTag("Dialogue Choice"))
             {
-                Destroy(oldOption.gameObject);
+                DestroyImmediate(oldOption);
             }//End foreach
         }//End if
         gameObject.AddComponent<CurrentDialogue>();
@@ -113,6 +120,7 @@ public class DialogueManager : MonoBehaviour
                     {
                         dialogueOptions.Add(setLine);
                     }//End foreach
+                    currentDialogue.speakerIsPlayer(playerData);
                     currentDialogue.setDialogueOptions(dialogueOptions);
                     currentDialogue.setUpDialogueOptions();
                     //Make currentDialogue deal with displaying the player choice

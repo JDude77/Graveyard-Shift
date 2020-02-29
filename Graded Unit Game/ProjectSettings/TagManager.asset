@@ -12,6 +12,7 @@ TagManager:
   - Conversation Partner
   - Dialogue Box
   - Player Choices
+  - Dialogue Choice
   layers:
   - Default
   - TransparentFX

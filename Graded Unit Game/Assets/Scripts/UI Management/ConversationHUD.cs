@@ -149,6 +149,12 @@ public class ConversationHUD : MonoBehaviour
     {
         this.currentDialogue = currentDialogue;
     }//End Current Dialogue Setter
+
+    //Player Speaking Display Getter
+    public GameObject getPlayerSpeakingDisplay()
+    {
+        return playerSpeakingDisplay;
+    }//End Player Speaking Display Getter
     #endregion
 
     private void Start()
@@ -188,9 +194,18 @@ public class ConversationHUD : MonoBehaviour
                             var playerChild = playerDialogueBox.transform.GetChild(j);
                             switch (playerChild.name)
                             {
-                                case "Portrait": portraitPlayerDisplay = playerChild.gameObject.GetComponent<Image>(); break;
-                                case "Name": speakerNamePlayerDisplay = playerChild.gameObject.GetComponent<TextMeshProUGUI>(); break;
-                                case "Line": lineInBoxPlayerDisplay = playerChild.gameObject.GetComponent<TextMeshProUGUI>(); break;
+                                case "Portrait":
+                                    portraitPlayerDisplay = playerChild.gameObject.GetComponent<Image>();
+                                    setPlayerPortrait(playerData.portrait);
+                                    break;
+                                case "Name":
+                                    speakerNamePlayerDisplay = playerChild.gameObject.GetComponent<TextMeshProUGUI>();
+                                    setPlayerName(playerData.speakerName);
+                                    break;
+                                case "Line":
+                                    lineInBoxPlayerDisplay = playerChild.gameObject.GetComponent<TextMeshProUGUI>();
+                                    setPlayerLineInBox("");
+                                    break;
                             }//End switch
                         }//End for
                         break;
@@ -224,14 +239,4 @@ public class ConversationHUD : MonoBehaviour
             }//End if
         }//End if
     }//End Update
-
-    public void displayDialogueOptions(List<GameObject> dialogueOptionObjects)
-    {
-        VerticalLayoutGroup choiceArea = playerSpeakingDisplay.GetComponentInChildren<VerticalLayoutGroup>();
-        GameObject choiceAreaObject = choiceArea.gameObject;
-        foreach (GameObject option in dialogueOptionObjects)
-        {
-            var newOption = Instantiate(option, choiceAreaObject.transform);
-        }//End foreach
-    }//End displayDialogueOptions
 }

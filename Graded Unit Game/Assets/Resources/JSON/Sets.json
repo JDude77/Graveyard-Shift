@@ -24,8 +24,14 @@
         {
             "setID": "TestRandom",
             "setLines": [
-                { "lineID": "TestRandom1" },
-                { "lineID": "TestRandom2" }
+                {
+                    "lineID": "TestRandom1",
+                    "nextSet":  "PlayerChoice"
+                },
+                {
+                    "lineID": "TestRandom2",
+                    "nextSet":  "PlayerChoice"
+                }
             ],
             "speaker": "NPC"
         },
@@ -33,11 +39,11 @@
             "setID": "PlayerChoice",
             "setLines": [
                 {
-                    "lineID": "RandomLine1",
+                    "lineID": "TestRandom1",
                     "nextSet": "TestSet2"
                 },
                 {
-                    "lineID": "RandomLine2",
+                    "lineID": "TestRandom2",
                     "nextSet": "TestSet1"
                 }
             ],

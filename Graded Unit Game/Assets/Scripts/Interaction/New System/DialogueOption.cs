@@ -6,6 +6,7 @@ using TMPro;
 public class DialogueOption : MonoBehaviour
 {
     #region Attributes
+    [SerializeField]
     private SetLine setLine;
     private TextMeshProUGUI text;
     #endregion
