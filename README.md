@@ -24,3 +24,8 @@ Getting Closer Has The Following Features:
     - Still needing done are the HUD, player choices and "press [BUTTON] to progress" functionality
   - Some 3D models in place
     - None yet animated
+
+Upload 4 Has The Following Features:
+  - Working dialogue system!
+  - No more lightweight render pipeline.
+  - Beginnings of the rest of the interaction system.
