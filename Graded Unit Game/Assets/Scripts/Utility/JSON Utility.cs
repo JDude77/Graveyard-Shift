@@ -1,13 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 //Sort out extra JSON functionality that was not natively supported in Unity that I wanted easy access to
 namespace JSONUtilityExtended
 {
-    public class JSONUtility
+    public static class JSONUtility
     {
-        public TextAsset[] getConversationData()
+        public static TextAsset[] getConversationData()
         {
             Debug.Log("Trying to retreive conversation JSON data...");
 
@@ -22,7 +21,7 @@ namespace JSONUtilityExtended
             return JSONs;
         }
 
-        public TextAsset getJSON(string JSONToGet)
+        public static TextAsset getJSON(string JSONToGet)
         {
             if (Resources.Load<TextAsset>("JSON/" + JSONToGet) != null)
             {
@@ -36,7 +35,7 @@ namespace JSONUtilityExtended
             }
         }
 
-        public TextAsset checkDataIsThere(TextAsset givenData, string type)
+        public static TextAsset checkDataIsThere(TextAsset givenData, string type)
         {
             if (givenData.ToString().Equals(""))
             {
@@ -55,7 +54,7 @@ namespace JSONUtilityExtended
             return givenData;
         }//End checkDataIsThere
 
-        public Dictionary<GameStateShell, Conversation> getConversations(TextAsset conversationData)
+        public static Dictionary<GameStateShell, Conversation> getConversations(TextAsset conversationData)
         {
             Debug.Log("Trying to convert conversation JSON data to conversation objects...");
 
@@ -68,7 +67,7 @@ namespace JSONUtilityExtended
             foreach (Conversation c in conversationList.conversations)
             {
                 Debug.Log("Coversation Found! ID: " + c.conversationID);
-                convos.Add(GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameState>().currentGameState, c);
+                convos.Add(GameState.currentGameState, c);
                 //convos.Add(getConversationGameState(out GameStateShell newGameState), c);
                 index++;
                 Debug.Log("Conversation Added To Conversation Dictionary (" + index + " of " + conversationList.conversations.Count + ")");
@@ -77,7 +76,7 @@ namespace JSONUtilityExtended
             return convos;
         }
 
-        public Dictionary<string, Set> getSets(TextAsset setData)
+        public static Dictionary<string, Set> getSets(TextAsset setData)
         {
             Debug.Log("Trying convert set JSON data to set objects...");
 
@@ -98,7 +97,7 @@ namespace JSONUtilityExtended
             return sets;
         }
 
-        public Dictionary<string, Line> getLines(TextAsset lineData)
+        public static Dictionary<string, Line> getLines(TextAsset lineData)
         {
             Debug.Log("Trying to convert line JSON data to line objects...");
 
@@ -119,7 +118,7 @@ namespace JSONUtilityExtended
             return lines;
         }
 
-        public Dictionary<string, SpeakingNPC> getSpeakers(TextAsset speakerData)
+        public static Dictionary<string, SpeakingNPC> getSpeakers(TextAsset speakerData)
         {
             Debug.Log("Trying to convert speaker JSON data to speaking NPC objects...");
 
@@ -139,12 +138,5 @@ namespace JSONUtilityExtended
 
             return speakers;
         }
-
-        /*
-        private GameStateShell getConversationGameState(out GameStateShell newGameState)
-        {
-            
-        }
-        */
     }
 }

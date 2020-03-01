@@ -1,7 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class DialogueOption : MonoBehaviour
 {
@@ -11,11 +11,13 @@ public class DialogueOption : MonoBehaviour
     private string displayLine;
     [SerializeField]
     private TextMeshProUGUI text;
+    private bool finishedTyping = false;
     #endregion
 
     #region Getters & Setters
     public void setDialogueOption(SetLine setLine)
     {
+        gameObject.GetComponent<Button>().interactable = false;
         this.setLine = setLine;
         text = gameObject.GetComponentInChildren<TextMeshProUGUI>();
         text.text = JSONHolder.getLine(setLine.lineID).text;
@@ -25,6 +27,11 @@ public class DialogueOption : MonoBehaviour
     {
         return setLine;
     }//End Set Line Getter
+    
+    public bool getFinishedTyping()
+    {
+        return finishedTyping;
+    }//End Finished Typing Getter
     #endregion
 
     #region Behaviours
@@ -35,57 +42,63 @@ public class DialogueOption : MonoBehaviour
 
     public void thisOptionWasChosen()
     {
-        CurrentDialogue currentDialogue = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<CurrentDialogue>();
-        if(!currentDialogue.getOptionChosen())
+        if (finishedTyping)
         {
-            StartCoroutine(TypeLineIntoBox());
+            CurrentDialogue currentDialogue = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<CurrentDialogue>();
+            if (!currentDialogue.getOptionChosen())
+            {
+                StartCoroutine(TypeLineIntoBox());
+            }//End if
+            currentDialogue.setOptionChosen(true);
         }//End if
-        currentDialogue.setOptionChosen(true);
     }//End thisOptionWasChosen
 
     private IEnumerator TypeLine()
     {
         displayLine = "";
-        float typingSpeed = 0.01f;
+        float typingSpeed;
         //For every letter in the line of text
         foreach (char letter in JSONHolder.getLine(setLine.lineID).text)
         {
             //Add a character from it to the displayed text
             displayLine += letter;
-            switch (letter)
-            {
-                case ',': typingSpeed = 0.25f; break;
-                case '.': typingSpeed = 0.5f; break;
-                default: typingSpeed = 0.01f; break;
-            }//End switch
+            typingSpeed = setTypingSpeedByChar(letter);
             text.text = displayLine;
             //Wait before adding the next one
             yield return new WaitForSeconds(typingSpeed);
         }//End foreach
+        finishedTyping = true;
     }//End Type enumerator
 
     private IEnumerator TypeLineIntoBox()
     {
-        float typingSpeed = 0.01f;
+        float typingSpeed;
         System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
         stringBuilder.Insert(0, displayLine);
         ConversationHUD conversationHUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<ConversationHUD>();
         for (int i = 0; i < displayLine.Length; i++)
         {
             conversationHUD.setPlayerLineInBox(conversationHUD.getPlayerLineInBox().text + displayLine[i]);
-            switch (displayLine[i])
-            {
-                case ',': typingSpeed = 0.25f; break;
-                case '.': typingSpeed = 0.5f; break;
-                default: typingSpeed = 0.01f; break;
-            }//End switch
+            typingSpeed = setTypingSpeedByChar(displayLine[i]);
             stringBuilder.Replace(stringBuilder.ToString()[i], ' ', i, 1);
             text.text = stringBuilder.ToString();
             yield return new WaitForSeconds(typingSpeed);
         }//End for
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         DialogueManager dialogueManager = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<DialogueManager>();
         dialogueManager.runDialogue(setLine);
     }//End UntypeLine
+
+    private float setTypingSpeedByChar(char currentCharacter)
+    {
+        float typingSpeed;
+        switch (currentCharacter)
+        {
+            case ',': typingSpeed = DialogueScrollSpeeds.Comma; break;
+            case '.': typingSpeed = DialogueScrollSpeeds.Stop; break;
+            default: typingSpeed = DialogueScrollSpeeds.Regular; break;
+        }//End switch
+        return typingSpeed;
+    }//End setTypingSpeedByChar
     #endregion
 }

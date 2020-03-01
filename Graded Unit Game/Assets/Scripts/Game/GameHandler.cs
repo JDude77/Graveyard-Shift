@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameHandler : MonoBehaviour
 {
@@ -51,4 +49,10 @@ public class GameHandler : MonoBehaviour
         playerCanMove = true;
         uiIsVisible = true;
     }//End Start
+
+    //Unlock a level
+    public void unlockLevel(string levelToUnlock)
+    {
+        GameState.currentGameState.updateGameState(levelToUnlock, "unlock");
+    }//End unlockLevel
 }

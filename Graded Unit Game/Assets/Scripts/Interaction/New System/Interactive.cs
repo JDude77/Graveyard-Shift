@@ -1,22 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Interactive : MonoBehaviour
 {
     #region Attributes
     [SerializeField]
-    private bool isInteractible, isInteracting;
-    private string[] modes = {"Conversation", "Action", "Take", "Portal", "Default"};
-    private string interactionMode;
+    protected bool isInteractible, isInteracting;
+    protected readonly string[] modes = {"Conversation", "Action", "Take", "Portal", "Default"};
+    protected string interactionMode;
     [SerializeField]
-    private GameObject gameManager;
+    protected GameObject gameManager;
     [SerializeField]
-    private string displayName;
+    protected string displayName;
     [SerializeField]
-    private string displayVerb;
+    protected string displayVerb;
     [SerializeField]
-    private string id;
+    protected string id;
+    [SerializeField]
+    protected GameObject conversationHUDGameObject;
     #endregion
 
     #region Getters & Setters
@@ -53,19 +53,12 @@ public class Interactive : MonoBehaviour
     #endregion
 
     //Start is called before the first frame update
-    private void Start()
+    protected void Start()
     {
         //Set to not be interactive, and set the interaction mode to default
         isInteracting = false;
-        //Switch out below line for tag-checking switch statement
-        interactionMode = modes[0];
-        switch(gameObject.tag.ToString())
-        {
-            case "Conversation Partner":
-                changeInteractionMode("conversation");
-                break;
-        }//End switch
         gameManager = GameObject.FindGameObjectWithTag("Game Manager");
+        conversationHUDGameObject = GameObject.FindGameObjectWithTag("Conversation HUD");
     }//End Start
 
     #region Behaviours
@@ -79,7 +72,6 @@ public class Interactive : MonoBehaviour
                 break;
             case "action":
                 interactionMode = modes[1];
-                displayVerb = "Use";
                 break;
             case "take":
                 interactionMode = modes[2];
@@ -87,7 +79,7 @@ public class Interactive : MonoBehaviour
                 break;
             case "portal":
                 interactionMode = modes[3];
-                displayVerb = "Open Portal";
+                displayVerb = "Enter Portal";
                 break;
             default:
                 Debug.Log("Error: No interaction mode set for " + name + ".");
@@ -95,7 +87,7 @@ public class Interactive : MonoBehaviour
         }//End switch
     }//End changeInteractionMode
 
-    public void interact()
+    public virtual void interact()
     {
         //If is set to not be interactible right now, don't interact
         if(!isInteractible)
@@ -103,29 +95,6 @@ public class Interactive : MonoBehaviour
             Debug.Log("Interaction with " + name + " failed: isInteractible set to false.");
             return;
         }//End if
-        //If is set to be interactible right now, interact
-        else
-        {
-            switch(interactionMode)
-            {
-                case "Conversation":
-                    gameManager.GetComponent<DialogueManager>().startDialogue(gameObject);
-                    break;
-                case "Action":
-                    gameManager.GetComponent<Action>();
-                    break;
-                case "Take":
-                    gameManager.GetComponent<TakeItem>();
-                    break;
-                case "Portal":
-                    gameManager.GetComponent<Portal>();
-                    break;
-                default:
-                    Debug.Log("Error: No interaction mode set for " + name + ".");
-                    break;
-            }//End switch
-            Debug.Log("Interaction with " + name + " successful.");
-        }//End else
     }//End Interact
     #endregion
 }

@@ -13,26 +13,23 @@ public static class JSONHolder
     private static Dictionary<string, Line> lines;
     [SerializeField]
     private static Dictionary<string, SpeakingNPC> speakers;
-    private static JSONUtility jsonFunctions;
 
     private static void Awake()
     {
-        jsonFunctions = new JSONUtility();
-        jsonData = jsonFunctions.getConversationData();
-        conversations = jsonFunctions.getConversations(jsonData[0]);
-        sets = jsonFunctions.getSets(jsonData[1]);
-        lines = jsonFunctions.getLines(jsonData[2]);
-        speakers = jsonFunctions.getSpeakers(jsonData[3]);
+        jsonData = JSONUtility.getConversationData();
+        conversations = JSONUtility.getConversations(jsonData[0]);
+        sets = JSONUtility.getSets(jsonData[1]);
+        lines = JSONUtility.getLines(jsonData[2]);
+        speakers = JSONUtility.getSpeakers(jsonData[3]);
     }//End Awake
 
     static JSONHolder()
     {
-        jsonFunctions = new JSONUtility();
-        jsonData = jsonFunctions.getConversationData();
-        conversations = jsonFunctions.getConversations(jsonData[0]);
-        sets = jsonFunctions.getSets(jsonData[1]);
-        lines = jsonFunctions.getLines(jsonData[2]);
-        speakers = jsonFunctions.getSpeakers(jsonData[3]);
+        jsonData = JSONUtility.getConversationData();
+        conversations = JSONUtility.getConversations(jsonData[0]);
+        sets = JSONUtility.getSets(jsonData[1]);
+        lines = JSONUtility.getLines(jsonData[2]);
+        speakers = JSONUtility.getSpeakers(jsonData[3]);
     }//End Awake
 
     #region Getters

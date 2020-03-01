@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System;
 
 //This is what will pass on the information to the dialogue HUD
 public class CurrentDialogue : MonoBehaviour
@@ -99,9 +97,14 @@ public class CurrentDialogue : MonoBehaviour
         return optionChosen;
     }//End Option Chosen Getter
 
-    internal void setOptionChosen(bool optionChosen)
+    public void setOptionChosen(bool optionChosen)
     {
         this.optionChosen = optionChosen;
+        Button[] buttons = GameObject.FindGameObjectWithTag("Player Choices").GetComponentsInChildren<Button>();
+        foreach(Button button in buttons)
+        {
+            button.interactable = false;
+        }//End foreach
     }//End Option Chosen Setter
     #endregion
 
@@ -113,11 +116,6 @@ public class CurrentDialogue : MonoBehaviour
         conversationHUD.setNPCLineInBox("");
         conversationHUD.setPlayerLineInBox("");
     }//End Awake
-
-    public CurrentDialogue()
-    {
-        
-    }//End public
 
     public CurrentDialogue(Line line, SpeakingNPC npc)
     {
@@ -160,7 +158,6 @@ public class CurrentDialogue : MonoBehaviour
         conversationHUD.setNPCPortrait(currentImage);
         conversationHUD.setCurrentDialogue(this);
         conversationHUD.setNPCLineInBox(currentLine);
-        
         StartCoroutine(typing);
     }//End speakLine
 
@@ -175,12 +172,12 @@ public class CurrentDialogue : MonoBehaviour
             displayLine += letter;
             switch(letter)
             {
-                case ',': typingSpeed = 0.25f; break;
-                case '.': typingSpeed = 0.5f; break;
-                default: typingSpeed = 0.01f; break;
+                case ',': typingSpeed = DialogueScrollSpeeds.Comma; break;
+                case '.': typingSpeed = DialogueScrollSpeeds.Stop; break;
+                default: typingSpeed = DialogueScrollSpeeds.Regular; break;
             }//End switch
             conversationHUD.setNPCLineInBox(displayLine);
-            //Play speech blip
+            //Todo: Add properly working speech blips
             if (textBlip != null)
             {
                 blipSource.PlayOneShot(textBlip);
@@ -188,6 +185,7 @@ public class CurrentDialogue : MonoBehaviour
             //Wait before adding the next one
             yield return new WaitForSeconds(typingSpeed);
         }//End foreach
+        //Todo: Add do after line functionality
     }//End Type enumerator
 
     public void speakerIsPlayer(SpeakingNPC playerData)

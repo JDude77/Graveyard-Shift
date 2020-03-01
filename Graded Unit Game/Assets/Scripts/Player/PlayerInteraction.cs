@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -16,12 +13,11 @@ public class PlayerInteraction : MonoBehaviour
     private Material interactibleMaterial;
     [SerializeField]
     private Material nonInteractibleMaterial;
-    [SerializeField]
-    private Material meshMaterial;
     private bool interactButtonDown;
     private bool isInteracting;
     private bool otherIsInteractible;
     private ExplorationHUD HUDHandler;
+    private bool onHitOnce;
     #endregion
 
     #region Getters & Setters
@@ -106,12 +102,20 @@ public class PlayerInteraction : MonoBehaviour
         if (Physics.Raycast(interact, out RaycastHit hitInfo, interactRange, interactLayer))
         {
             //Set other to the object being hit
+            
             other = hitInfo.transform.gameObject;
-            if (!isInteracting)
+            if (!onHitOnce)
+            {
+                nonInteractibleMaterial = other.GetComponentInChildren<MeshRenderer>().material;
+                onHitOnce = true;
+            }//End if
+            if (!isInteracting && other.GetComponent<Interactive>().getIsInteractible())
             {
                 //Activate interaction hit glow
-                GameObject child = other.transform.GetChild(0).gameObject;
-                child.SetActive(true);
+                foreach(MeshRenderer renderer in other.transform.GetComponentsInChildren<MeshRenderer>())
+                {
+                    renderer.material = interactibleMaterial;
+                }//End foreach
                 HUDHandler.setNameText(other.GetComponent<Interactive>().getDisplayName());
                 HUDHandler.setVerbText(other.GetComponent<Interactive>().getDisplayVerb());
                 HUDHandler.setHovering(true, other.GetComponent<Interactive>().getIsInteractible());
@@ -122,7 +126,8 @@ public class PlayerInteraction : MonoBehaviour
                     if (interactButtonDown == false)
                     {
                         Debug.Log("Interaction with " + other.name);
-                        //Run interaction function
+                        
+                        //Check that the interactive thing has an Interactive script attached to it
                         if (other.GetComponent<Interactive>() != null)
                         {
                             Debug.Log("Interaction script found.");
@@ -133,11 +138,15 @@ public class PlayerInteraction : MonoBehaviour
                             Debug.LogWarning("Interaction script not found.");
                             otherIsInteractible = false;
                         }//End else
+
+                        //If the interactive thing is set to currently be interacted with
                         if (otherIsInteractible)
                         {
                             Debug.Log("Interaction able to start.");
                             isInteracting = true;
+                            //Make the camera face the interactive object
                             player.GetComponentInChildren<MouseLook>().setSwivel(true);
+                            //Start the interaction
                             other.GetComponent<Interactive>().interact();
                         }//End if
                         else
@@ -156,10 +165,23 @@ public class PlayerInteraction : MonoBehaviour
                     interactButtonDown = false;
                 }//End if
             }//End if
+
+            //If the player is interacting
+            else
+            {
+                //Deactivate interaction hit glow
+                foreach (MeshRenderer renderer in other.transform.GetComponentsInChildren<MeshRenderer>())
+                {
+                    onHitOnce = false;
+                    renderer.material = nonInteractibleMaterial;
+                }//End foreach
+            }//End else
         }//End if
+
         //If the raycast doesn't hit an interactible
         else
         {
+            onHitOnce = false;
             //Deactivate the interaction text
             HUDHandler.setHovering(false, false);
             HUDHandler.setNameText("");
@@ -168,9 +190,10 @@ public class PlayerInteraction : MonoBehaviour
             if(other != null)
             {
                 //Turn off interaction glow
-                GameObject child = other.transform.GetChild(0).gameObject;
-                Transform[] children = child.GetComponentsInChildren<Transform>();
-                child.SetActive(false);
+                foreach (MeshRenderer renderer in other.transform.GetComponentsInChildren<MeshRenderer>())
+                {
+                    renderer.material = nonInteractibleMaterial;
+                }//End foreach
                 //Reset other to be null
                 other = null;
             }//End if

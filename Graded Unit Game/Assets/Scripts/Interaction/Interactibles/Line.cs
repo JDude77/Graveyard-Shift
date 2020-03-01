@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -16,8 +15,6 @@ public class Line
     public string doBeforeLine;
 
     public string doAfterLine;
-
-    public bool isPlayerLine;
 }
 
 [System.Serializable]

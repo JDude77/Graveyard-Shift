@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class DialogueManager : MonoBehaviour
     private Conversation conversation;
     private Set set;
     private List<Line> lines;
-    private bool conversationIsOver;
+    private bool conversationIsOver, doneBeforeLine = false, doneAfterLine = false;
     //Could be either CurrentDialogue or direct link to Conversation HUD
     private CurrentDialogue currentDialogue;
     private UIManager uiManager;
@@ -23,7 +23,7 @@ public class DialogueManager : MonoBehaviour
     {
         conversationIsOver = true;
         playerData = JSONHolder.getSpeaker("Player");
-        gameState = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameState>().currentGameState;
+        gameState = GameState.currentGameState;
         uiManager = GameObject.FindGameObjectWithTag("HUD").GetComponent<UIManager>();
     }//End Start
 
@@ -42,18 +42,23 @@ public class DialogueManager : MonoBehaviour
                 //If the active speaker is the NPC
                 if (set.speaker.Equals("NPC"))
                 {
-                    
                     //AND if the current line of dialogue has finished typing out in the NPC dialogue display
                     if (currentDialogue.getCurrentLine().Equals(currentDialogue.getDisplayLine()))
                     {
                         //Allow the player to press a button to continue the conversation
-                        //THIS IS WHAT YOU WERE DOING BEFORE YOU STOPPED WORKING
-                        if(Input.GetAxis("Interact") != 0)
+                        if(Input.GetAxisRaw("Interact") != 0)
                         {
                             runDialogue(null);
                         }//End if
                     }//End if
                 }//End if
+                else
+                {
+                    if (!currentDialogue.getOptionChosen())
+                    {
+                        checkIfAllDialogueOptionsFinishedTyping();
+                    }//End if
+                }//End else
             }//End if
         }//End else
     }//End Update
@@ -64,7 +69,7 @@ public class DialogueManager : MonoBehaviour
         //Set the conversation being over variable to false
         conversationIsOver = false;
         //Get NPC speaker data
-        NPCData = JSONHolder.getSpeaker(npcGameObject.name);
+        NPCData = JSONHolder.getSpeaker(npcGameObject.GetComponent<Interactive>().getID());
         //Find the relevant conversation
         conversation = JSONHolder.findConversation(NPCData, gameState);
         set = null;
@@ -74,6 +79,9 @@ public class DialogueManager : MonoBehaviour
 
     public void runDialogue(SetLine setLineFromDialogueChoice)
     {
+        //Reset script run status
+        doneBeforeLine = false;
+        doneAfterLine = false;
         //Destroy old dialogue object
         if(gameObject.GetComponent<CurrentDialogue>())
         {
@@ -122,6 +130,11 @@ public class DialogueManager : MonoBehaviour
                 {
                     //Display individual NPC line
                     //currentDialogue.setCurrentImage(NPCData.portrait);
+                    //Todo: Get portraits setting on player and NPC text boxes
+                    //Todo: Add do before line functionality
+                    //Todo: Add animation play functionality
+                    //Todo: Add audio clip play functionality
+                    runDialogueLineScript(lines[0]);
                     currentDialogue.setCurrentLine(lines[0].text);
                     if(gameState.characterNameIsKnown.TryGetValue(NPCData.speakerID, out bool nameIsKnown))
                     {
@@ -132,7 +145,7 @@ public class DialogueManager : MonoBehaviour
                         string unknownName = NPCData.speakerName;
                         foreach(Char letter in NPCData.speakerName)
                         {
-                            unknownName.Replace(letter, '?');
+                            unknownName = unknownName.Replace(letter, '?');
                         }//End foreach
                         currentDialogue.setCurrentName(unknownName);
                     }//End else
@@ -150,6 +163,34 @@ public class DialogueManager : MonoBehaviour
             playerInteraction.setIsInteracting(false);
         }//End else
     }//End runDialogue
+
+    private void runDialogueLineScript(Line line)
+    {
+        if(line.doBeforeLine != null && !doneBeforeLine)
+        {
+            parseScriptFromLine(line.doBeforeLine);
+            doneBeforeLine = true;
+            return;
+        }//End if
+        else if(line.doAfterLine != null && !doneAfterLine)
+        {
+            parseScriptFromLine(line.doAfterLine);
+            doneAfterLine = true;
+            return;
+        }//End else if
+    }//End runDialogueLineScript
+
+    private void parseScriptFromLine(string scriptToParse)
+    {
+        string scriptToRun = scriptToParse.Substring(0, scriptToParse.IndexOf('('));
+        string parameter = scriptToParse.Substring(scriptToParse.IndexOf('(') + 1, (scriptToParse.IndexOf(')') - scriptToParse.IndexOf('(')) - 1);
+        switch(scriptToRun)
+        {
+            case "unlockLevel":
+                gameState.updateGameState(parameter, "unlock");
+                break;
+        }//End switch
+    }//End parseScriptFromLine
 
     private Set getNextSet(Conversation conversation, Set set)
     {
@@ -203,9 +244,25 @@ public class DialogueManager : MonoBehaviour
         }//End else
         foreach (Line line in lines)
         {
-            gameState.updateGameState(line.lineID);
+            gameState.updateGameState(line.lineID, "line");
         }//End foreach
         return lines;
     }//End getNextLine
+
+    private void checkIfAllDialogueOptionsFinishedTyping()
+    {
+        DialogueOption[] dialogueOptions = GameObject.FindGameObjectWithTag("Player Choices").GetComponentsInChildren<DialogueOption>();
+        for(int i = 0; i < dialogueOptions.Length; i++)
+        {
+            if(!dialogueOptions[i].getFinishedTyping())
+            {
+                return;
+            }//End if
+        }//End for
+        for (int i = 0; i < dialogueOptions.Length; i++)
+        {
+            dialogueOptions[i].GetComponent<Button>().interactable = true;
+        }//End for
+    }//End checkIfAllDialogueOptionsFinishedTyping
     #endregion
 }

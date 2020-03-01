@@ -13,6 +13,7 @@ TagManager:
   - Dialogue Box
   - Player Choices
   - Dialogue Choice
+  - Level Entrance
   layers:
   - Default
   - TransparentFX

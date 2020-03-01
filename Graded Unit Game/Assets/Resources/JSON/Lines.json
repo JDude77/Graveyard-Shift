@@ -2,59 +2,32 @@
     "lines": [
         {
             "lineID": "TestLine1",
-            "text": "This is the first test line. Hello world.",
-            "audio": null,
-            "animation": null,
-            "doBeforeLine": null,
-            "doAfterLine": null
+            "text": "This is the first test line. Hello world."
         },
         {
             "lineID": "TestLine2",
-            "text": "This is the second test line. Hello world.",
-            "audio": null,
-            "animation": null,
-            "doBeforeLine": null,
-            "doAfterLine": null
+            "text": "This is the second test line. Hello world."
         },
         {
             "lineID": "TestLine3",
-            "text": "This is the THIRD test line. New set, here.",
-            "audio": null,
-            "animation": null,
-            "doBeforeLine": null,
-            "doAfterLine": null
+            "text": "This is the THIRD test line. New set, here."
         },
         {
             "lineID": "TestLine4",
-            "text": "This is the fourth test line. I am dead inside.",
-            "audio": null,
-            "animation": null,
-            "doBeforeLine": null,
-            "doAfterLine": null
+            "text": "This is the fourth test line. I am dead inside."
         },
         {
             "lineID": "TestRandom1",
-            "text": "Maybe in one instance, I'm telling the truth.",
-            "audio": null,
-            "animation": null,
-            "doBeforeLine": null,
-            "doAfterLine": null
+            "text": "Maybe in one instance, I'm telling the truth."
         },
         {
             "lineID": "TestRandom2",
-            "text": "Maybe in another, I'm a stinky liar.",
-            "audio": null,
-            "animation": null,
-            "doBeforeLine": null,
-            "doAfterLine": null
+            "text": "Maybe in another, I'm a stinky liar."
         },
         {
             "lineID": "TestEnd",
             "text": "Go away... stinky. Poopy stinko. Nobody wants you here, you know.",
-            "audio": null,
-            "animation": null,
-            "doBeforeLine": null,
-            "doAfterLine": null
+            "doBeforeLine":  "unlockLevel(Musician)"
         }
     ]
 }
