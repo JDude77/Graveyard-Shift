@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -90,6 +91,8 @@ public class PlayerInteraction : MonoBehaviour
         interactLayer = LayerMask.GetMask("Interactible");
         //Set the HUD Handler to the correct object
         HUDHandler = GameObject.FindGameObjectWithTag("HUD").GetComponent<ExplorationHUD>();
+        //Set player voice
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponentInChildren<AudioSource>().clip = JSONHolder.getSpeaker("Player").voice;
     }//End Start
 
     //Check for interaction
@@ -102,7 +105,6 @@ public class PlayerInteraction : MonoBehaviour
         if (Physics.Raycast(interact, out RaycastHit hitInfo, interactRange, interactLayer))
         {
             //Set other to the object being hit
-            
             other = hitInfo.transform.gameObject;
             if (!onHitOnce)
             {
@@ -116,7 +118,7 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     renderer.material = interactibleMaterial;
                 }//End foreach
-                HUDHandler.setNameText(other.GetComponent<Interactive>().getDisplayName());
+                setNameTextForHUD();
                 HUDHandler.setVerbText(other.GetComponent<Interactive>().getDisplayVerb());
                 HUDHandler.setHovering(true, other.GetComponent<Interactive>().getIsInteractible());
                 //If the interaction button is used
@@ -165,7 +167,6 @@ public class PlayerInteraction : MonoBehaviour
                     interactButtonDown = false;
                 }//End if
             }//End if
-
             //If the player is interacting
             else
             {
@@ -177,7 +178,6 @@ public class PlayerInteraction : MonoBehaviour
                 }//End foreach
             }//End else
         }//End if
-
         //If the raycast doesn't hit an interactible
         else
         {
@@ -199,4 +199,20 @@ public class PlayerInteraction : MonoBehaviour
             }//End if
         }//End else
     }//End Update
+
+    private void setNameTextForHUD()
+    {
+        //If the current interactive thing is a person
+        if(other.GetComponent<ConversationPartner>())
+        {
+            GameState.currentGameState.characterNameIsKnown.TryGetValue(other.GetComponent<ConversationPartner>().getID(), out bool nameKnown);
+            if (!nameKnown)
+            {
+                HUDHandler.setNameText("???");
+                return;
+            }//End if
+        }//End if
+        //Otherwise, set the name to be their ID as usual
+        HUDHandler.setNameText(other.GetComponent<Interactive>().getID());
+    }//End setNameTextForHUD
 }

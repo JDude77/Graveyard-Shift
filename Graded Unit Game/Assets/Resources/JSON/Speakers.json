@@ -1,26 +1,29 @@
 {
-    "speakers": 
-    [
-        {
-            "speakerID": "Player",
-            "portrait": null,
-            "voice": null,
-            "speakerName": "Illden",
-            "isNameKnown": true
-        },
-        {
-            "speakerID": "Janice",
-            "portrait": null,
-            "voice": null,
-            "speakerName": "Janice (The Skeleton)",
-            "isNameKnown": true
-        },
-        {
-            "speakerID": "SPEAKER_ID_UNDEFINED",
-            "portrait": null,
-            "voice": null,
-            "speakerName": "SPEAKER_NAME_UNDEFINED",
-            "isNameKnown": false
-        }
-    ]
+  "speakers": [
+    {
+      "speakerID": "Player",
+      "portrait": null,
+      "voice": {
+        "instanceID": 107878
+      },
+        "speakerName": "Illden",
+        "isNameKnown": true
+      },
+    {
+      "speakerID": "Janice",
+      "portrait": null,
+      "voice": {
+        "instanceID": 107878
+      },
+      "speakerName": "Janice (The Skeleton)",
+      "isNameKnown": true
+    },
+    {
+      "speakerID": "SPEAKER_ID_UNDEFINED",
+      "portrait": null,
+      "voice": null,
+      "speakerName": "SPEAKER_NAME_UNDEFINED",
+      "isNameKnown": false
+    }
+  ]
 }

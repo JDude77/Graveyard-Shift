@@ -43,7 +43,7 @@ public class GameState : MonoBehaviour
         foreach (SpeakingNPC snpc in speakers.Values)
         {
             gameStateShell.interactedWithAtLeastOnce.Add(snpc.speakerID, false);
-            if (!snpc.speakerID.Equals("Janice"))
+            if (!snpc.speakerID.Equals("Janic"))
             {
                 gameStateShell.characterNameIsKnown.Add(snpc.speakerID, false);
             }//End if

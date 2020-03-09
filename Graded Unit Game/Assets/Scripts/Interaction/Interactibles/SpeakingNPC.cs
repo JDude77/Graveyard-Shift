@@ -13,6 +13,11 @@ public class SpeakingNPC
     public bool isNameKnown;
 
     public string speakerName;
+
+    public SpeakingNPC(string audioClip)
+    {
+        voice = (AudioClip) Resources.Load(audioClip);
+    }
 }
 
 [System.Serializable]

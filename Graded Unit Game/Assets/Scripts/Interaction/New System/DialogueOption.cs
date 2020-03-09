@@ -12,6 +12,7 @@ public class DialogueOption : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI text;
     private bool finishedTyping = false;
+    private AudioSource playerSource;
     #endregion
 
     #region Getters & Setters
@@ -72,12 +73,14 @@ public class DialogueOption : MonoBehaviour
 
     private IEnumerator TypeLineIntoBox()
     {
+        playerSource = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
         float typingSpeed;
         System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
         stringBuilder.Insert(0, displayLine);
         ConversationHUD conversationHUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<ConversationHUD>();
         for (int i = 0; i < displayLine.Length; i++)
         {
+            playerSource.PlayOneShot(playerSource.clip);
             conversationHUD.setPlayerLineInBox(conversationHUD.getPlayerLineInBox().text + displayLine[i]);
             typingSpeed = setTypingSpeedByChar(displayLine[i]);
             stringBuilder.Replace(stringBuilder.ToString()[i], ' ', i, 1);

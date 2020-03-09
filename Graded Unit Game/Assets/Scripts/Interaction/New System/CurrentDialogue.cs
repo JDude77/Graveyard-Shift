@@ -25,7 +25,7 @@ public class CurrentDialogue : MonoBehaviour
     private AudioClip textBlip;
     //Audio source to hold the blips
     [SerializeField]
-    private AudioSource blipSource;
+    private static AudioSource blipSource;
     //Typing speed
     [SerializeField]
     private float typingSpeed = 0.01f;
@@ -37,6 +37,8 @@ public class CurrentDialogue : MonoBehaviour
     //Coroutine for typing letter by letter
     [SerializeField]
     private IEnumerator typing;
+    //Variable to tell the Dialogue Manager when it's finished typing
+    private bool finishedTyping = false;
     #endregion
     #region Data Pass Locations
     //Player Choice Prefab
@@ -47,6 +49,11 @@ public class CurrentDialogue : MonoBehaviour
     #endregion
 
     #region Getters & Setters
+    public bool getFinishedTyping()
+    {
+        return finishedTyping;
+    }//End Finished Typing Getter
+
     public string getCurrentLine()
     {
         return currentLine;
@@ -106,6 +113,16 @@ public class CurrentDialogue : MonoBehaviour
             button.interactable = false;
         }//End foreach
     }//End Option Chosen Setter
+
+    public void setBlipSource(AudioSource source)
+    {
+        blipSource = source;
+    }//End Blip Source Setter
+
+    public void setTextBlip(AudioClip clip)
+    {
+        textBlip = clip;
+    }//End Text Blip Setter
     #endregion
 
     #region Behaviours
@@ -126,7 +143,7 @@ public class CurrentDialogue : MonoBehaviour
         textBlip = npc.voice;
     }//End Constructor
 
-    public void setUpDialogueOptions()
+    public void displayDialogueOptions()
     {
         if (dialogueOptions.Count != 0)
         {
@@ -137,7 +154,7 @@ public class CurrentDialogue : MonoBehaviour
             {
                 dialogueOptionObjects.Add(dialogueChoicePrefab);
                 dialogueOptionObjects[i].GetComponent<DialogueOption>().setDialogueOption(dialogueOptions[i]);
-                var newOption = Instantiate(dialogueOptionObjects[i], choiceAreaObject.transform);
+                Instantiate(dialogueOptionObjects[i], choiceAreaObject.transform);
             }//End for
             conversationHUD.setCurrentDialogue(this);
         }//End if
@@ -149,6 +166,7 @@ public class CurrentDialogue : MonoBehaviour
 
     public void speakLine()
     {
+        finishedTyping = false;
         typing = TypeLine();
         if (typing != null)
         {
@@ -177,21 +195,22 @@ public class CurrentDialogue : MonoBehaviour
                 default: typingSpeed = DialogueScrollSpeeds.Regular; break;
             }//End switch
             conversationHUD.setNPCLineInBox(displayLine);
-            //Todo: Add properly working speech blips
-            if (textBlip != null)
+            blipSource.volume = 0.5f;
+            if (textBlip != null && letter != ' ')
             {
                 blipSource.PlayOneShot(textBlip);
             }//End if
             //Wait before adding the next one
             yield return new WaitForSeconds(typingSpeed);
         }//End foreach
-        //Todo: Add do after line functionality
+        finishedTyping = true;
     }//End Type enumerator
 
     public void speakerIsPlayer(SpeakingNPC playerData)
     {
         currentImage = playerData.portrait;
         currentName = playerData.speakerName;
+        textBlip = playerData.voice;
     }//End speakerIsPlayer
     #endregion
 }

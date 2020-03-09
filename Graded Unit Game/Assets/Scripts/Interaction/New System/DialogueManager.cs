@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,19 +13,22 @@ public class DialogueManager : MonoBehaviour
     private Set set;
     private List<Line> lines;
     private bool conversationIsOver, doneBeforeLine = false, doneAfterLine = false;
-    //Could be either CurrentDialogue or direct link to Conversation HUD
     private CurrentDialogue currentDialogue;
     private UIManager uiManager;
+    private AudioSource audioSource;
+    private bool finishedLine;
     #endregion
 
     #region Behaviours
     //Get the values that will always need to be carried by the dialogue manager
     private void Start()
     {
+        finishedLine = false;
         conversationIsOver = true;
         playerData = JSONHolder.getSpeaker("Player");
         gameState = GameState.currentGameState;
         uiManager = GameObject.FindGameObjectWithTag("HUD").GetComponent<UIManager>();
+        audioSource = GameObject.FindGameObjectWithTag("Audio Source").GetComponent<AudioSource>();
     }//End Start
 
     private void Update()
@@ -42,8 +46,8 @@ public class DialogueManager : MonoBehaviour
                 //If the active speaker is the NPC
                 if (set.speaker.Equals("NPC"))
                 {
-                    //AND if the current line of dialogue has finished typing out in the NPC dialogue display
-                    if (currentDialogue.getCurrentLine().Equals(currentDialogue.getDisplayLine()))
+                    //AND if the current line of dialogue is completely done
+                    if (finishedLine)
                     {
                         //Allow the player to press a button to continue the conversation
                         if(Input.GetAxisRaw("Interact") != 0)
@@ -70,6 +74,15 @@ public class DialogueManager : MonoBehaviour
         conversationIsOver = false;
         //Get NPC speaker data
         NPCData = JSONHolder.getSpeaker(npcGameObject.GetComponent<Interactive>().getID());
+        //Attach an audio source to the NPC if they don't have one already
+        if(!npcGameObject.GetComponent<AudioSource>())
+        {
+            npcGameObject.AddComponent<AudioSource>();
+        }//End if
+        //Horrendous workaround
+        currentDialogue = gameObject.AddComponent<CurrentDialogue>();
+        currentDialogue.setBlipSource(npcGameObject.GetComponent<AudioSource>());
+        DestroyImmediate(currentDialogue);
         //Find the relevant conversation
         conversation = JSONHolder.findConversation(NPCData, gameState);
         set = null;
@@ -80,24 +93,11 @@ public class DialogueManager : MonoBehaviour
     public void runDialogue(SetLine setLineFromDialogueChoice)
     {
         //Reset script run status
+        finishedLine = false;
         doneBeforeLine = false;
         doneAfterLine = false;
-        //Destroy old dialogue object
-        if(gameObject.GetComponent<CurrentDialogue>())
-        {
-            currentDialogue = null;
-            DestroyImmediate(gameObject.GetComponent<CurrentDialogue>());
-        }//End if
-        //Destroy old player choice objects
-        if(GameObject.FindGameObjectWithTag("Dialogue Choice"))
-        {
-            foreach(GameObject oldOption in GameObject.FindGameObjectsWithTag("Dialogue Choice"))
-            {
-                DestroyImmediate(oldOption);
-            }//End foreach
-        }//End if
-        gameObject.AddComponent<CurrentDialogue>();
-        currentDialogue = gameObject.GetComponent<CurrentDialogue>();
+        destroyOldDialogueObjects();
+        currentDialogue = gameObject.AddComponent<CurrentDialogue>();
         //Try to get the next set in the conversation
         if (setLineFromDialogueChoice == null)
         {
@@ -107,64 +107,140 @@ public class DialogueManager : MonoBehaviour
         {
             set = JSONHolder.getSetFromConversation(setLineFromDialogueChoice.nextSet, conversation);
         }//End else
-        if (!conversationIsOver)
+        //If there is no next set in the conversation, the conversation is over
+        if (!conversationIsOver && set != null)
         {
-            //If there is no next set in the conversation, the conversation is over
-            if (set != null)
+            lines = getNextLines(set);
+            if (set.speaker.Equals("PLAYER"))
             {
-                lines = getNextLines(set);
-                if (set.speaker.Equals("PLAYER"))
-                {
-                    //Set up the player choices and present them on the screen
-                    List<SetLine> dialogueOptions = new List<SetLine>();
-                    foreach (SetLine setLine in set.setLines)
-                    {
-                        dialogueOptions.Add(setLine);
-                    }//End foreach
-                    currentDialogue.speakerIsPlayer(playerData);
-                    currentDialogue.setDialogueOptions(dialogueOptions);
-                    currentDialogue.setUpDialogueOptions();
-                    //Make currentDialogue deal with displaying the player choice
-                }//End if
-                else if (set.speaker.Equals("NPC"))
-                {
-                    //Display individual NPC line
-                    //currentDialogue.setCurrentImage(NPCData.portrait);
-                    //Todo: Get portraits setting on player and NPC text boxes
-                    //Todo: Add do before line functionality
-                    //Todo: Add animation play functionality
-                    //Todo: Add audio clip play functionality
-                    runDialogueLineScript(lines[0]);
-                    currentDialogue.setCurrentLine(lines[0].text);
-                    if(gameState.characterNameIsKnown.TryGetValue(NPCData.speakerID, out bool nameIsKnown))
-                    {
-                        currentDialogue.setCurrentName(NPCData.speakerName);
-                    }//End if
-                    else
-                    {
-                        string unknownName = NPCData.speakerName;
-                        foreach(Char letter in NPCData.speakerName)
-                        {
-                            unknownName = unknownName.Replace(letter, '?');
-                        }//End foreach
-                        currentDialogue.setCurrentName(unknownName);
-                    }//End else
-                    currentDialogue.speakLine();
-                }//End else if
-                else
-                {
-                    Debug.LogError("ERROR IN SET JSON: PLAYER or NPC speaker marker in " + set.setID + " mistyped as " + set.speaker + ".");
-                }//End else
+                List<SetLine> dialogueOptions = setUpDialogueOptions();
+                currentDialogue.speakerIsPlayer(playerData);
+                currentDialogue.setDialogueOptions(dialogueOptions);
+                currentDialogue.displayDialogueOptions();
             }//End if
+             //Display individual NPC line
+            else if (set.speaker.Equals("NPC"))
+            {
+                if(lines[0].doBeforeLine != null)
+                {
+                    //Run a script before the line itself has run
+                    runDialogueLineScript(lines[0]);
+                }//End if
+                //Set NPC dialogue data up
+                setNPCDialogueData();
+                currentDialogue.speakLine();
+                StartCoroutine(WaitForLineToFinish());
+            }//End else if
+            else
+            {
+                Debug.LogError("ERROR IN SET JSON: PLAYER or NPC speaker marker in " + set.setID + " mistyped as " + set.speaker + ".");
+            }//End else
         }//End if
         else
         {
+            currentDialogue.setBlipSource(null);
             PlayerInteraction playerInteraction = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponentInChildren<PlayerInteraction>();
             playerInteraction.setIsInteracting(false);
         }//End else
     }//End runDialogue
 
-    private void runDialogueLineScript(Line line)
+    private IEnumerator WaitForLineToFinish()
+    {
+        yield return new WaitUntil(() => currentDialogue.getFinishedTyping() == true);
+        if(lines[0].doAfterLine != null)
+        {
+            runDialogueLineScript(lines[0]);
+        }//End if
+        finishedLine = true;
+    }//End WaitToRunScript
+
+    private List<SetLine> setUpDialogueOptions()
+    {
+        //Set up the player choices and present them on the screen
+        List<SetLine> dialogueOptions = new List<SetLine>();
+        foreach (SetLine setLine in set.setLines)
+        {
+            dialogueOptions.Add(setLine);
+        }//End foreach
+        return dialogueOptions;
+    }//End setUpDialogueOptions
+
+    //Set all the dialogue data for the NPC
+    private void setNPCDialogueData()
+    {
+        //Set the NPC's portrait if they have one
+        setNPCPortrait();
+        //Todo: Add animation play functionality
+        //Play a specified audio clip
+        playAudioClip();
+        //Set current dialogue's line text
+        currentDialogue.setCurrentLine(lines[0].text);
+        //Set current dialogue audio blip
+        currentDialogue.setTextBlip(NPCData.voice);
+        //Get whether the current NPC's name is known
+        gameState.characterNameIsKnown.TryGetValue(NPCData.speakerID, out bool nameKnown);
+        //If the NPC's name is known, set the current name to be their name
+        if (nameKnown)
+        {
+            currentDialogue.setCurrentName(NPCData.speakerName);
+        }//End if
+        //If the NPC's name is not known, just make the entire damn thing a bunch of question marks
+        else
+        {
+            string unknownName = NPCData.speakerName;
+            foreach (char letter in NPCData.speakerName)
+            {
+                if (letter != ' ')
+                {
+                    unknownName = unknownName.Replace(letter, '?');
+                }//End if
+            }//End foreach
+            currentDialogue.setCurrentName(unknownName);
+        }//End else
+    }//End setNPCDialogueData
+
+    private void playAudioClip()
+    {
+        if (lines[0].audioClip != null)
+        {
+            audioSource.clip = lines[0].audioClip;
+            audioSource.Play();
+        }//End if
+    }//End playAudioClip
+
+    private void setNPCPortrait()
+    {
+        if (NPCData.portrait != null)
+        {
+            currentDialogue.setCurrentImage(NPCData.portrait);
+        }//End if
+    }//End setNPCPortrait
+
+    //Get rid of things from the previous part of the conversation
+    private void destroyOldDialogueObjects()
+    {
+        //Destroy old dialogue object
+        if (gameObject.GetComponent<CurrentDialogue>())
+        {
+            currentDialogue = null;
+            DestroyImmediate(gameObject.GetComponent<CurrentDialogue>());
+        }//End if
+        //Destroy old player choice objects
+        if (GameObject.FindGameObjectWithTag("Dialogue Choice"))
+        {
+            foreach (GameObject oldOption in GameObject.FindGameObjectsWithTag("Dialogue Choice"))
+            {
+                DestroyImmediate(oldOption);
+            }//End foreach
+        }//End if
+        //Clear old audio clip
+        if (audioSource.clip != null)
+        {
+            audioSource.clip = null;
+        }//End if
+    }//End destroyOldDialogueObjects
+
+    public void runDialogueLineScript(Line line)
     {
         if(line.doBeforeLine != null && !doneBeforeLine)
         {
@@ -188,6 +264,9 @@ public class DialogueManager : MonoBehaviour
         {
             case "unlockLevel":
                 gameState.updateGameState(parameter, "unlock");
+                break;
+            case "learnName":
+                gameState.updateGameState(parameter, "name");
                 break;
         }//End switch
     }//End parseScriptFromLine

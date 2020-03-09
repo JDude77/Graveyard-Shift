@@ -95,6 +95,12 @@ public class Interactive : MonoBehaviour
             Debug.Log("Interaction with " + name + " failed: isInteractible set to false.");
             return;
         }//End if
+        //Set the object to have been interacted with at least once
+        GameState.currentGameState.interactedWithAtLeastOnce.TryGetValue(id, out bool interactedOnce);
+        if(!interactedOnce)
+        {
+            GameState.currentGameState.updateGameState(id, "interacted");
+        }//End if
     }//End Interact
     #endregion
 }

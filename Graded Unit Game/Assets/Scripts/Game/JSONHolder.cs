@@ -14,15 +14,6 @@ public static class JSONHolder
     [SerializeField]
     private static Dictionary<string, SpeakingNPC> speakers;
 
-    private static void Awake()
-    {
-        jsonData = JSONUtility.getConversationData();
-        conversations = JSONUtility.getConversations(jsonData[0]);
-        sets = JSONUtility.getSets(jsonData[1]);
-        lines = JSONUtility.getLines(jsonData[2]);
-        speakers = JSONUtility.getSpeakers(jsonData[3]);
-    }//End Awake
-
     static JSONHolder()
     {
         jsonData = JSONUtility.getConversationData();
@@ -30,6 +21,8 @@ public static class JSONHolder
         sets = JSONUtility.getSets(jsonData[1]);
         lines = JSONUtility.getLines(jsonData[2]);
         speakers = JSONUtility.getSpeakers(jsonData[3]);
+        SpeakingNPC test = new SpeakingNPC("Audio/Text Scroll");
+        Debug.Log(JsonUtility.ToJson(test));
     }//End Awake
 
     #region Getters
