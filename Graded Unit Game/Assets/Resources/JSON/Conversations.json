@@ -1,16 +1,15 @@
 {
-    "conversations": 
-    [
-        {
-            "conversationID": "TestConversation1",
-            "speakerID":  "Janice",
-            "setIDs": [
-              "TestSet1",
-              "TestSet2",
-              "TestRandom",
-                "PlayerChoice",
-                "TestSetEnd"
-            ]
-        }
-    ]
+  "conversations": [
+    {
+      "conversationID": "TestConversation1",
+      "speakerID": "Janice",
+      "setIDs": [
+        "TestSet1",
+        "TestSet2",
+        "TestRandom",
+        "PlayerChoice",
+        "TestSetEnd"
+      ]
+    }
+  ]
 }

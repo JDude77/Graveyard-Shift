@@ -1,16 +1,32 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Portal : MonoBehaviour
+public class Portal : Interactive
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    #region Attributes
+    [SerializeField]
+    private Scene levelToGoTo;
+    #endregion
 
-    // Update is called once per frame
-    void Update()
+    #region Getters & Setters
+    public void setLevel(Scene levelToGoTo)
     {
-        
-    }
+        this.levelToGoTo = levelToGoTo;
+    }//End Level To Go To Setter
+    #endregion
+
+    // Start is called before the first frame update
+    private new void Start()
+    {
+        base.Start();
+        changeInteractionMode("portal");
+        id = levelToGoTo.name;
+        displayName = levelToGoTo.name;
+    }//End Start
+
+    public new void interact()
+    {
+        base.interact();
+        SceneManager.SetActiveScene(levelToGoTo);
+    }//End interact
 }

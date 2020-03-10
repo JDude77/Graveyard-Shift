@@ -9,9 +9,9 @@ public class GameHandler : MonoBehaviour
     /// </summary>
     #region Attributes
     private UIManager uiManager;
-    private GameState gameState;
     private bool playerCanMove;
     private bool uiIsVisible;
+    private PlayerInteraction playerInteraction;
     #endregion
 
     #region Getters & Setters
@@ -44,8 +44,8 @@ public class GameHandler : MonoBehaviour
     private void Start()
     {
         DontDestroyOnLoad(this);
-        uiManager = GameObject.Find("HUD").GetComponent<UIManager>();
-        gameState = GetComponent<GameState>();
+        uiManager = GameObject.FindGameObjectWithTag("HUD").GetComponent<UIManager>();
+        playerInteraction = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteraction>();
         playerCanMove = true;
         uiIsVisible = true;
     }//End Start
@@ -55,4 +55,18 @@ public class GameHandler : MonoBehaviour
     {
         GameState.currentGameState.updateGameState(levelToUnlock, "unlock");
     }//End unlockLevel
+
+    //Change player interaction state
+    public void changePlayerInteractionState(bool newState)
+    {
+        playerCanMove = newState;
+        playerInteraction.setIsInteracting(newState);
+    }//End changePlayerInteractionState
+
+    //Toggle the UI
+    public void toggleUI(bool toggleState)
+    {
+        uiIsVisible = toggleState;
+        uiManager.gameObject.SetActive(uiIsVisible);
+    }//End toggleUI
 }

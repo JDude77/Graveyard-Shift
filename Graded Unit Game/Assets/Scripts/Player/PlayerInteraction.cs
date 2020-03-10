@@ -111,16 +111,14 @@ public class PlayerInteraction : MonoBehaviour
                 nonInteractibleMaterial = other.GetComponentInChildren<MeshRenderer>().material;
                 onHitOnce = true;
             }//End if
-            if (!isInteracting && other.GetComponent<Interactive>().getIsInteractible())
+            if (!isInteracting && checkIfOtherIsInteractible())
             {
                 //Activate interaction hit glow
                 foreach(MeshRenderer renderer in other.transform.GetComponentsInChildren<MeshRenderer>())
                 {
                     renderer.material = interactibleMaterial;
                 }//End foreach
-                setNameTextForHUD();
-                HUDHandler.setVerbText(other.GetComponent<Interactive>().getDisplayVerb());
-                HUDHandler.setHovering(true, other.GetComponent<Interactive>().getIsInteractible());
+                setCorrectTextForHUD();
                 //If the interaction button is used
                 if (Input.GetAxisRaw("Interact") != 0)
                 {
@@ -128,19 +126,8 @@ public class PlayerInteraction : MonoBehaviour
                     if (interactButtonDown == false)
                     {
                         Debug.Log("Interaction with " + other.name);
-                        
                         //Check that the interactive thing has an Interactive script attached to it
-                        if (other.GetComponent<Interactive>() != null)
-                        {
-                            Debug.Log("Interaction script found.");
-                            otherIsInteractible = other.GetComponent<Interactive>().getIsInteractible();
-                        }//End if
-                        else
-                        {
-                            Debug.LogWarning("Interaction script not found.");
-                            otherIsInteractible = false;
-                        }//End else
-
+                        checkForActiveInteractionScript();
                         //If the interactive thing is set to currently be interacted with
                         if (otherIsInteractible)
                         {
@@ -149,7 +136,7 @@ public class PlayerInteraction : MonoBehaviour
                             //Make the camera face the interactive object
                             player.GetComponentInChildren<MouseLook>().setSwivel(true);
                             //Start the interaction
-                            other.GetComponent<Interactive>().interact();
+                            startInteractionWithActiveScript();
                         }//End if
                         else
                         {
@@ -200,19 +187,66 @@ public class PlayerInteraction : MonoBehaviour
         }//End else
     }//End Update
 
-    private void setNameTextForHUD()
+    private void startInteractionWithActiveScript()
     {
-        //If the current interactive thing is a person
-        if(other.GetComponent<ConversationPartner>())
+        foreach(Interactive script in other.GetComponentsInChildren<Interactive>())
         {
-            GameState.currentGameState.characterNameIsKnown.TryGetValue(other.GetComponent<ConversationPartner>().getID(), out bool nameKnown);
-            if (!nameKnown)
+            if(script.getIsInteractible())
             {
-                HUDHandler.setNameText("???");
+                script.interact();
                 return;
             }//End if
-        }//End if
-        //Otherwise, set the name to be their ID as usual
-        HUDHandler.setNameText(other.GetComponent<Interactive>().getID());
+        }//End foreach
+    }//End startInteractionWithActiveScript
+
+    private void checkForActiveInteractionScript()
+    {
+        foreach(Interactive script in other.GetComponentsInChildren<Interactive>())
+        {
+            if (script != null)
+            {
+                Debug.Log("Interaction script found.");
+                if(script.getIsInteractible())
+                {
+                    otherIsInteractible = true;
+                    return;
+                }//End if
+            }//End if
+        }//End foreach
+        Debug.LogWarning("Interaction script not found.");
+        otherIsInteractible = false;
+    }//End checkForActiveInteractionScript
+
+    private bool checkIfOtherIsInteractible()
+    {
+        foreach(Interactive script in other.GetComponentsInChildren<Interactive>())
+        {
+            if (script.getIsInteractible()) return true;
+        }//End foreach
+        return false;
+    }//End checkIfOtherIsInteractible
+
+    private void setCorrectTextForHUD()
+    {
+        foreach(Interactive script in other.GetComponentsInChildren<Interactive>())
+        {
+            if(script.getIsInteractible())
+            {
+                //If the current interactive thing is a person
+                if (other.GetComponent<ConversationPartner>())
+                {
+                    GameState.currentGameState.characterNameIsKnown.TryGetValue(script.getID(), out bool nameKnown);
+                    if (!nameKnown)
+                    {
+                        HUDHandler.setNameText("???");
+                        return;
+                    }//End if
+                }//End if
+                //Otherwise, set the name to be their ID as usual
+                HUDHandler.setNameText(script.getID());
+                HUDHandler.setVerbText(script.getDisplayVerb());
+                HUDHandler.setHovering(true, script.getIsInteractible());
+            }//End if
+        }//End foreach
     }//End setNameTextForHUD
 }

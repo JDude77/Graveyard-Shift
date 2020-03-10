@@ -21,8 +21,6 @@ public static class JSONHolder
         sets = JSONUtility.getSets(jsonData[1]);
         lines = JSONUtility.getLines(jsonData[2]);
         speakers = JSONUtility.getSpeakers(jsonData[3]);
-        SpeakingNPC test = new SpeakingNPC("Audio/Text Scroll");
-        Debug.Log(JsonUtility.ToJson(test));
     }//End Awake
 
     #region Getters

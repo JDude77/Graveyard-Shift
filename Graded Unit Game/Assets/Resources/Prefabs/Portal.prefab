@@ -4727,9 +4727,11 @@ GameObject:
   - component: {fileID: 2995694646248391539}
   - component: {fileID: 2995694646248391538}
   - component: {fileID: 2995694646248391537}
-  m_Layer: 0
+  - component: {fileID: 1751069214613975581}
+  - component: {fileID: 1531793054331970757}
+  m_Layer: 10
   m_Name: Portal
-  m_TagString: Untagged
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4742,7 +4744,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2995694646248391536}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 7.0743384, y: 1.83, z: -5.578}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 1, z: 0.1}
   m_Children:
   - {fileID: 2995694645505166210}
@@ -4794,3 +4796,34 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1751069214613975581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2995694646248391536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45df871fc6279694f91b49a2ce4f1b64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInteractible: 0
+  isInteracting: 0
+  gameManager: {fileID: 0}
+  displayName: 
+  displayVerb: Enter Portal
+  id: 
+--- !u!65 &1531793054331970757
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2995694646248391536}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 12, y: 0.25, z: 12}
+  m_Center: {x: 0, y: 0, z: 0}

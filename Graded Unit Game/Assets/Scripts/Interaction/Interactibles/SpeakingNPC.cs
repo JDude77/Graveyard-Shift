@@ -6,18 +6,17 @@ public class SpeakingNPC
 {
     public string speakerID;
 
+    public string portraitID;
+
     public Sprite portrait;
+
+    public string voiceID;
 
     public AudioClip voice;
 
     public bool isNameKnown;
 
     public string speakerName;
-
-    public SpeakingNPC(string audioClip)
-    {
-        voice = (AudioClip) Resources.Load(audioClip);
-    }
 }
 
 [System.Serializable]

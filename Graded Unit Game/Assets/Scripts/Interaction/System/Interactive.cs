@@ -15,8 +15,7 @@ public class Interactive : MonoBehaviour
     protected string displayVerb;
     [SerializeField]
     protected string id;
-    [SerializeField]
-    protected GameObject conversationHUDGameObject;
+    protected GameHandler gameHandler;
     #endregion
 
     #region Getters & Setters
@@ -58,8 +57,28 @@ public class Interactive : MonoBehaviour
         //Set to not be interactive, and set the interaction mode to default
         isInteracting = false;
         gameManager = GameObject.FindGameObjectWithTag("Game Manager");
-        conversationHUDGameObject = GameObject.FindGameObjectWithTag("Conversation HUD");
+        gameHandler = gameManager.GetComponent<GameHandler>();
     }//End Start
+
+    protected void Update()
+    {
+        if(isInteractible)
+        {
+            enabled = true;
+            foreach(Collider collider in GetComponents<Collider>())
+            {
+                if (collider.isTrigger) collider.enabled = true;
+            }//End foreach
+        }//End if
+        else
+        {
+            enabled = false;
+            foreach (Collider collider in GetComponents<Collider>())
+            {
+                if (collider.isTrigger) collider.enabled = false;
+            }//End foreach
+        }//End else
+    }//End Update
 
     #region Behaviours
     public void changeInteractionMode(string mode)

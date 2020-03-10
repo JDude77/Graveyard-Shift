@@ -8,7 +8,11 @@ public class Line
 
     public string text;
 
+    public string audioClipID;
+
     public AudioClip audioClip;
+
+    public string animationToPlayID;
 
     public AnimationClip animationToPlay;
 

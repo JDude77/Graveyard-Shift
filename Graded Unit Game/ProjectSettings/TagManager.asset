@@ -15,6 +15,7 @@ TagManager:
   - Dialogue Choice
   - Level Entrance
   - Audio Source
+  - Portal
   layers:
   - Default
   - TransparentFX

@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class ConversationPartner : Interactive
 {
+    [SerializeField]
+    protected GameObject conversationHUDGameObject;
+
     private new void Start()
     {
         base.Start();
+        conversationHUDGameObject = GameObject.FindGameObjectWithTag("Conversation HUD");
         interactionMode = modes[0];
         isInteractible = true;
         displayVerb = "Talk";

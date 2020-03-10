@@ -2,26 +2,22 @@
   "speakers": [
     {
       "speakerID": "Player",
-      "portrait": null,
-      "voice": {
-        "instanceID": 107878
-      },
-        "speakerName": "Illden",
-        "isNameKnown": true
-      },
+      "portraitID": null,
+      "voiceID": "Text Scroll",
+      "speakerName": "Illden",
+      "isNameKnown": true
+    },
     {
       "speakerID": "Janice",
-      "portrait": null,
-      "voice": {
-        "instanceID": 107878
-      },
+      "portraitID": null,
+      "voiceID": "Text Scroll",
       "speakerName": "Janice (The Skeleton)",
       "isNameKnown": true
     },
     {
       "speakerID": "SPEAKER_ID_UNDEFINED",
-      "portrait": null,
-      "voice": null,
+      "portraitID": null,
+      "voiceID": null,
       "speakerName": "SPEAKER_NAME_UNDEFINED",
       "isNameKnown": false
     }

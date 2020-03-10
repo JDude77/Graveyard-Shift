@@ -43,7 +43,7 @@ public class GameState : MonoBehaviour
         foreach (SpeakingNPC snpc in speakers.Values)
         {
             gameStateShell.interactedWithAtLeastOnce.Add(snpc.speakerID, false);
-            if (!snpc.speakerID.Equals("Janic"))
+            if (!snpc.speakerID.Equals("Janice"))
             {
                 gameStateShell.characterNameIsKnown.Add(snpc.speakerID, false);
             }//End if
@@ -103,7 +103,7 @@ public struct GameStateShell
         }//End else if
         else
         {
-            Debug.LogWarning("UpdateGameState was called to change " + keyForValue + ", but a corresponding key was not found.");
+            Debug.LogWarning("UpdateGameState was called to change " + keyForValue + ", but a corresponding key was not found.\nUnlock shortcut: " + unlockShortcut);
         }//End else
     }//End updateGameState
 }

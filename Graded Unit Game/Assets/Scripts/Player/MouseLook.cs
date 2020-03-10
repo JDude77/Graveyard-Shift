@@ -79,7 +79,10 @@ public class MouseLook : MonoBehaviour
 
         if(swivel)
         {
-            swivelCamera(player.GetComponent<PlayerInteraction>().getOther());
+            foreach(Interactive script in player.GetComponent<PlayerInteraction>().getOther().GetComponentsInChildren<Interactive>())
+            {
+                if (script.getIsInteractible()) swivelCamera(script.gameObject);
+            }//End foreach
         }//End if
     }//End Update
 

@@ -18,8 +18,7 @@
     },
     {
       "lineID": "TestRandom1",
-      "text": "Maybe in one instance, I'm telling the truth.",
-      "doAfterLine": "learnName(Janice)"
+      "text": "Maybe in one instance, I'm telling the truth."
     },
     {
       "lineID": "TestRandom2",

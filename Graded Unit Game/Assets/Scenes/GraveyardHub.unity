@@ -6365,7 +6365,7 @@ GameObject:
   - component: {fileID: 1197824417}
   - component: {fileID: 1197824418}
   m_Layer: 10
-  m_Name: Grave (2)
+  m_Name: Frankie
   m_TagString: Level Entrance
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6398,8 +6398,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 1.75, z: 1.75}
-  m_Center: {x: 1.4, y: 0.55, z: 0}
+  m_Size: {x: 0.5, y: 1.75, z: 1.75}
+  m_Center: {x: 0.1, y: 0.5, z: 0}
 --- !u!114 &1197824418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6418,8 +6418,8 @@ MonoBehaviour:
   displayName: Frankie Sell's Grave
   displayVerb: 
   id: Musician
-  conversationHUDGameObject: {fileID: 0}
   portalPrefab: {fileID: 0}
+  levelThePortalLeadsTo: Musician
 --- !u!1001 &1227107306
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8386,6 +8386,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45df871fc6279694f91b49a2ce4f1b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInteractible: 0
+  isInteracting: 0
+  gameManager: {fileID: 0}
+  displayName: 
+  displayVerb: 
+  id: 
+  levelToGoTo:
+    m_Handle: 0
 --- !u!114 &1491588296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8410,6 +8418,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92e1eb593a6f3a84ca660d2da73fbb0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInteractible: 0
+  isInteracting: 0
+  gameManager: {fileID: 0}
+  displayName: 
+  displayVerb: 
+  id: 
 --- !u!4 &1491588298
 Transform:
   m_ObjectHideFlags: 0
@@ -10871,6 +10885,18 @@ PrefabInstance:
         type: 3}
       propertyPath: m_isInputParsingRequired
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1404163640, guid: 05251ac540c5fea4fb52bd3e6dddc9c5, type: 3}
+      propertyPath: m_Volume
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 403433993, guid: 05251ac540c5fea4fb52bd3e6dddc9c5, type: 3}
+      propertyPath: m_Volume
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 403433993, guid: 05251ac540c5fea4fb52bd3e6dddc9c5, type: 3}
+      propertyPath: m_Pitch
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05251ac540c5fea4fb52bd3e6dddc9c5, type: 3}
