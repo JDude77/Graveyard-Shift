@@ -38,8 +38,7 @@ public class LevelEntrance : Interactive
         {
             portal = Instantiate(portalPrefab, transform);
             portal.transform.position = new Vector3(portal.transform.position.x + 1, portal.transform.position.y + 1, portal.transform.position.z);
-            SceneManager.LoadScene(levelThePortalLeadsTo);
-            portal.GetComponent<Portal>().setLevel(SceneManager.GetSceneByName(levelThePortalLeadsTo));
+            portal.GetComponent<Portal>().setLevel(levelThePortalLeadsTo);
             portal.GetComponent<Portal>().setIsInteractible(true);
             portal.transform.parent = null;
         }//End if
@@ -47,6 +46,12 @@ public class LevelEntrance : Interactive
         {
             Destroy(portal);
         }//End else
-        gameHandler.changePlayerInteractionState(false);
+        StartCoroutine(WaitForPortal());
     }//End Interact
+
+    private IEnumerator WaitForPortal()
+    {
+        yield return new WaitForSeconds(1f);
+        gameHandler.changePlayerInteractionState(false);
+    }//End WaitForPortal
 }

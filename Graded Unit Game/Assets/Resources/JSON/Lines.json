@@ -1,33 +1,12 @@
 {
   "lines": [
     {
-      "lineID": "TestLine1",
-      "text": "This is the first test line. Hello world."
-    },
-    {
-      "lineID": "TestLine2",
-      "text": "This is the second test line. Hello world."
-    },
-    {
-      "lineID": "TestLine3",
-      "text": "This is the THIRD test line. New set, here."
-    },
-    {
-      "lineID": "TestLine4",
-      "text": "This is the fourth test line. I am dead inside."
-    },
-    {
-      "lineID": "TestRandom1",
-      "text": "Maybe in one instance, I'm telling the truth."
-    },
-    {
-      "lineID": "TestRandom2",
-      "text": "Maybe in another, I'm a stinky liar."
-    },
-    {
-      "lineID": "TestEnd",
-      "text": "Go away... stinky. Poopy stinko. Nobody wants you here, you know.",
-      "doBeforeLine": "unlockLevel(Musician)"
+      "lineID": "LINE_ID",
+      "text": "ACTUAL TEXT TO USE FOR LINE",
+      "audioClipID": "ID_OF_AUDIO_CLIP_TO_PLAY_AT_LINE_START",
+      "animationToPlayID": "ID OF ANIMATION TO PLAY AT LINE START",
+      "doBeforeLine": "SCRIPT NAME AND PARAMETER TO RUN BEFORE LINE",
+      "doAfterLine":  "SCRIPT NAME AND PARAMETER TO RUN AFTER LINE"
     }
   ]
 }

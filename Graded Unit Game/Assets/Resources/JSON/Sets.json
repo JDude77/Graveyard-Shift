@@ -1,61 +1,14 @@
 {
   "sets": [
     {
-      "setID": "TestSet1",
+      "setID": "SET ID",
       "setLines": [
         {
-          "lineID": "TestLine1",
-          "nextSet": "TestSet2"
+          "lineID": "ID OF LINE TO USE",
+          "nextSet": "ID OF DESIGNATED NEXT POSSIBLE SET"
         }
       ],
-      "speaker": "NPC"
-    },
-    {
-      "setID": "TestSet2",
-      "setLines": [
-        {
-          "lineID": "TestLine2",
-          "nextSet": "TestRandom"
-        }
-      ],
-      "speaker": "NPC"
-    },
-    {
-      "setID": "TestRandom",
-      "setLines": [
-        {
-          "lineID": "TestRandom1",
-          "nextSet": "PlayerChoice"
-        },
-        {
-          "lineID": "TestRandom2",
-          "nextSet": "PlayerChoice"
-        }
-      ],
-      "speaker": "NPC"
-    },
-    {
-      "setID": "PlayerChoice",
-      "setLines": [
-        {
-          "lineID": "TestRandom1",
-          "nextSet": "TestSet2"
-        },
-        {
-          "lineID": "TestRandom2",
-          "nextSet": "TestSetEnd"
-        }
-      ],
-      "speaker": "PLAYER"
-    },
-    {
-      "setID": "TestSetEnd",
-      "setLines": [
-        {
-          "lineID": "TestEnd"
-        }
-      ],
-      "speaker": "NPC"
+      "speaker": "NPC OR PLAYER"
     }
   ]
 }

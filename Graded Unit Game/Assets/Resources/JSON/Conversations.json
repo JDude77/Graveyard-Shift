@@ -1,14 +1,10 @@
 {
   "conversations": [
     {
-      "conversationID": "TestConversation1",
-      "speakerID": "Janice",
+      "conversationID": "CONVERSATION_FORMAT",
+      "speakerID": "ID_OF_NPC",
       "setIDs": [
-        "TestSet1",
-        "TestSet2",
-        "TestRandom",
-        "PlayerChoice",
-        "TestSetEnd"
+        "LIST_OF_SET_IDS"
       ]
     }
   ]

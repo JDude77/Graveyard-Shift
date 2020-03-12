@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Interactive : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class Interactive : MonoBehaviour
     [SerializeField]
     protected string id;
     protected GameHandler gameHandler;
+    [SerializeField]
+    protected Material[] materials;
     #endregion
 
     #region Getters & Setters
@@ -54,7 +57,17 @@ public class Interactive : MonoBehaviour
     //Start is called before the first frame update
     protected void Start()
     {
+        List<Material> tempList = new List<Material>();
         //Set to not be interactive, and set the interaction mode to default
+        foreach(MeshRenderer renderer in GetComponentsInChildren<MeshRenderer>())
+        {
+            foreach(Material material in renderer.materials)
+            {
+                tempList.Add(material);
+            }//End foreach
+        }//End foreach
+        materials = new Material[tempList.Count];
+        materials = tempList.ToArray();
         isInteracting = false;
         gameManager = GameObject.FindGameObjectWithTag("Game Manager");
         gameHandler = gameManager.GetComponent<GameHandler>();
@@ -121,5 +134,23 @@ public class Interactive : MonoBehaviour
             GameState.currentGameState.updateGameState(id, "interacted");
         }//End if
     }//End Interact
+
+    public void revertMaterials()
+    {
+        for (int i = 0; i < GetComponentsInChildren<MeshRenderer>().Length; i++)
+        {
+            if (GetComponentsInChildren<MeshRenderer>()[i].materials.Length == 1)
+            {
+                GetComponentsInChildren<MeshRenderer>()[i].material = materials[i];
+            }//End if
+            else
+            {
+                for (int j = 0; j < GetComponentsInChildren<MeshRenderer>()[i].materials.Length; j++)
+                {
+                    GetComponentsInChildren<MeshRenderer>()[i].materials[j] = materials[i + j];
+                }//End j for
+            }//End else
+        }//End i for
+    }//End revertMaterials
     #endregion
 }

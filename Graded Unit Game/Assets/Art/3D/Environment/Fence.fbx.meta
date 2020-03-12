@@ -13,7 +13,32 @@ ModelImporter:
     2300000: //RootNode
     3300000: //RootNode
     4300000: Fence Whole
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bar Wood
+    second: {fileID: 2100000, guid: 2e64492583101c34e850a66f561f05bf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bar Wood Light
+    second: {fileID: 2100000, guid: cbe4dd06bea378a428a852e2df1037b3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dark Rope
+    second: {fileID: 2100000, guid: 275b392e81e949f41a2b46a2d6bc1dc7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fence Wood
+    second: {fileID: 2100000, guid: d551af740bac7964ba0c5aa564cd58b9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nail
+    second: {fileID: 2100000, guid: a9d21cacdc6d2874ba0d49928bf8e97a, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

@@ -31,8 +31,38 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Branding
+    second: {fileID: 2100000, guid: 21f83821a8fc78340aa1ac036c90e123, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Candle
+    second: {fileID: 2100000, guid: 3f1f93cbf425e40468dcb3d4490f1e48, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Glass
     second: {fileID: 2100000, guid: c9bfbc3f5149f44438d31375c861a648, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal
+    second: {fileID: 2100000, guid: 662e0ad726d0a864594a232437ef48e2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Post
+    second: {fileID: 2100000, guid: 917f38fc2e8646f419f58b53b9001143, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rope
+    second: {fileID: 2100000, guid: 9e4ef2e72ed807c49a27600209438a30, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wick
+    second: {fileID: 2100000, guid: 82e0be4b300b88445b7ed3d47d5b75c0, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

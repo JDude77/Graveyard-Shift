@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerInteraction : MonoBehaviour
 {
     #region Attributes
+    [SerializeField]
     private GameObject player;
     private Camera playerCam;
     [SerializeField]
@@ -12,8 +13,6 @@ public class PlayerInteraction : MonoBehaviour
     private int interactLayer;
     [SerializeField]
     private Material interactibleMaterial;
-    [SerializeField]
-    private Material nonInteractibleMaterial;
     private bool interactButtonDown;
     private bool isInteracting;
     private bool otherIsInteractible;
@@ -106,12 +105,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             //Set other to the object being hit
             other = hitInfo.transform.gameObject;
-            if (!onHitOnce)
-            {
-                nonInteractibleMaterial = other.GetComponentInChildren<MeshRenderer>().material;
-                onHitOnce = true;
-            }//End if
-            if (!isInteracting && checkIfOtherIsInteractible())
+            if (!isInteracting && checkIfOtherIsInteractible() && checkForActiveInteractionScript())
             {
                 //Activate interaction hit glow
                 foreach(MeshRenderer renderer in other.transform.GetComponentsInChildren<MeshRenderer>())
@@ -126,23 +120,11 @@ public class PlayerInteraction : MonoBehaviour
                     if (interactButtonDown == false)
                     {
                         Debug.Log("Interaction with " + other.name);
-                        //Check that the interactive thing has an Interactive script attached to it
-                        checkForActiveInteractionScript();
-                        //If the interactive thing is set to currently be interacted with
-                        if (otherIsInteractible)
-                        {
-                            Debug.Log("Interaction able to start.");
-                            isInteracting = true;
-                            //Make the camera face the interactive object
-                            player.GetComponentInChildren<MouseLook>().setSwivel(true);
-                            //Start the interaction
-                            startInteractionWithActiveScript();
-                        }//End if
-                        else
-                        {
-                            Debug.LogError("Interaction didn't happen: isInteractible is false.");
-                            player.GetComponentInChildren<MouseLook>().setSwivel(false);
-                        }//End else
+                        isInteracting = true;
+                        //Make the camera face the interactive object
+                        player.GetComponentInChildren<MouseLook>().setSwivel(true);
+                        //Start the interaction
+                        startInteractionWithActiveScript();
                          //Set interaction button in use to true
                         interactButtonDown = true;
                     }//End if
@@ -158,11 +140,7 @@ public class PlayerInteraction : MonoBehaviour
             else
             {
                 //Deactivate interaction hit glow
-                foreach (MeshRenderer renderer in other.transform.GetComponentsInChildren<MeshRenderer>())
-                {
-                    onHitOnce = false;
-                    renderer.material = nonInteractibleMaterial;
-                }//End foreach
+                other.GetComponent<Interactive>().revertMaterials();
             }//End else
         }//End if
         //If the raycast doesn't hit an interactible
@@ -177,12 +155,12 @@ public class PlayerInteraction : MonoBehaviour
             if(other != null)
             {
                 //Turn off interaction glow
-                foreach (MeshRenderer renderer in other.transform.GetComponentsInChildren<MeshRenderer>())
+                other.GetComponent<Interactive>().revertMaterials();
+                if(player.GetComponentInChildren<MouseLook>().getSwivel())
                 {
-                    renderer.material = nonInteractibleMaterial;
-                }//End foreach
-                //Reset other to be null
-                other = null;
+                    //Reset other to be null
+                    other = null;
+                }//End if
             }//End if
         }//End else
     }//End Update
@@ -199,22 +177,26 @@ public class PlayerInteraction : MonoBehaviour
         }//End foreach
     }//End startInteractionWithActiveScript
 
-    private void checkForActiveInteractionScript()
+    private bool checkForActiveInteractionScript()
     {
-        foreach(Interactive script in other.GetComponentsInChildren<Interactive>())
+        if (other.GetComponentInChildren<Interactive>() != null)
         {
-            if (script != null)
+            foreach (Interactive script in other.GetComponentsInChildren<Interactive>())
             {
-                Debug.Log("Interaction script found.");
-                if(script.getIsInteractible())
+                if (script != null)
                 {
-                    otherIsInteractible = true;
-                    return;
+                    Debug.Log("Interaction script found.");
+                    if (script.getIsInteractible())
+                    {
+                        otherIsInteractible = true;
+                        return true;
+                    }//End if
                 }//End if
-            }//End if
-        }//End foreach
+            }//End foreach
+        }//End if
         Debug.LogWarning("Interaction script not found.");
         otherIsInteractible = false;
+        return false;
     }//End checkForActiveInteractionScript
 
     private bool checkIfOtherIsInteractible()

@@ -11,7 +11,22 @@ ModelImporter:
     2300000: //RootNode
     3300000: //RootNode
     4300000: Fence Bar 7.000
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bar Wood
+    second: {fileID: 2100000, guid: 4681fcb56f3849346a2f5cae5aa166b0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bar Wood Light
+    second: {fileID: 2100000, guid: 059825e84d93513478339988f83f069e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nail
+    second: {fileID: 2100000, guid: 18655d13f5961844799f2b1ca1727419, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

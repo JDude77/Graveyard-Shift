@@ -77,7 +77,7 @@ public class MouseLook : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
         }//End else
 
-        if(swivel)
+        if(swivel && player.GetComponent<PlayerInteraction>().getOther() != null)
         {
             foreach(Interactive script in player.GetComponent<PlayerInteraction>().getOther().GetComponentsInChildren<Interactive>())
             {

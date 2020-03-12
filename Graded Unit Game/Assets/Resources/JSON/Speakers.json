@@ -15,10 +15,10 @@
       "isNameKnown": true
     },
     {
-      "speakerID": "SPEAKER_ID_UNDEFINED",
+      "speakerID": "Frankie",
       "portraitID": null,
-      "voiceID": null,
-      "speakerName": "SPEAKER_NAME_UNDEFINED",
+      "voiceID": "Text Scroll",
+      "speakerName": "Frankie Sell",
       "isNameKnown": false
     }
   ]

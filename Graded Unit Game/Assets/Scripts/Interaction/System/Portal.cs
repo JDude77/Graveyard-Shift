@@ -5,11 +5,11 @@ public class Portal : Interactive
 {
     #region Attributes
     [SerializeField]
-    private Scene levelToGoTo;
+    private string levelToGoTo;
     #endregion
 
     #region Getters & Setters
-    public void setLevel(Scene levelToGoTo)
+    public void setLevel(string levelToGoTo)
     {
         this.levelToGoTo = levelToGoTo;
     }//End Level To Go To Setter
@@ -20,13 +20,14 @@ public class Portal : Interactive
     {
         base.Start();
         changeInteractionMode("portal");
-        id = levelToGoTo.name;
-        displayName = levelToGoTo.name;
+        id = levelToGoTo;
+        displayName = levelToGoTo;
     }//End Start
 
-    public new void interact()
+    public override void interact()
     {
         base.interact();
-        SceneManager.SetActiveScene(levelToGoTo);
+        SceneManager.LoadScene(levelToGoTo);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(levelToGoTo));
     }//End interact
 }

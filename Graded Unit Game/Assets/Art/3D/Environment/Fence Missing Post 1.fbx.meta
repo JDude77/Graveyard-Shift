@@ -13,7 +13,32 @@ ModelImporter:
     2300000: //RootNode
     3300000: //RootNode
     4300000: Nail.001
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bar Wood
+    second: {fileID: 2100000, guid: c6c7a34581551ee47a44d6536c225dd7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bar Wood Light
+    second: {fileID: 2100000, guid: 2ffd7a02376fae64492622b310814777, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dark Rope
+    second: {fileID: 2100000, guid: 004f5dd368e88284d907584bce66e872, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fence Wood
+    second: {fileID: 2100000, guid: 24d43bc7ff0ebcb478792aa69b6ef1d9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nail
+    second: {fileID: 2100000, guid: 93a33260f8bf85e43b6ed770c885a0fa, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
