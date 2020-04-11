@@ -97,8 +97,8 @@ public class DialogueOption : MonoBehaviour
         float typingSpeed;
         switch (currentCharacter)
         {
-            case ',': typingSpeed = DialogueScrollSpeeds.Comma; break;
-            case '.': typingSpeed = DialogueScrollSpeeds.Stop; break;
+            case ',': case '-': case ':': typingSpeed = DialogueScrollSpeeds.Comma; break;
+            case '.': case '?': case '!': case ';': typingSpeed = DialogueScrollSpeeds.Stop; break;
             default: typingSpeed = DialogueScrollSpeeds.Regular; break;
         }//End switch
         return typingSpeed;

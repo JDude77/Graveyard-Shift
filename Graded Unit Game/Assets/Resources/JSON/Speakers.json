@@ -1,25 +1,25 @@
 {
-  "speakers": [
-    {
-      "speakerID": "Player",
-      "portraitID": null,
-      "voiceID": "Text Scroll",
-      "speakerName": "Illden",
-      "isNameKnown": true
-    },
-    {
-      "speakerID": "Janice",
-      "portraitID": null,
-      "voiceID": "Text Scroll",
-      "speakerName": "Janice (The Skeleton)",
-      "isNameKnown": true
-    },
-    {
-      "speakerID": "Frankie",
-      "portraitID": null,
-      "voiceID": "Text Scroll",
-      "speakerName": "Frankie Sell",
-      "isNameKnown": false
-    }
-  ]
+	"speakers": [
+		{
+			"speakerID": "Player",
+			"portraitID": null,
+			"voiceID": "Text Scroll",
+			"speakerName": "Illden",
+			"isNameKnown": true
+		},
+		{
+			"speakerID": "Janice",
+			"portraitID": null,
+			"voiceID": "Text Scroll",
+			"speakerName": "Janice (The Skeleton)",
+			"isNameKnown": true
+		},
+		{
+			"speakerID": "Frankie",
+			"portraitID": null,
+			"voiceID": "Text Scroll",
+			"speakerName": "Frankie Sell",
+			"isNameKnown": false
+		}
+	]
 }

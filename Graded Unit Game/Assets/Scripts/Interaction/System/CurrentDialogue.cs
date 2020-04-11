@@ -190,8 +190,8 @@ public class CurrentDialogue : MonoBehaviour
             displayLine += letter;
             switch(letter)
             {
-                case ',': typingSpeed = DialogueScrollSpeeds.Comma; break;
-                case '.': typingSpeed = DialogueScrollSpeeds.Stop; break;
+                case ',': case '-': case ':': typingSpeed = DialogueScrollSpeeds.Comma; break;
+                case '.': case '?': case '!': case ';': typingSpeed = DialogueScrollSpeeds.Stop; break;
                 default: typingSpeed = DialogueScrollSpeeds.Regular; break;
             }//End switch
             conversationHUD.setNPCLineInBox(displayLine);

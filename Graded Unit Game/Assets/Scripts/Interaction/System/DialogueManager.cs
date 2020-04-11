@@ -15,13 +15,15 @@ public class DialogueManager : MonoBehaviour
     private CurrentDialogue currentDialogue;
     private UIManager uiManager;
     private AudioSource audioSource;
-    private bool finishedLine;
+    private bool finishedLine, storedLineSeenResult;
+    private int currentIndex;
     #endregion
 
     #region Behaviours
     //Get the values that will always need to be carried by the dialogue manager
     private void Start()
     {
+        currentIndex = -1;
         finishedLine = false;
         conversationIsOver = true;
         playerData = JSONHolder.getSpeaker("Player");
@@ -34,6 +36,7 @@ public class DialogueManager : MonoBehaviour
     {
         if(conversationIsOver)
         {
+            currentIndex = -1;
             uiManager.setHUD("exploration");
         }//End if
         else
@@ -69,6 +72,7 @@ public class DialogueManager : MonoBehaviour
     //Start a new conversation with an NPC
     public void startDialogue(GameObject npcGameObject)
     {
+        currentIndex = 0;
         //Set the conversation being over variable to false
         conversationIsOver = false;
         //Get NPC speaker data
@@ -92,6 +96,7 @@ public class DialogueManager : MonoBehaviour
     public void runDialogue(SetLine setLineFromDialogueChoice)
     {
         //Reset script run status
+        storedLineSeenResult = false;
         finishedLine = false;
         doneBeforeLine = false;
         doneAfterLine = false;
@@ -267,6 +272,15 @@ public class DialogueManager : MonoBehaviour
             case "learnName":
                 gameState.updateGameState(parameter, "name");
                 break;
+            case "checkLineSeen":
+                storedLineSeenResult = gameState.lineHasBeenSeen[parameter];
+                break;
+            case "changeNextSet":
+                if(storedLineSeenResult)
+                {
+                    set.setLines[currentIndex].nextSet = parameter;
+                }//End if
+                break;
         }//End switch
     }//End parseScriptFromLine
 
@@ -278,14 +292,14 @@ public class DialogueManager : MonoBehaviour
             return JSONHolder.getSetFromConversation(0, conversation);
         }//End if
         //Get specific next set pointed to by the current set
-        if(set.setLines[0].nextSet != null)
+        if(set.setLines[currentIndex].nextSet != null && set.setLines[currentIndex].nextSet.Length > 0)
         {
-            return JSONHolder.getSetFromConversation(set.setLines[0].nextSet, conversation);
+            return JSONHolder.getSetFromConversation(set.setLines[currentIndex].nextSet, conversation);
         }//End if
         //Move on to the next set in the array
         else
         {
-            int index = System.Array.IndexOf(conversation.setIDs, set.setLines[0].nextSet);
+            int index = System.Array.IndexOf(conversation.setIDs, set.setLines[currentIndex].nextSet);
             if (index == -1)
             {
                 conversationIsOver = true;
@@ -312,12 +326,13 @@ public class DialogueManager : MonoBehaviour
         //If the set is a random choice set, return one line at random
         else if(set.speaker.Equals("NPC") && set.setLines.Length > 1)
         {
-            int indexOfChoice = UnityEngine.Random.Range(0, set.setLines.Length);
-            lines.Add(JSONHolder.getLineFromSet(indexOfChoice, set));
+            currentIndex = Random.Range(0, set.setLines.Length);
+            lines.Add(JSONHolder.getLineFromSet(currentIndex, set));
         }//End if
         //If the set is a sequential choice set, return the one line available
         else
         {
+            currentIndex = 0;
             lines.Add(JSONHolder.getLineFromSet(0, set));
         }//End else
         foreach (Line line in lines)
