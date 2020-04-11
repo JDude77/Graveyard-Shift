@@ -21,7 +21,7 @@ public class LevelEntrance : Interactive
 
     private void Update()
     {
-        if (GameState.currentGameState.levelIsUnlocked[id])
+        if (GameState.levelIsUnlocked[id])
         {
             isInteractible = true;
         }//End if

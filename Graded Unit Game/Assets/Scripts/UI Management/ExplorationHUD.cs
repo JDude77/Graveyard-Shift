@@ -30,19 +30,16 @@ public class ExplorationHUD : MonoBehaviour
         //Get the exploration HUD holder
         explorationHUDHolder = GameObject.FindGameObjectWithTag("Exploration HUD");
         //Get the name object and the text within it
-        while(nameObject == null || verbObject == null || cursorObject == null)
+        for(int i = 0; i < explorationHUDHolder.transform.childCount; i++)
         {
-            for(int i = 0; i < explorationHUDHolder.transform.childCount; i++)
+            var child = explorationHUDHolder.transform.GetChild(i);
+            switch(child.name)
             {
-                var child = explorationHUDHolder.transform.GetChild(i);
-                switch(child.name)
-                {
-                    case "Name": nameObject = child.gameObject; break;
-                    case "Cursor": cursorObject = child.gameObject; break;
-                    case "Verb": verbObject = child.gameObject; break;
-                }//End switch
-            }//End for
-        }//End while
+                case "Name": nameObject = child.gameObject; break;
+                case "Cursor": cursorObject = child.gameObject; break;
+                case "Verb": verbObject = child.gameObject; break;
+            }//End switch
+        }//End for
         nameText = nameObject.GetComponent<TextMeshProUGUI>();
         //Get the verb object and the text within it
         

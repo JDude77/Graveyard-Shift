@@ -160,52 +160,49 @@ public class ConversationHUD : MonoBehaviour
         //Get the player speaker data
         playerData = JSONHolder.getSpeaker("Player");
         //Get the portrait, name, and line objects from the UI
-        while (portraitNPCDisplay == null || speakerNameNPCDisplay == null || lineInBoxNPCDisplay == null || portraitPlayerDisplay == null || speakerNamePlayerDisplay == null || lineInBoxPlayerDisplay == null)
+        for(int i = 0; i < convoHUDObject.transform.childCount; i++)
         {
-            for(int i = 0; i < convoHUDObject.transform.childCount; i++)
+            var child = convoHUDObject.transform.GetChild(i);
+            switch(child.name)
             {
-                var child = convoHUDObject.transform.GetChild(i);
-                switch(child.name)
-                {
-                    case "NPC Dialogue Box":
-                        npcSpeakingDisplay = child.gameObject;
-                        for (int j = 0; j < npcSpeakingDisplay.transform.childCount; j++)
+                case "NPC Dialogue Box":
+                    npcSpeakingDisplay = child.gameObject;
+                    for (int j = 0; j < npcSpeakingDisplay.transform.childCount; j++)
+                    {
+                        var npcChild = npcSpeakingDisplay.transform.GetChild(j);
+                        switch (npcChild.name)
                         {
-                            var npcChild = npcSpeakingDisplay.transform.GetChild(j);
-                            switch (npcChild.name)
-                            {
-                                case "Portrait": portraitNPCDisplay = npcChild.gameObject.GetComponent<Image>(); break;
-                                case "Name": speakerNameNPCDisplay = npcChild.gameObject.GetComponent<TextMeshProUGUI>(); break;
-                                case "Line": lineInBoxNPCDisplay = npcChild.gameObject.GetComponent<TextMeshProUGUI>(); break;
-                            }//End switch
-                        }//End for
-                        break;
-                    case "Player Choices":
-                        playerSpeakingDisplay = child.gameObject;
-                        var playerDialogueBox = playerSpeakingDisplay.transform.GetChild(0);
-                        for (int j = 0; j < playerDialogueBox.transform.childCount; j++)
+                            case "Portrait": portraitNPCDisplay = npcChild.gameObject.GetComponent<Image>(); break;
+                            case "Name": speakerNameNPCDisplay = npcChild.gameObject.GetComponent<TextMeshProUGUI>(); break;
+                            case "Line": lineInBoxNPCDisplay = npcChild.gameObject.GetComponent<TextMeshProUGUI>(); break;
+                        }//End switch
+                    }//End for
+                    break;
+                case "Player Choices":
+                    playerSpeakingDisplay = child.gameObject;
+                    var playerDialogueBox = playerSpeakingDisplay.transform.GetChild(0);
+                    for (int j = 0; j < playerDialogueBox.transform.childCount; j++)
+                    {
+                        var playerChild = playerDialogueBox.transform.GetChild(j);
+                        switch (playerChild.name)
                         {
-                            var playerChild = playerDialogueBox.transform.GetChild(j);
-                            switch (playerChild.name)
-                            {
-                                case "Portrait":
-                                    portraitPlayerDisplay = playerChild.gameObject.GetComponent<Image>();
-                                    setPlayerPortrait(playerData.portrait);
-                                    break;
-                                case "Name":
-                                    speakerNamePlayerDisplay = playerChild.gameObject.GetComponent<TextMeshProUGUI>();
-                                    setPlayerName(playerData.speakerName);
-                                    break;
-                                case "Line":
-                                    lineInBoxPlayerDisplay = playerChild.gameObject.GetComponent<TextMeshProUGUI>();
-                                    setPlayerLineInBox("");
-                                    break;
-                            }//End switch
-                        }//End for
-                        break;
-                }//End switch
-            }//End for
-        }//End while
+                            case "Portrait":
+                                portraitPlayerDisplay = playerChild.gameObject.GetComponent<Image>();
+                                setPlayerPortrait(playerData.portrait);
+                                break;
+                            case "Name":
+                                speakerNamePlayerDisplay = playerChild.gameObject.GetComponent<TextMeshProUGUI>();
+                                setPlayerName(playerData.speakerName);
+                                break;
+                            case "Line":
+                                lineInBoxPlayerDisplay = playerChild.gameObject.GetComponent<TextMeshProUGUI>();
+                                setPlayerLineInBox("");
+                                break;
+                        }//End switch
+                    }//End for
+                    break;
+            }//End switch
+        }//End for
         playerSpeakingDisplay.SetActive(false);
         npcSpeakingDisplay.SetActive(false);
     }//End Start

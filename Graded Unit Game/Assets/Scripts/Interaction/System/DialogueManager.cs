@@ -7,7 +7,6 @@ public class DialogueManager : MonoBehaviour
 {
     #region Attributes
     private SpeakingNPC playerData, NPCData;
-    private GameStateShell gameState;
     private Conversation conversation;
     private Set set;
     private List<Line> lines;
@@ -27,7 +26,6 @@ public class DialogueManager : MonoBehaviour
         finishedLine = false;
         conversationIsOver = true;
         playerData = JSONHolder.getSpeaker("Player");
-        gameState = GameState.currentGameState;
         uiManager = GameObject.FindGameObjectWithTag("HUD").GetComponent<UIManager>();
         audioSource = GameObject.FindGameObjectWithTag("Audio Source").GetComponent<AudioSource>();
     }//End Start
@@ -87,7 +85,7 @@ public class DialogueManager : MonoBehaviour
         currentDialogue.setBlipSource(npcGameObject.GetComponent<AudioSource>());
         DestroyImmediate(currentDialogue);
         //Find the relevant conversation
-        conversation = JSONHolder.findConversation(NPCData, gameState);
+        conversation = JSONHolder.findConversation(NPCData);
         set = null;
         lines = new List<Line>();
         runDialogue(null);
@@ -182,7 +180,7 @@ public class DialogueManager : MonoBehaviour
         //Set current dialogue audio blip
         currentDialogue.setTextBlip(NPCData.voice);
         //Get whether the current NPC's name is known
-        gameState.characterNameIsKnown.TryGetValue(NPCData.speakerID, out bool nameKnown);
+        GameState.characterNameIsKnown.TryGetValue(NPCData.speakerID, out bool nameKnown);
         //If the NPC's name is known, set the current name to be their name
         if (nameKnown)
         {
@@ -267,13 +265,13 @@ public class DialogueManager : MonoBehaviour
         switch(scriptToRun)
         {
             case "unlockLevel":
-                gameState.updateGameState(parameter, "unlock");
+                GameState.updateGameState(parameter, "unlock");
                 break;
             case "learnName":
-                gameState.updateGameState(parameter, "name");
+                GameState.updateGameState(parameter, "name");
                 break;
             case "checkLineSeen":
-                storedLineSeenResult = gameState.lineHasBeenSeen[parameter];
+                GameState.lineHasBeenSeen.TryGetValue(parameter, out storedLineSeenResult);
                 break;
             case "changeNextSet":
                 if(storedLineSeenResult)
@@ -337,7 +335,7 @@ public class DialogueManager : MonoBehaviour
         }//End else
         foreach (Line line in lines)
         {
-            gameState.updateGameState(line.lineID, "line");
+            GameState.updateGameState(line.lineID, "line");
         }//End foreach
         return lines;
     }//End getNextLine

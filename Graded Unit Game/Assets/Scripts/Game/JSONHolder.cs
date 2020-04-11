@@ -6,7 +6,7 @@ public static class JSONHolder
 {
     private static TextAsset[] jsonData;
     [SerializeField]
-    private static Dictionary<GameStateShell, Conversation> conversations;
+    private static Dictionary<string, Conversation> conversations;
     [SerializeField]
     private static Dictionary<string, Set> sets;
     [SerializeField]
@@ -25,7 +25,7 @@ public static class JSONHolder
 
     #region Getters
     //Conversation Dictionary Getter
-    public static Dictionary<GameStateShell, Conversation> getConversations()
+    public static Dictionary<string, Conversation> getConversations()
     {
         return conversations;
     }//End Conversation getter
@@ -115,7 +115,14 @@ public static class JSONHolder
                 index++;
             }//End else
         }//End while
-        Debug.LogError("Set ID " + nextSet + " not found in Conversation " + convo.conversationID + ".");
+        if(nextSet.Length == 0)
+        {
+            Debug.LogError("Set ID passed in to be found in the conversation " + convo + " was completely blank. Check null handling.");
+        }//End if
+        else
+        {
+            Debug.LogError("Set ID " + nextSet + " not found in Conversation " + convo.conversationID + ".");
+        }//End else
         return null;
     }//End Set From Conversation Getter
 
@@ -186,7 +193,7 @@ public static class JSONHolder
     }//End SpeakingNPC Getter
 
     //Find a conversation with the given game state
-    public static Conversation findConversation(SpeakingNPC npc, GameStateShell gameState)
+    public static Conversation findConversation(SpeakingNPC npc)
     {
         Conversation result = null;
         List<Conversation> convosToSearch = new List<Conversation>();
@@ -200,7 +207,7 @@ public static class JSONHolder
             }//End if
         }//End foreach
         bool spoken;
-        gameState.interactedWithAtLeastOnce.TryGetValue(npc.speakerID, out spoken);
+        GameState.interactedWithAtLeastOnce.TryGetValue(npc.speakerID, out spoken);
         if (!spoken)
         {
 

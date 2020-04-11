@@ -128,10 +128,10 @@ public class Interactive : MonoBehaviour
             return;
         }//End if
         //Set the object to have been interacted with at least once
-        GameState.currentGameState.interactedWithAtLeastOnce.TryGetValue(id, out bool interactedOnce);
+        GameState.interactedWithAtLeastOnce.TryGetValue(id, out bool interactedOnce);
         if(!interactedOnce)
         {
-            GameState.currentGameState.updateGameState(id, "interacted");
+            GameState.updateGameState(id, "interacted");
         }//End if
     }//End Interact
 

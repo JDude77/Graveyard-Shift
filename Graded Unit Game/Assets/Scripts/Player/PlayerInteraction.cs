@@ -217,7 +217,7 @@ public class PlayerInteraction : MonoBehaviour
                 //If the current interactive thing is a person
                 if (other.GetComponent<ConversationPartner>())
                 {
-                    GameState.currentGameState.characterNameIsKnown.TryGetValue(script.getID(), out bool nameKnown);
+                    GameState.characterNameIsKnown.TryGetValue(script.getID(), out bool nameKnown);
                     if (!nameKnown)
                     {
                         HUDHandler.setNameText("???");

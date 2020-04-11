@@ -57,7 +57,7 @@ public class UIManager : MonoBehaviour
     #endregion
 
     //Get the game objects and scripts for managing the HUD
-    private void Awake()
+    private void Start()
     {
         if(conversationHUDGameObject == null)
         {

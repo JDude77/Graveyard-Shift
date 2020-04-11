@@ -40,10 +40,14 @@ public class GameHandler : MonoBehaviour
     }//End UI Is Visible Getter
     #endregion
 
+    private void Awake()
+    {
+        GameState.initGameState();
+    }//End Awake
+
     //Start is called before the first frame update
     private void Start()
     {
-        DontDestroyOnLoad(this);
         uiManager = GameObject.FindGameObjectWithTag("HUD").GetComponent<UIManager>();
         playerInteraction = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteraction>();
         playerCanMove = true;
@@ -53,7 +57,7 @@ public class GameHandler : MonoBehaviour
     //Unlock a level
     public void unlockLevel(string levelToUnlock)
     {
-        GameState.currentGameState.updateGameState(levelToUnlock, "unlock");
+        GameState.updateGameState(levelToUnlock, "unlock");
     }//End unlockLevel
 
     //Change player interaction state
