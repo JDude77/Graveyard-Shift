@@ -107,11 +107,7 @@ public class PlayerInteraction : MonoBehaviour
             other = hitInfo.transform.gameObject;
             if (!isInteracting && checkIfOtherIsInteractible() && checkForActiveInteractionScript())
             {
-                //Activate interaction hit glow
-                foreach(MeshRenderer renderer in other.transform.GetComponentsInChildren<MeshRenderer>())
-                {
-                    renderer.material = interactibleMaterial;
-                }//End foreach
+                other.GetComponentInChildren<Interactive>().changeToInteractiveMaterial(interactibleMaterial);
                 setCorrectTextForHUD();
                 //If the interaction button is used
                 if (Input.GetAxisRaw("Interact") != 0)
@@ -224,8 +220,8 @@ public class PlayerInteraction : MonoBehaviour
                         return;
                     }//End if
                 }//End if
-                //Otherwise, set the name to be their ID as usual
-                HUDHandler.setNameText(script.getID());
+                //Otherwise, set the name to be their display name as usual
+                HUDHandler.setNameText(script.getDisplayName());
                 HUDHandler.setVerbText(script.getDisplayVerb());
                 HUDHandler.setHovering(true, script.getIsInteractible());
             }//End if

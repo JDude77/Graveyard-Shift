@@ -12,11 +12,10 @@ public class ConversationPartner : Interactive
         base.Start();
         conversationHUDGameObject = GameObject.FindGameObjectWithTag("Conversation HUD");
         interactionMode = modes[0];
-        isInteractible = true;
         displayVerb = "Talk";
     }//End Start
 
-    private void Update()
+    protected override void Update()
     {
         if (conversationHUDGameObject.activeSelf)
         {
@@ -31,6 +30,12 @@ public class ConversationPartner : Interactive
     public override void interact()
     {
         base.interact();
+        //Set the object to have been interacted with at least once
+        GameState.interactedWithAtLeastOnce.TryGetValue(id, out bool interactedOnce);
+        if (!interactedOnce)
+        {
+            GameState.updateGameState(id, "interacted");
+        }//End if
         gameManager.GetComponent<DialogueManager>().startDialogue(gameObject);
     }//End Interact
 }

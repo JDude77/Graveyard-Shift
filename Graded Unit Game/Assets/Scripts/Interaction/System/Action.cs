@@ -2,12 +2,7 @@
 
 public class Action : Interactive
 {
-    private new void Start()
-    {
-        base.Start();
-    }//End Start
-
-    private new void interact()
+    public override void interact()
     {
         base.interact();
         Debug.Log("Generic action.");

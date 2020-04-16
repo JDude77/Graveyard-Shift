@@ -66,7 +66,7 @@ public class DialogueOption : MonoBehaviour
             typingSpeed = setTypingSpeedByChar(letter);
             text.text = displayLine;
             //Wait before adding the next one
-            yield return new WaitForSeconds(typingSpeed);
+            yield return new WaitForSeconds(typingSpeed/2);
         }//End foreach
         finishedTyping = true;
     }//End Type enumerator

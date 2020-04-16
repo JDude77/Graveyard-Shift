@@ -16,6 +16,7 @@ TagManager:
   - Level Entrance
   - Audio Source
   - Portal
+  - Music Source
   layers:
   - Default
   - TransparentFX

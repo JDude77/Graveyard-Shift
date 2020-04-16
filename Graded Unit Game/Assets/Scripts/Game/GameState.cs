@@ -1,6 +1,7 @@
 ﻿using JSONUtilityExtended;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class GameState
 {
@@ -9,8 +10,6 @@ public static class GameState
     public static Dictionary<string, bool> levelIsComplete;
     public static Dictionary<string, bool> lineHasBeenSeen;
     public static Dictionary<string, bool> levelIsUnlocked;
-    //Uncomment the below if/when items are added to the game
-    //public Dictionary<string, bool> itemHasBeenInteractedWith;
 
     public static void updateGameState(string keyForValue, string unlockShortcut)
     {
@@ -19,10 +18,17 @@ public static class GameState
             Debug.Log("CharacterIsKnown dictionary of " + keyForValue + " entry boolean updated to true.");
             characterNameIsKnown[keyForValue] = true;
         }//End if
-        else if (interactedWithAtLeastOnce.ContainsKey(keyForValue) && unlockShortcut.Equals("interacted"))
+        else if (unlockShortcut.Equals("interacted"))
         {
-            Debug.Log("InteractedWithAtLeastOnce dictionary of " + keyForValue + " entry boolean updated to true.");
-            interactedWithAtLeastOnce[keyForValue] = true;
+            if (interactedWithAtLeastOnce.ContainsKey(keyForValue))
+            {
+                Debug.Log("InteractedWithAtLeastOnce dictionary of " + keyForValue + " entry boolean already true.");
+            }//End if
+            else
+            {
+                Debug.Log("InteractedWithAtLeastOnce dictionary of " + keyForValue + " entry boolean added and made true.");
+                lineHasBeenSeen.Add(keyForValue, true);
+            }//End else
         }//End else if
         else if (levelIsComplete.ContainsKey(keyForValue) && unlockShortcut.Equals("complete"))
         {

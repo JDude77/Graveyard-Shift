@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Interactive : MonoBehaviour
@@ -55,7 +56,7 @@ public class Interactive : MonoBehaviour
     #endregion
 
     //Start is called before the first frame update
-    protected void Start()
+    protected virtual void Start()
     {
         List<Material> tempList = new List<Material>();
         //Set to not be interactive, and set the interaction mode to default
@@ -73,7 +74,7 @@ public class Interactive : MonoBehaviour
         gameHandler = gameManager.GetComponent<GameHandler>();
     }//End Start
 
-    protected void Update()
+    protected virtual void Update()
     {
         if(isInteractible)
         {
@@ -119,6 +120,19 @@ public class Interactive : MonoBehaviour
         }//End switch
     }//End changeInteractionMode
 
+    public void changeToInteractiveMaterial(Material interactibleMaterial)
+    {
+        foreach (MeshRenderer r in GetComponentsInChildren<MeshRenderer>())
+        {
+            Material[] mats = new Material[r.materials.Length];
+            for (int i = 0; i < r.materials.Length; i++)
+            {
+                mats[i] = interactibleMaterial;
+            }//End foreach
+            r.materials = mats;
+        }//End foreach
+    }//End changeToInteractiveMaterial
+
     public virtual void interact()
     {
         //If is set to not be interactible right now, don't interact
@@ -127,30 +141,23 @@ public class Interactive : MonoBehaviour
             Debug.Log("Interaction with " + name + " failed: isInteractible set to false.");
             return;
         }//End if
-        //Set the object to have been interacted with at least once
-        GameState.interactedWithAtLeastOnce.TryGetValue(id, out bool interactedOnce);
-        if(!interactedOnce)
-        {
-            GameState.updateGameState(id, "interacted");
-        }//End if
     }//End Interact
 
     public void revertMaterials()
     {
-        for (int i = 0; i < GetComponentsInChildren<MeshRenderer>().Length; i++)
+        int count = 0;
+        MeshRenderer[] meshes = GetComponentsInChildren<MeshRenderer>();
+        for (int i = 0; i < meshes.Length; i++)
         {
-            if (GetComponentsInChildren<MeshRenderer>()[i].materials.Length == 1)
+            Material[] mats = new Material[meshes[i].materials.Length];
+            MeshRenderer renderer = meshes[i];
+            for (int j = 0; j < renderer.materials.Length; j++)
             {
-                GetComponentsInChildren<MeshRenderer>()[i].material = materials[i];
-            }//End if
-            else
-            {
-                for (int j = 0; j < GetComponentsInChildren<MeshRenderer>()[i].materials.Length; j++)
-                {
-                    GetComponentsInChildren<MeshRenderer>()[i].materials[j] = materials[i + j];
-                }//End j for
-            }//End else
-        }//End i for
+                mats[j] = materials[count];
+                count++;
+            }//End foreach
+            meshes[i].materials = mats;
+        }//End foreach
     }//End revertMaterials
     #endregion
 }
