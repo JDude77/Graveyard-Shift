@@ -90,17 +90,23 @@ public class UIManager : MonoBehaviour
 
     private void enableIfInactive(GameObject objectToCheck)
     {
-        if(!objectToCheck.activeSelf)
+        if (objectToCheck != null)
         {
-            objectToCheck.SetActive(true);
+            if (!objectToCheck.activeSelf)
+            {
+                objectToCheck.SetActive(true);
+            }//End if
         }//End if
     }//End enableIfInactive
 
     private void disableIfActive(GameObject objectToCheck)
     {
-        if (objectToCheck.activeSelf)
+        if (objectToCheck != null)
         {
-            objectToCheck.SetActive(false);
+            if (objectToCheck.activeSelf)
+            {
+                objectToCheck.SetActive(false);
+            }//End if
         }//End if
     }//End disableIfActive
 }

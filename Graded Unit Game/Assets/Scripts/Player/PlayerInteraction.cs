@@ -103,6 +103,10 @@ public class PlayerInteraction : MonoBehaviour
         //If the raycast hits an interactible
         if (Physics.Raycast(interact, out RaycastHit hitInfo, interactRange, interactLayer))
         {
+            if(other != null)
+            {
+                other.GetComponent<Interactive>().revertMaterials();
+            }//End if
             //Set other to the object being hit
             other = hitInfo.transform.gameObject;
             if (!isInteracting && checkIfOtherIsInteractible() && checkForActiveInteractionScript())
@@ -137,6 +141,8 @@ public class PlayerInteraction : MonoBehaviour
             {
                 //Deactivate interaction hit glow
                 other.GetComponent<Interactive>().revertMaterials();
+                HUDHandler.setNameText("");
+                HUDHandler.setVerbText("");
             }//End else
         }//End if
         //If the raycast doesn't hit an interactible

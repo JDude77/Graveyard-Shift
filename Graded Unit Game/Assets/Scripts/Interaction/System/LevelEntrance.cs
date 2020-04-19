@@ -21,14 +21,14 @@ public class LevelEntrance : Interactive
 
     private void Update()
     {
-        if (GameState.levelIsUnlocked[id])
+        /*if (GameState.levelIsUnlocked[id])
         {
             isInteractible = true;
         }//End if
         else
         {
             isInteractible = false;
-        }//End else
+        }//End else*/
     }//End Update
 
     public override void interact()

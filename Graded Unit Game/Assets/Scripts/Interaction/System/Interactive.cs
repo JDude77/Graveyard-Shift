@@ -78,7 +78,6 @@ public class Interactive : MonoBehaviour
     {
         if(isInteractible)
         {
-            enabled = true;
             foreach(Collider collider in GetComponents<Collider>())
             {
                 if (collider.isTrigger) collider.enabled = true;
@@ -86,7 +85,6 @@ public class Interactive : MonoBehaviour
         }//End if
         else
         {
-            enabled = false;
             foreach (Collider collider in GetComponents<Collider>())
             {
                 if (collider.isTrigger) collider.enabled = false;

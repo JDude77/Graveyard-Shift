@@ -85,7 +85,57 @@ ModelImporter:
     4300022: Cube.008
     4300024: Cube.009
     4300026: Cube.010
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Darkness Enhancer
+    second: {fileID: 2100000, guid: 78435e5c463b2384b93284e9e23ce4fd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Door Frame
+    second: {fileID: 2100000, guid: d08d1f039023f7f468602ad0a05cea78, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glass
+    second: {fileID: 2100000, guid: c9bfbc3f5149f44438d31375c861a648, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Holder
+    second: {fileID: 2100000, guid: 9305208f2009440468db4fd16fb234b3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Main Door
+    second: {fileID: 2100000, guid: ec2d59684e3aa4c45a5637dc412bfb8d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal Again
+    second: {fileID: 2100000, guid: fe96a3b09002cdd4ab1335610854311d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal Ring
+    second: {fileID: 2100000, guid: 03b2f7b83653c5d4f86a82fa11de38e1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ornament
+    second: {fileID: 2100000, guid: 640bdc5386a94b245a69a1caf69089b0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rusty Handle
+    second: {fileID: 2100000, guid: 7a552bb0d64856e46990d55b3ed313b6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stonework
+    second: {fileID: 2100000, guid: d3b04dec0b6fe424d8c2078e53dc837a, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

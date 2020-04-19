@@ -236,9 +236,12 @@ public class DialogueManager : MonoBehaviour
             }//End foreach
         }//End if
         //Clear old audio clip
-        if (audioSource.clip != null)
+        if (audioSource != null)
         {
-            audioSource.clip = null;
+            if (audioSource.clip != null)
+            {
+                audioSource.clip = null;
+            }//End if
         }//End if
     }//End destroyOldDialogueObjects
 

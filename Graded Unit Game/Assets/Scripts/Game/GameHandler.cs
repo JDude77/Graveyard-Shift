@@ -48,6 +48,7 @@ public class GameHandler : MonoBehaviour
     //Start is called before the first frame update
     private void Start()
     {
+        DontDestroyOnLoad(this);
         uiManager = GameObject.FindGameObjectWithTag("HUD").GetComponent<UIManager>();
         playerInteraction = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteraction>();
         playerCanMove = true;

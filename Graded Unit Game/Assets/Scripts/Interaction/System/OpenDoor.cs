@@ -20,13 +20,22 @@ public class OpenDoor : Action
     protected override void Update()
     {
         base.Update();
-        if(doorOpen)
+        if(doorOpen && animator.GetCurrentAnimatorStateInfo(0).IsName("Opened"))
         {
             janice.setIsInteractible(true);
         }//End if
         else
         {
             janice.setIsInteractible(false);
+        }//End else
+
+        if ((!doorOpen && animator.GetCurrentAnimatorStateInfo(0).IsName("Closed")) || (doorOpen && animator.GetCurrentAnimatorStateInfo(0).IsName("Opened")))
+        {
+            isInteractible = true;
+        }//End if
+        else
+        {
+            isInteractible = false;
         }//End else
     }//End Update
 
@@ -38,7 +47,7 @@ public class OpenDoor : Action
             animator.Play("Open Door");
             displayVerb = "Close";
         }//End if
-        else if(animator.GetCurrentAnimatorStateInfo(0).IsName("Opened"))
+        else if(doorOpen && animator.GetCurrentAnimatorStateInfo(0).IsName("Opened"))
         {
             animator.Play("Close Door");
             displayVerb = "Open";
