@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class MusicController : MonoBehaviour
 {
     #region Attributes
-    
+    [SerializeField]
+    private AudioClip[] musicTracks;
     #endregion
 
     #region Behaviours

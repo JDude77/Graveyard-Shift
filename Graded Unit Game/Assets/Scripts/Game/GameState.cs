@@ -13,50 +13,54 @@ public static class GameState
 
     public static void updateGameState(string keyForValue, string unlockShortcut)
     {
-        if (characterNameIsKnown.ContainsKey(keyForValue) && unlockShortcut.Equals("name"))
+        unlockShortcut = unlockShortcut.ToLower();
+        if (unlockShortcut.Equals("name"))
         {
-            Debug.Log("CharacterIsKnown dictionary of " + keyForValue + " entry boolean updated to true.");
-            characterNameIsKnown[keyForValue] = true;
+            characterNameIsKnown = updateGameStateEntry(characterNameIsKnown, keyForValue);
         }//End if
         else if (unlockShortcut.Equals("interacted"))
         {
-            if (interactedWithAtLeastOnce.ContainsKey(keyForValue))
-            {
-                Debug.Log("InteractedWithAtLeastOnce dictionary of " + keyForValue + " entry boolean already true.");
-            }//End if
-            else
-            {
-                Debug.Log("InteractedWithAtLeastOnce dictionary of " + keyForValue + " entry boolean added and made true.");
-                lineHasBeenSeen.Add(keyForValue, true);
-            }//End else
+            interactedWithAtLeastOnce = updateGameStateEntry(interactedWithAtLeastOnce, keyForValue);
         }//End else if
-        else if (levelIsComplete.ContainsKey(keyForValue) && unlockShortcut.Equals("complete"))
+        else if (unlockShortcut.Equals("complete"))
         {
-            Debug.Log("LevelIsComplete dictionary of " + keyForValue + " entry boolean updated to true.");
-            levelIsComplete[keyForValue] = true;
+            levelIsComplete = updateGameStateEntry(levelIsComplete, keyForValue);
         }//End else if
         else if (unlockShortcut.Equals("line"))
         {
-            if (lineHasBeenSeen.ContainsKey(keyForValue))
-            {
-                Debug.Log("LineHasBeenSeen dictionary of " + keyForValue + " entry boolean already true.");
-            }//End if
-            else
-            {
-                Debug.Log("LineHasBeenSeen dictionary of " + keyForValue + " entry boolean added and made true.");
-                lineHasBeenSeen.Add(keyForValue, true);
-            }//End else
+            lineHasBeenSeen = updateGameStateEntry(lineHasBeenSeen, keyForValue);
         }//End else if
         else if (levelIsUnlocked.ContainsKey(keyForValue) && unlockShortcut.Equals("unlock"))
         {
-            Debug.Log("LevelIsUnlocked dictionary of " + keyForValue + " entry boolean updated to true.");
-            levelIsUnlocked[keyForValue] = true;
+            levelIsUnlocked = updateGameStateEntry(levelIsUnlocked, keyForValue);
         }//End else if
         else
         {
             Debug.LogWarning("UpdateGameState was called to change " + keyForValue + ", but a corresponding key was not found.\nUnlock shortcut: " + unlockShortcut);
         }//End else
     }//End updateGameState
+
+    private static Dictionary<string, bool> updateGameStateEntry(Dictionary<string, bool> gameStateDictionary, string keyToUpdate)
+    {
+        if (gameStateDictionary.ContainsKey(keyToUpdate))
+        {
+            if (gameStateDictionary[keyToUpdate] == true)
+            {
+                Debug.Log(gameStateDictionary + " dictionary of " + keyToUpdate + " entry boolean already true.");
+            }//End if
+            else
+            {
+                Debug.Log(gameStateDictionary + " dictionary of " + keyToUpdate + " entry boolean made true.");
+                gameStateDictionary[keyToUpdate] = true;
+            }//End else
+        }//End if
+        else
+        {
+            Debug.Log(gameStateDictionary + " dictionary of " + keyToUpdate + " entry boolean added and made true.");
+            gameStateDictionary.Add(keyToUpdate, true);
+        }//End else
+        return gameStateDictionary;
+    }//End updateGameStateEntry
 
     public static void initGameState()
     {

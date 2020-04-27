@@ -133,8 +133,8 @@ namespace JSONUtilityExtended
             foreach (SpeakingNPC s in speakerList.speakers)
             {
                 Debug.Log("Speaking NPC Found! ID: " + s.speakerID);
-                s.portrait = (Sprite) Resources.Load("Portraits/" + s.portraitID);
-                s.voice = (AudioClip) Resources.Load("Voices/" + s.voiceID);
+                s.portrait = Resources.Load<Sprite>("Portraits/" + s.portraitID);
+                s.voice = Resources.Load<AudioClip>("Voices/" + s.voiceID);
                 speakers.Add(s.speakerID, s);
                 index++;
                 Debug.Log("Speaking NPC Added To Speaking NPC Dictionary (" + index + " of " + speakerList.speakers.Count + ")");

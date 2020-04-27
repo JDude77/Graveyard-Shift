@@ -30,12 +30,12 @@ public class ConversationPartner : Interactive
     public override void interact()
     {
         base.interact();
+        gameManager.GetComponent<DialogueManager>().startDialogue(gameObject);
         //Set the object to have been interacted with at least once
         GameState.interactedWithAtLeastOnce.TryGetValue(id, out bool interactedOnce);
         if (!interactedOnce)
         {
             GameState.updateGameState(id, "interacted");
         }//End if
-        gameManager.GetComponent<DialogueManager>().startDialogue(gameObject);
     }//End Interact
 }

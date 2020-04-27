@@ -195,24 +195,32 @@ public static class JSONHolder
     //Find a conversation with the given game state
     public static Conversation findConversation(SpeakingNPC npc)
     {
-        Conversation result = null;
-        List<Conversation> convosToSearch = new List<Conversation>();
+        bool spoken;
+        spoken = GameState.interactedWithAtLeastOnce[npc.speakerID];
         foreach (Conversation conversation in conversations.Values)
         {
-            result = conversation;
-            break;
             if (conversation.speakerID.Equals(npc.speakerID))
             {
-                convosToSearch.Add(conversation);
+                if(spoken)
+                {
+                    if(conversation.conversationID.Equals(npc.speakerID + "NonFirstConversation"))
+                    {
+                        Debug.Log("Non-First Conversation with " + npc.speakerID + " found: " + conversation.conversationID);
+                        return conversation;
+                    }//End if
+                }//End if
+                else
+                {
+                    if(conversation.conversationID.Equals(npc.speakerID + "FirstConversation"))
+                    {
+                        Debug.Log("First Conversation with " + npc.speakerID + " found: " + conversation.conversationID);
+                        return conversation;
+                    }//End if
+                }//End else
             }//End if
         }//End foreach
-        bool spoken;
-        GameState.interactedWithAtLeastOnce.TryGetValue(npc.speakerID, out spoken);
-        if (!spoken)
-        {
-
-        }//End if
-        return result;
+        Debug.LogError("Conversation could not be found for " + npc.speakerID + " with the \"spoken before\" status of " + spoken + ".");
+        return null;
     }//End findConversationWithGameState
     #endregion
 }

@@ -2,14 +2,14 @@
 	"speakers": [
 		{
 			"speakerID": "Player",
-			"portraitID": null,
+			"portraitID": "Illden",
 			"voiceID": "Text Scroll",
 			"speakerName": "Illden",
 			"isNameKnown": true
 		},
 		{
 			"speakerID": "Janice",
-			"portraitID": null,
+			"portraitID": "Janice",
 			"voiceID": "Text Scroll",
 			"speakerName": "Janice (The Skeleton)",
 			"isNameKnown": true
