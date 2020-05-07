@@ -17,6 +17,7 @@ TagManager:
   - Audio Source
   - Portal
   - Music Source
+  - Dialogue Instance
   layers:
   - Default
   - TransparentFX

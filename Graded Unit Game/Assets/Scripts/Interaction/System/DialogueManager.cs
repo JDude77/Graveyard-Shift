@@ -16,12 +16,14 @@ public class DialogueManager : MonoBehaviour
     private AudioSource audioSource;
     private bool finishedLine, storedLineSeenResult;
     private int currentIndex;
+    private bool nextPressed;
     #endregion
 
     #region Behaviours
     //Get the values that will always need to be carried by the dialogue manager
     private void Start()
     {
+        nextPressed = false;
         currentIndex = -1;
         finishedLine = false;
         conversationIsOver = true;
@@ -49,10 +51,15 @@ public class DialogueManager : MonoBehaviour
                     //AND if the current line of dialogue is completely done
                     if (finishedLine)
                     {
+                        if(nextPressed && Input.GetAxisRaw("Interact") == 0)
+                        {
+                            runDialogue(null);
+                            nextPressed = false;
+                        }//End if
                         //Allow the player to press a button to continue the conversation
                         if(Input.GetAxisRaw("Interact") != 0)
                         {
-                            runDialogue(null);
+                            nextPressed = true;
                         }//End if
                     }//End if
                 }//End if
@@ -281,6 +288,19 @@ public class DialogueManager : MonoBehaviour
                 {
                     set.setLines[currentIndex].nextSet = parameter;
                 }//End if
+                break;
+            case "createInstance":
+                GameObject objectToInstantiate = (GameObject)Resources.Load("InstancesInDialogue/" + parameter);
+                GameObject gameObject = GameObject.FindGameObjectWithTag("Conversation Partner");
+                GameObject instanceToCreate = Instantiate(objectToInstantiate, gameObject.transform);
+                instanceToCreate.transform.position = new Vector3(0f, 0f, 0f);
+                instanceToCreate.transform.parent = null;
+                instanceToCreate.transform.position = new Vector3(0f, instanceToCreate.transform.position.y, instanceToCreate.transform.position.z);
+                instanceToCreate.transform.position = new Vector3(instanceToCreate.transform.position.x + 2.589f, instanceToCreate.transform.position.y + 1.223f, instanceToCreate.transform.position.z + 0.725f);
+                break;
+            case "destroyInstance":
+                GameObject instanceToDelete = GameObject.FindGameObjectWithTag("Dialogue Instance");
+                Destroy(instanceToDelete);
                 break;
         }//End switch
     }//End parseScriptFromLine
